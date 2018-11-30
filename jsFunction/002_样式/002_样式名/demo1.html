@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>添加、获取、判断、删除样式名</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.main {
+			margin: 0 auto;
+			padding: 50px 0;
+			width: 600px;
+		}
+		.red {
+			color: red;
+		}
+		.bgGreen {
+			background: green;
+		}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<p class="name1 name2  name3  bggreen" id="tag">历史老师了</p>
+		<br><br>
+
+		<button id="addBtn">添加ColorRed</button>
+		<p id="addTxt">空</p>
+		<br>
+		<button id="getBtn">获取样式列表</button>
+		<p id="getTxt">空</p>
+		<br>
+		<button id="hasBtn">判断</button>
+		<p id="hasTxt">空</p>
+		<br>
+		<button id="delBtn">删除</button>
+		<p id="delTxt">空</p>
+	</div>
+		
+
+
+	<script src="class.js"></script>
+	<script>
+		var oTag = document.getElementById('tag');
+
+		var oAddBtn = document.getElementById('addBtn');
+		var oGetBtn = document.getElementById('getBtn');
+		var oHasBtn = document.getElementById('hasBtn');
+		var oDelBtn = document.getElementById('delBtn');
+
+		var oAddTxt = document.getElementById('addTxt');
+		var oGetTxt = document.getElementById('getTxt');
+		var oHasTxt = document.getElementById('hasTxt');
+		var oDelTxt = document.getElementById('delTxt');
+
+		oAddTxt.num = oGetTxt.num = oHasTxt.num = oDelTxt.num = 0;
+
+		// 添加样式
+		oAddBtn.onclick = function () {
+			oAddTxt.num++;
+
+			addClass(oTag, 'red');
+			oAddTxt.innerHTML = '第 ' + oAddTxt.num + ' 次添加red样式';
+		}
+
+		// 获取样式列表
+		oGetBtn.onclick = function () {
+			oGetTxt.num++;
+
+			var aList = getClassList(oTag);
+			var text = '第 ' + oGetTxt.num + ' 次获取样式列表：';
+
+			aList.forEach(function (item, index, arr) {
+				text += item;
+				if ( index < arr.length - 1 ) {
+					text += '，'
+				}
+			})
+
+			oGetTxt.innerHTML = text;
+		}
+
+		// 判断是否存在
+		oHasBtn.onclick = function () {
+			oHasTxt.num++;
+			oHasTxt.innerHTML = '第 ' + oHasTxt.num + ' 次判断red样式：' + (hasClass(oTag, 'red') ? '存在' : '不存在');
+		}
+
+		// 删除样式
+		oDelBtn.onclick = function () {
+			oDelTxt.num++;
+
+			delClass(oTag, 'red');
+			oDelTxt.innerHTML = '第 ' + oDelTxt.num + ' 次删除red样式';
+		}
+
+	</script>
+</body>
+</html>

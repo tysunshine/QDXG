@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>页面可视高度</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			padding: 50px;
+		}
+		.box1 {
+			position: relative;
+			padding: 100px;
+			width: 500px;
+			margin: 0 auto;
+			background: green;
+		}
+		.box2 {
+			position: relative;
+			width: 300px;
+			height: 200px;
+			background: yellow;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="box1">
+		
+		<div class="box2">
+			<p>我到body的距离是：<br><span class="num"></span></p>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src="getDistanceBody.js"></script>
+	<script type="text/javascript">
+		window.onload = function () {
+			var oTarget = document.getElementsByClassName('box2')[0];
+			var oNum = document.getElementsByClassName('num')[0];
+
+			var oDistance = getDistanceBody(oTarget);
+			oNum.innerHTML = 'left：' + oDistance.left + '<br>top：' + oDistance.top;
+		}
+	</script>
+</body>
+</html>

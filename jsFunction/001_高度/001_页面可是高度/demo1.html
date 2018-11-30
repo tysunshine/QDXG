@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>页面可视高度</title>
+	<style>
+		.num {
+			line-height: 30px;
+			font-size: 20px;
+		}
+	</style>
+</head>
+<body>
+
+	<span class="num"></span>
+
+	<script type="text/javascript" src="demo.js"></script>
+	<script type="text/javascript">
+		window.onload = function () {
+			var oNum = document.getElementsByClassName('num')[0];
+			
+			getSize(oNum);
+
+			window.onresize = function () {
+				getSize(oNum);
+			}
+		}
+
+		function getSize (obj) {
+			var oPort = getViewPort();
+			obj.innerHTML = "宽：" + oPort.width + " -- 高：" + oPort.height;
+		}
+
+	</script>
+</body>
+</html>

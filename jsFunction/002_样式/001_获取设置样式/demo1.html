@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>页面可视高度</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		.main {
+			margin: 0 auto;
+			padding: 50px 0;
+			width: 600px;
+			max-width: 90%;
+		}
+
+		
+		.list {
+			margin-bottom: 10px;
+			line-height: 30px;
+			height: 30px;
+		}
+		.list::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.list .label {
+			float: left;
+			width: 80px;
+			height: 100%;
+		}
+		.list .value {
+			float: left;
+			height: 100%;
+		}
+		.list .value::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.list .value input {
+			float: left;
+			padding: 0 5px;
+			height: 100%;
+			box-sizing: border-box;
+			line-height: 28px;
+		}
+
+		.num {
+			color: yellow;
+			background: green;
+			line-height: 40px;
+			font-size: 20px;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="main">
+		<div class="list">
+			<div class="label">样式名：</div>
+			<div class="value">
+				<input type="text" id="styleName">
+			</div>
+		</div>
+		<div class="list">
+			<div class="label">样式值：</div>
+			<div class="value">
+				<input type="text" id="styleValue">
+			</div>
+		</div>
+		
+		<button id="setBtn">设置</button>
+		<div class="num" id="num">234</div>
+		<br>
+		<hr>
+		<br>
+		<div class="list">
+			<div class="label">样式名：</div>
+			<div class="value">
+				<input type="text" id="getStyleName">
+			</div>
+		</div>
+		<button id="getBtn">获取</button>
+		<div id="show"></div>
+	</div>
+		
+
+	<script type="text/javascript" src="style.js"></script>
+	<script type="text/javascript">
+		window.onload = function () {
+			var oStyleName = document.getElementById('styleName');
+			var oStyleValue = document.getElementById('styleValue');
+			var oSetBtn = document.getElementById('setBtn');
+			var oTarget = document.getElementById('num');
+
+			var oGetStyleName = document.getElementById('getStyleName');
+			var oGetBtn = document.getElementById('getBtn');
+			var oShow = document.getElementById('show');
+
+
+			oSetBtn.onclick = function () {
+				var name = oStyleName.value;
+				var value = oStyleValue.value;
+				var style = {}
+				style[name] = value;
+
+				setStyle(oTarget, style);
+			}
+
+			oGetBtn.onclick = function () {
+				var name = oGetStyleName.value;
+
+				oShow.innerHTML = getStyle(oTarget, name);
+			}
+		}
+	</script>
+</body>
+</html>
