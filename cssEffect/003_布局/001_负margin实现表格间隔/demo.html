@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>负margin实现表格间隔</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		li {
+			list-style: none;
+		}
+		ul {
+			margin: 40px auto;
+			width: 80%;
+			max-width: 800px;
+			border: 1px solid #999;
+		}
+		ul::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		li {
+			float: left;
+			margin-right: -1px;
+			margin-bottom: -1px;
+			width: 16.66%;
+			height: 120px;
+			line-height: 120px;
+			text-align: center;
+			border-right: 1px solid #999;
+			border-bottom: 1px solid #999;
+		}
+
+		.box2 {
+			border-color: #eaeefb;
+		}
+		.box2 li {
+			border-color: #eee;
+		}
+
+	</style>
+</head>
+<body>
+	<ul>
+		<li>1</li>
+		<li>1</li>
+		<li>1</li>
+		<li>1</li>
+		<li>1</li>
+		<li>1</li>
+	</ul>
+
+	<ul class="box2">
+		<li>1</li>
+		<li>1</li>
+		<li>1</li>
+		<li>1</li>
+		<li>1</li>
+		<li>1</li>
+	</ul>
+	
+</body>
+</html>
