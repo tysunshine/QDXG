@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>颜色与整形转换</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.box {
+			padding: 50px;
+			width: 600px;
+			margin: 0 auto;
+		}
+		.list {
+			margin-bottom: 30px;
+		}
+		.list::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.list > * {
+			float: left;
+		}
+		.list input {
+			height: 30px;
+			box-sizing: border-box;
+		}
+		.list .val {
+			padding: 0 5px;
+			width: 100px;
+			height: 30px;
+			border: 1px solid green;
+			line-height: 28px;
+			box-sizing: border-box;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="box">
+		
+		<div class="list">
+			<input id="colorIpt" type="color">
+			<span class="val" id="colorVal1"></span>
+			<input id="colorBtn" type="button" value="转换">
+			<span class="val" id="colorVal2"></span>
+		</div>
+
+		<div class="list">
+			<input id="numberIpt" type="text">
+			<input id="numberBtn" type="button" value="转换">
+			<span class="val" id="numberVal1"></span>
+			<span class="val" id="numberVal2"></span>
+		</div>
+		<p>数值只能在0（#000000）到16777215（#FFFFFF）之间</p>
+	</div>
+
+	<script src="transColor.js"></script>
+	<script>
+		var oColorIpt = document.getElementById('colorIpt');
+		var oColorBtn = document.getElementById('colorBtn');
+		var oColorVal1 = document.getElementById('colorVal1');
+		var oColorVal2 = document.getElementById('colorVal2');
+
+		var oNumberIpt = document.getElementById('numberIpt');
+		var oNumberBtn = document.getElementById('numberBtn');
+		var oNumberVal1 = document.getElementById('numberVal1');
+		var oNumberVal2 = document.getElementById('numberVal2');
+
+		// 颜色转数值
+		oColorVal1.innerHTML = oColorIpt.value;
+		oColorIpt.onchange = function () {
+			oColorVal1.innerHTML = this.value;
+		}
+		oColorBtn.onclick = function () {
+			oColorVal2.innerHTML = colorTransNumber(oColorIpt.value);
+		}
+
+		// 数值转颜色
+		oNumberBtn.onclick = function () {
+			var color = numberTransColor(oNumberIpt.value);
+			oNumberVal1.innerHTML = color;
+			oNumberVal2.style.background = color;
+		}
+
+	</script>
+</body>
+</html>
