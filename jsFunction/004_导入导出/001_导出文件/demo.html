@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>导出json文件</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.main {
+			margin: 0 auto;
+			padding: 40px 0;
+			width: 600px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="main">
+		<textarea id="text" cols="60" rows="15">[
+  {
+    "id": 1,
+    "name": "小王",
+    "age": 12
+  },
+  {
+    "id": 2,
+    "name": "小唐",
+    "age": 16
+  }
+]</textarea>
+		<br>
+		<button onclick="downFn()">生产txt文件</button>
+	</div>
+
+	
+
+	<script type="text/javascript">
+
+		var oText = document.getElementById('text');
+		var uri = 'data:application/vnd.ms-excel;base64,';
+		var link = document.createElement('a');
+		
+		function downFn () {
+			try{
+				var text = JSON.stringify(JSON.parse(oText.value));
+
+				link.href = uri + window.btoa(unescape(encodeURIComponent(text)));
+				link.download = "a.txt";
+				link.target = '_blank';
+				document.body.appendChild(link);
+				link.click();
+				document.body.removeChild(link);
+			} catch (error) {
+				alert('我们只输出严格的JSON')
+			}
+				
+		}
+	</script>
+</body>
+</html>
