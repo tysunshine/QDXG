@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>保留用来切割的值</title>
+</head>
+<body>
+
+	<p>使用正则切割时用（）将切割值包起来就可以保留下切割值</p>
+
+	<script>
+		var str = '123a456a789a123a456a789a';
+
+		var a = str.split(/a/);
+		console.log(a);
+
+		var b = str.split(/(a)/);
+		console.log(b);
+
+	</script>
+</body>
+</html>
