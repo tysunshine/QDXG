@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>加载中</title>
+	<link rel="stylesheet" type="text/css" href="font/iconfont.css">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.main {
+			margin: 0 auto;
+			padding: 60px;
+			width: 200px;
+		}
+		.main .icon {
+			font-size: 40px;
+		}
+		.icon-jiazaizhong {
+			animation: loading 2s linear infinite;
+		}
+		@keyframes loading {
+			0% {
+				transform: rotate(0deg);
+			}
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<i class="icon iconfont icon-jiazaizhong"></i>
+	</div>
+</body>
+</html>
