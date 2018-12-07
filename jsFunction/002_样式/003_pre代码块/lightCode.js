@@ -12,15 +12,14 @@ var lightCode = {
 			var oCode = this.oPre[i].children[0];
 			var innerHtml = oCode.innerHTML;
 			oCode.innerHTML = this.replaceHtml(innerHtml);
-			// this.replaceHtml(innerHtml);
 		}
 	},
 
 	// 替换
 	replaceHtml: function (html) {
 		var nameReg = /&lt;([a-zA-Z-_]+)\b/g;			// 元素名正则
-		var attrnameReg = /\b([0-9a-zA-Z-_]+)=/g;			// 属性名正则
-		var attrvalueReg = /("[0-9a-zA-Z-_\s]+")/g;			// 属性值正则
+		var attrnameReg = /\b([0-9a-zA-Z-_]+)=/g;		// 属性名正则
+		var attrvalueReg = /(".+")/g;					// 属性值正则
 		var textReg = /&gt;(.+)&lt;/g;					// 文本正则
 		var endReg = /&lt;\/([a-zA-Z-_]+)&gt;/g;		// 元素结尾正则
 
