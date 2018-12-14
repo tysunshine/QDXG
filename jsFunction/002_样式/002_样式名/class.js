@@ -1,11 +1,19 @@
 
 // 获取class节点
 function getByClass (className) {
-	var aElm = doc.getElementsByTagName("*");
 	var arr = [];
-	for(var i=0; i<aElm.length; i++) {
-		if(hasClass(aElm[i], className)) {
+	if ( document.querySelectorAll ) {
+		var aElm = document.querySelectorAll('.' + className);
+		for(var i=0; i<arr.length; i++) {
 			arr.push(aElm[i]);
+		}
+	} else {
+		var aElm = doc.getElementsByTagName("*");
+		
+		for(var i=0; i<aElm.length; i++) {
+			if(hasClass(aElm[i], className)) {
+				arr.push(aElm[i]);
+			}
 		}
 	}
 	return arr;
