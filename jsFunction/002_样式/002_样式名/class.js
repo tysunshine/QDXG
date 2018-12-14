@@ -1,4 +1,16 @@
 
+// 获取class节点
+function getByClass (className) {
+	var aElm = doc.getElementsByTagName("*");
+	var arr = [];
+	for(var i=0; i<aElm.length; i++) {
+		if(hasClass(aElm[i], className)) {
+			arr.push(aElm[i]);
+		}
+	}
+	return arr;
+}
+
 // 获取节点的class列表
 function getClassList (obj) {
 	var sClass = obj.className;

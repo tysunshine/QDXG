@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>按钮遮罩</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			padding: 100px;
+		}
+		.sp-btn {
+			display: inline-block;
+			padding: 12px 20px;
+			background: #409eff;
+			cursor: pointer;
+			border:1px solid #409eff;
+			outline: none;
+			border-radius: 4px;
+			color: #fff;
+			font-size: 14px;
+			text-align: center;
+			font-weight: 500;
+			line-height: 1;
+			white-space: nowrap;
+			text-decoration: none;
+			transition: .1s;
+		}
+
+		.sp-btn.is-loading {
+			position: relative;
+		}
+		.sp-btn.is-loading:before {
+			content: '';
+			position: absolute;
+			top: -1px;
+			right: -1px;
+			bottom: -1px;
+			left: -1px;
+			background: rgba(255, 255, 255, .35);
+		}
+	</style>
+</head>
+<body>
+
+	<button class="sp-btn" id="loadBtn">加载数据</button>
+
+	<script>
+		var oSpBtn = document.getElementById('loadBtn');
+		oSpBtn.onclick = function () {
+			addClass(oSpBtn, 'is-loading');
+			setTimeout(function () {
+				delClass(oSpBtn, 'is-loading');
+			}, 1000);
+		}
+
+		// 获取节点的class列表
+		function getClassList (obj) {
+			var sClass = obj.className;
+			var aClass = sClass.split(' ');
+			var list = [];
+			aClass.forEach(function (item, index) {
+				if ( item ) {
+					list.push(item);
+				}
+			})
+			return list;
+		}
+
+		// 判断是否存在class
+		function hasClass (obj, name) {
+			var sClass = obj.className;
+			var reg = new RegExp('\\b' + name + '\\b');
+			if ( reg.test(sClass) ) {
+				return true;
+			}
+			return false;
+		}
+
+		// 添加样式名
+		function addClass (obj, name) {
+			var hasName = hasClass(obj, name);
+
+			if ( !hasName ) {
+				var aClass = getClassList(obj);
+				var sClass = '';
+				aClass.push(name);
+
+				aClass.forEach(function (item, index, arr) {
+					sClass += item;
+					if ( index < arr.length - 1) {
+						sClass += ' ';
+					}
+				})
+
+				obj.className = sClass;
+			}
+		}
+
+		// 删除样式名
+		function delClass (obj, name) {
+			var hasName = hasClass(obj, name);
+
+			if ( hasName ) {
+				var sClass = obj.className;
+				var arr = sClass.split(name);
+				sClass = '';
+				arr.forEach(function (item) {
+					sClass += item;
+				})
+				obj.className = sClass;
+			}
+		}
+
+	</script>
+</body>
+</html>
