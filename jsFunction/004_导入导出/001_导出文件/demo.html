@@ -31,7 +31,7 @@
   }
 ]</textarea>
 		<br>
-		<button onclick="downFn()">生产txt文件</button>
+		<button id="downBtn" onclick="downFn()">生产txt文件</button>
 	</div>
 
 	
@@ -39,12 +39,18 @@
 	<script type="text/javascript">
 
 		var oText = document.getElementById('text');
-		var uri = 'data:application/vnd.ms-excel;base64,';
-		var link = document.createElement('a');
+		var oDownBtn = document.getElementById('downBtn');
 		
-		function downFn () {
+		oDownBtn.onclick = function () {
+			downFn(JSON.parse(oText.value));
+		}
+
+
+		function downFn (json) {
+			var uri = 'data:application/vnd.ms-excel;base64,';
+			var link = document.createElement('a');
 			try{
-				var text = JSON.stringify(JSON.parse(oText.value));
+				var text = JSON.stringify(json);
 
 				link.href = uri + window.btoa(unescape(encodeURIComponent(text)));
 				link.download = "a.txt";
@@ -55,7 +61,6 @@
 			} catch (error) {
 				alert('我们只输出严格的JSON')
 			}
-				
 		}
 	</script>
 </body>
