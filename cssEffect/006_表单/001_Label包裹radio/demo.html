@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Label包裹Radio</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.main {
+			margin: 0 auto;
+			padding: 50px;
+			width: 500px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="main">
+		<p>Label包裹Radio时，Label不用for指向radio，其点击时radio得点击事件也被触发。</p>
+		<input type="radio" name="sex">
+		<label>男</label>
+		<br><br>
+		
+		<label><input type="radio" name="sex">女</label>
+	</div>
+
+	
+
+	<script type="text/javascript">
+
+		var oRadio = document.querySelectorAll('input');
+		for ( var i = 0; i < oRadio.length; i++ ) {
+
+			oRadio[i].onclick = function () {
+				console.log(1);
+			}
+
+		}
+	</script>
+</body>
+</html>
