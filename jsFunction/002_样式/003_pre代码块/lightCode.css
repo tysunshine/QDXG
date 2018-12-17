@@ -1,3 +1,13 @@
+pre {
+	padding: 18px 24px;
+	background: #FAFAFA;
+	color: #3182bd;
+	font-family: "Menlo","Monaco","Consolas","Courier","monospace";
+	font-size: 12px;
+	line-height: 1.8;
+}
+
+/*html代码颜色*/
 .lc-name {
 	color: #3182bd;
 }
@@ -10,11 +20,24 @@
 .lc-text {
 	color: #000;
 }
-pre {
-	padding: 18px 24px;
-	background: #FAFAFA;
-	color: #3182bd;
-	font-family: "Menlo","Monaco","Consolas","Courier","monospace";
-	font-size: 12px;
-	line-height: 1.8;
+
+/*js代码颜色*/
+.lc-js-common {
+	color: #000;
+}
+/*constvarletObject等关键字*/
+.lc-js-key1 {
+	color: #3182BD;
+}
+/*new+-*%/等关键字*/
+.lc-js-key2 {
+	color: #E32468;
+}
+/*数字*/
+.lc-js-num {
+	color: #31A354;
+}
+/*字符串*/
+.lc-js-str {
+	color: #756BB1;
 }

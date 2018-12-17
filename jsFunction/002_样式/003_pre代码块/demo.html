@@ -31,11 +31,59 @@
     &lt;/div&gt;
 &lt;/div&gt;
 &lt;a href="http://www.baidu.com"&gt;百度一下，你就知道&lt;/a&gt;</code></pre>		
+	
+
+		<p>
+			注释:
+			// var a = 0;
+			var a  = 0; // a是用来记录数字的///b = 2;
+
+			/*
+			var c = 3;
+			var d = 4;
+			*/
+
+
+			蓝色
+			const、var、let、function
+			Array、Object、String、RegExp、Date
+			函数
+			
+			红色
+			new
+			try、catch
+			for、if、else、do、while、switch
+			= < > + - * / %
+			&& || !
+			return、continue、break
+
+			绿色
+			数字
+
+			紫色
+			字符串、``、//
+
+		</p>
+
+<pre><code class="js">
+// const、var、
+var purpleReg = /('.+'|".+"|`.+`|\/.+\/)/;
+// 分割1类关键字
+res = item.replace(blueReg, '&lt;span class="lc-js-key1"&gt;$1&lt;/span&gt;');
+
+return grr.join('');
+</code></pre>
+
 	</div>
 
 	<script src="./lightCode.js"></script>
 	<script>
 		lightCode.init();
+
+		var a = 123;
+		var b = 'sdbd';
+		var c = new String('ccc');
+		var d = new RegExp('a', 'g');
 	</script>
 </body>
 </html>
