@@ -82,8 +82,6 @@ var lightCode = {
 
 	// 替换js
 	replaceJs: function (text) {
-		// /**/注释
-		var noteReg1 = /(\/\*.*\*\/)/;
 		// const、var、let、function、Array、Object、String、RegExp、Date、函数 等关键字
 		var blueReg = /(\bconst\b|\bvar\b|\blet\b|\bfunction\b|\bArray\b|\bObject\b|\bString\b|\bRegExp\b|\bDate\b)/;
 		// new、try、catch、for、if、else、do、while、switch、= < > + - * / %、&& || !、return、continue、break 等关键字
@@ -93,71 +91,68 @@ var lightCode = {
 		// 字符串
 		var purpleReg = /('.+'|".+"|`.+`|\/.+\/)/;
 
-		// 分割注释
+		// 使用;分割字符串
+		var arr = [];
+		if ( /(;)/.test(text) ) {
+			arr = text.split(';');
+			for ( var i = 0; i < arr.length; i++ ) {
+				arr[i] += ';';
+			}
+		}
 
-		// // 使用;分割字符串
-		// var arr = [];
-		// if ( /(;)/.test(text) ) {
-		// 	arr = text.split(';');
-		// 	for ( var i = 0; i < arr.length; i++ ) {
-		// 		arr[i] += ';';
-		// 	}
-		// }
+		// 使用{}()分割字符串
+		var brr = [];
+		for ( var i = 0; i < arr.length; i++ ) {
+			var res = arr[i];
+			if ( /({|}|\(|\))/.test(arr[i]) ) {
+				res = arr[i].split(/({|}|\(|\))/);
+			}
+			brr = brr.concat(res);
+		}
 
-		// // 使用{}()分割字符串
-		// var brr = [];
-		// for ( var i = 0; i < arr.length; i++ ) {
-		// 	var res = arr[i];
-		// 	if ( /({|}|\(|\))/.test(arr[i]) ) {
-		// 		res = arr[i].split(/({|}|\(|\))/);
-		// 	}
-		// 	brr = brr.concat(res);
-		// }
+		// 分割1类关键字
+		var crr = [];
+		for ( var i = 0; i < brr.length; i++ ) {
+			crr = crr.concat(brr[i].split(blueReg));
+		}
 
-		// // 分割1类关键字
-		// var crr = [];
-		// for ( var i = 0; i < brr.length; i++ ) {
-		// 	crr = crr.concat(brr[i].split(blueReg));
-		// }
+		// 分割2类关键字
+		var drr = [];
+		for ( var i = 0; i < crr.length; i++ ) {
+			drr = drr.concat(crr[i].split(redReg));
+		}
 
-		// // 分割2类关键字
-		// var drr = [];
-		// for ( var i = 0; i < crr.length; i++ ) {
-		// 	drr = drr.concat(crr[i].split(redReg));
-		// }
+		// 分割数字
+		var err = [];
+		for ( var i = 0; i < drr.length; i++ ) {
+			err = err.concat(drr[i].split(greenReg));
+		}
 
-		// // 分割数字
-		// var err = [];
-		// for ( var i = 0; i < drr.length; i++ ) {
-		// 	err = err.concat(drr[i].split(greenReg));
-		// }
+		// 分割字符串
+		var frr = [];
+		for ( var i = 0; i < err.length; i++ ) {
+			frr = frr.concat(err[i].split(purpleReg));
+		}
 
-		// // 分割字符串
-		// var frr = [];
-		// for ( var i = 0; i < err.length; i++ ) {
-		// 	frr = frr.concat(err[i].split(purpleReg));
-		// }
+		var grr = [];
+		for ( var i = 0; i < frr.length; i++ ) {
+			var item = frr[i];
+			var res = '';
+			if ( blueReg.test(item) ) {
+				res = item.replace(blueReg, '<span class="lc-js-key1">$1</span>');
+			} else if ( redReg.test(item) ) {
+				res = item.replace(redReg, '<span class="lc-js-key2">$1</span>');
+			} else if ( greenReg.test(item) ) {
+				res = item.replace(greenReg, '<span class="lc-js-num">$1</span>');
+			} else if ( purpleReg.test(item) ) {
+				res = item.replace(purpleReg, '<span class="lc-js-str">$1</span>');
+			} else if ( item.length > 0 ) {
+				res = '<span class="lc-js-common">' + item + '</span>';
+			}
+			grr.push(res);
+		}
 
-		// var grr = [];
-		// for ( var i = 0; i < frr.length; i++ ) {
-		// 	var item = frr[i];
-		// 	var res = '';
-		// 	if ( blueReg.test(item) ) {
-		// 		res = item.replace(blueReg, '<span class="lc-js-key1">$1</span>');
-		// 	} else if ( redReg.test(item) ) {
-		// 		res = item.replace(redReg, '<span class="lc-js-key2">$1</span>');
-		// 	} else if ( greenReg.test(item) ) {
-		// 		res = item.replace(greenReg, '<span class="lc-js-num">$1</span>');
-		// 	} else if ( purpleReg.test(item) ) {
-		// 		res = item.replace(purpleReg, '<span class="lc-js-str">$1</span>');
-		// 	} else if ( item.length > 0 ) {
-		// 		res = '<span class="lc-js-common">' + item + '</span>';
-		// 	}
-		// 	grr.push(res);
-		// }
-		// console.log(grr);
-
-		return text;
+		return grr.join('');
 	},
 
 	joinJsReg: function (arr) {
