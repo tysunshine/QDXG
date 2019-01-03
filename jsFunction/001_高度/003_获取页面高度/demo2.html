@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>高度</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.main {
+			margin: 0 auto;
+			width: 1000px;
+			font-size: 14px;
+		}
+		h3 {
+			margin: 30px 0 20px;
+		}
+		h4 {
+			margin-bottom: 15px;
+		}
+		p {
+			margin-bottom: 10px;
+		}
+
+		.show-box {
+			margin-bottom: 30px;
+		}
+		.show-box span {
+			display: inline-block;
+			min-width: 1px;
+			height: 60px;
+			line-height: 20px;
+		}
+		.handle-box {
+			margin-bottom: 20px;
+		}
+		.handle-box label {
+			display: inline-block;
+			width: 120px;
+		}
+		.handle-box input {
+			padding: 2px 5px;
+			width: 100px;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+			outline: 0;
+			line-height: 20px;
+		}
+		.handle-box button {
+			padding: 4px 15px;
+			border-radius: 3px;
+			border: 1px solid #ccc;
+			background: #fff;
+			outline: 0;
+			cursor: pointer;
+		}
+		.handle-box button:active {
+			background: #eee;
+		}
+		
+		.wrapper-box {
+			width: 200px;
+			height: 130px;
+			border: 5px solid #e30;
+			overflow: auto;
+		}
+		.target-div {
+			height: 100px;
+			border: 3px solid green;
+			box-sizing: border-box;
+		}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<h3>clientWidth offsetWidth scrollWidth区别</h3>
+
+		<h4>正常情况</h4>
+		<p>clientWidth： 左右padding+内容宽度</p>
+		<p>offsetWidth： 左右padding+左右border+内容宽度</p>
+		<p>scrollWidth： 左右padding+内容宽度</p>
+		<div class="show-box">
+			<div class="handle-box">
+				<label>宽度： </label><input type="text" value="300" class="width-ipt"><br>
+				<label>左右padding： </label><input type="text" value="0" class="padding-ipt"><br>
+				<button class="set-btn" tag="target-div">设置</button>
+				<button class="show-btn" tag="target-div">显示</button>
+			</div>
+			<div class="target-div" style="width: 300px"></div>
+			<span>clientWidth： ?<br>offsetWidth： ?<br>scrollWidth： ?</span>
+		</div>
+
+		<hr>
+
+		<h4>特殊情况</h4>
+		<p>clientWidth： 左右padding+内容宽度</p>
+		<p>offsetWidth： 左右padding+左右border+内容宽度</p>
+		<p>scrollWidth： 左右padding+内容宽度</p>
+		<p>当节点不设置宽度，同事子节点宽度超出时，scrollWidth是节点包含了子节点的内容宽度，clientWidth与offsetWidth都不是</p>
+		<div class="show-box">
+			<div class="handle-box">
+				<label>宽度： </label><input type="text" value="300" class="width-ipt"><br>
+				<label>左右padding： </label><input type="text" value="0" class="padding-ipt"><br>
+				<button class="set-btn" tag="target-p">设置</button>
+				<button class="show-btn" tag="target-div">显示</button>
+			</div>
+			<div class="wrapper-box">
+				<div class="target-div">
+					<p class="target-p" style="width: 300px">1111111111111</p>
+				</div>
+			</div>
+			<span>clientWidth： ?<br>offsetWidth： ?<br>scrollWidth： ?</span>
+		</div>
+	</div>
+
+	<script>
+		
+		var oSetBtn = document.querySelectorAll('.set-btn');
+		var oShowBtn = document.querySelectorAll('.show-btn');
+
+		for ( var i = 0; i < oSetBtn.length; i++ ) {
+			oSetBtn[i].onclick = function () {
+				var oShowBox = this.parentNode.parentNode;
+				var oWIpt = oShowBox.querySelector('.width-ipt');
+				var oPIpt = oShowBox.querySelector('.padding-ipt');
+				var oTargetBox = oShowBox.querySelector('.' + this.getAttribute('tag'));
+				var iW = parseInt(oWIpt.value) ? parseInt(oWIpt.value) : 200;
+				var iP = parseInt(oPIpt.value) ? parseInt(oPIpt.value) : 0;
+				
+				oTargetBox.style.width = iW + 'px';
+				oTargetBox.style.padding = '0 ' + iP + 'px';
+			}
+		}
+
+		for ( var i = 0; i < oShowBtn.length; i++ ) {
+			oShowBtn[i].onclick = function () {
+				var oShowBox = this.parentNode.parentNode;
+				var oTargetBox = oShowBox.querySelector('.' + this.getAttribute('tag'));
+				var oSpan = oShowBox.querySelector('span');
+
+				oSpan.innerHTML = `clientWidth： ${oTargetBox.clientWidth} <br>
+					offsetWidth： ${oTargetBox.offsetWidth} <br>
+					scrollWidth： ${oTargetBox.scrollWidth}
+				`
+			}
+		}
+
+	</script>
+</body>
+</html>

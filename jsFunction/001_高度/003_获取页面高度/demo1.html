@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>获取页面高度</title>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		html {
+			border: 10px solid blue;
+		}
+		body {
+			padding: 10px;
+			border: 10px solid green;
+		}
+		.main {
+			height: 2000px;
+		}
+		.box1 {
+			padding: 10px;
+			width: 200px;
+			height: 200px;
+			border: 10px solid #0ff;
+			/*box-sizing: border-box;*/
+		}
+		.red {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="main">
+		
+obj.clientHeight<br>
+padding+内容高度，即使是box-sizing也不算border<br>
+当obj是根节点时obj.clientHeight为页面可视区域高度，一般根节点都是html即document.documentElement。<br>
+根节点无论有没有border、padding，obj.clientHeight都是可视区域高度。<br>
+<p class="red">获取页面可视区域高度：document.documentElement.clientHeight || document.body.clientHeight</p>
+
+<br><br>
+
+obj.clientWidth<br>
+padding+内容宽度<br>
+获取页面可视区域宽度：document.documentElement.clientWidth || document.body.clientWidth<br>
+注：body有border，宽度被撑开后就不和页面可视区域宽度相等了，可视区域宽度是，根节点的clientWidth<br>
+
+<br><br>
+
+
+obj.offsetHeight<br>
+border+padding+内容高度<br>
+document.body.offsetHeight即：body的border+padding+内容高度<br>
+<p class="red">document.documentElement.offsetHeight即：html的border+padding+内容高度，即页面高度</p>
+
+<br><br>
+
+obj.offsetWidth<br>
+border+padding+内容宽度<br>
+
+<br><br>
+
+
+obj.scrollHeight<br>
+padding+内容高度<br>
+document.body.scrollHeight即：body的padding+内容高度<br>
+document.documentElement.scrollHeight即：html的border+padding+内容高度（因为html是根节点获取的也是整体高度）<br>
+
+<br><br>
+
+obj.scrollWidth<br>
+padding+内容高度<br>
+
+<br><br>
+
+
+obj.scrollTop<br>
+节点距离顶部的滚动距离<br>
+注：需要overflow-y为auto/scroll，并且具有滚动距离。否则为0<br>
+页面滚动高度：window.scrollTop，document.documentElement.scrollTop也是页面滚动高度，因为html是根节点。<br>
+
+<br><br>
+
+obj.scrollLeft<br>
+节点距离左边的滚动距离<br>
+注：需要overflow-y为auto/scroll，并且具有滚动距离。否则为0<br>
+
+<br><br>
+
+window.screenTop<br>
+浏览器距离显示器顶部的距离，可以为负<br>
+window.screenLeft<br>
+浏览器距离显示器左边的距离<br>
+
+<br><br>
+
+window.screen.height<br>
+浏览器显示器高度<br>
+window.screen.width<br>
+浏览器显示器宽度<br>
+
+<br><br>
+
+window.screen.availHeight<br>
+显示屏可工作区高度，减去任务栏<br>
+window.screen.availWidth<br>
+显示屏可工作区宽度，减去任务栏<br>
+
+
+
+		<div class="box1" id="box1">
+			<button onclick="showScrollSize()">显示当前滚动距离</button>
+			<p>oBox1.clientHeight   --  不算border，算上padding的内容高度</p>
+		</div>
+	</div>
+
+
+	<script>
+		
+		var cbw = document.body.clientWidth;
+		var cdw = document.documentElement.clientWidth;
+		var cbh = document.body.clientHeight;
+		var cdh = document.documentElement.clientHeight;
+
+		console.log(cbw, cdw, cbh, cdh);
+		console.log('----------------------');
+
+		var oBox1 = document.getElementById('box1');
+		var b1_ch = oBox1.clientHeight;
+		console.log(b1_ch);
+		console.log('----------------------');
+
+		var b1_oh = oBox1.offsetHeight;
+		console.log(b1_oh);
+		console.log('----------------------');
+
+		var obh = document.body.offsetHeight;
+		var odh = document.documentElement.offsetHeight;
+		console.log(obh, odh);
+		console.log('----------------------');
+
+		var b1_sh = oBox1.scrollHeight;
+		console.log(b1_sh);
+		console.log('----------------------');
+
+		var sbh = document.body.scrollHeight;
+		var sdh = document.documentElement.scrollHeight;
+		console.log(sbh, sdh);
+		console.log('----------------------');
+
+		var snwt = window.screenTop;
+		var snwl = window.screenLeft;
+		console.log(snwt, snwl);
+		console.log('----------------------');
+
+		var snww = window.screen.width;
+		var snwh = window.screen.height;
+		console.log(snww,snwh);
+		console.log('----------------------');
+
+		var snaww = window.screen.availWidth;
+		var snawh = window.screen.availHeight;
+		console.log(snaww, snawh);
+
+		function showScrollSize () {
+			var sbt = document.body.scrollTop;
+			var sdt = document.documentElement.scrollTop;
+			console.log(sbt, sdt);
+		}
+	</script>
+</body>
+</html>

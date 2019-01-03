@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>横向滚动</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			background: #ddd;
+		}
+
+		/*--------------*/
+		.wrapper-box {
+			position: relative;
+			margin: 50px auto;
+			width: 800px;
+			height: 40px;
+			border: 5px solid green;
+			overflow-x: auto;
+			background: #eee;
+			box-sizing: border-box;
+			overflow: hidden;
+		}
+		.scroll-box {
+			position: absolute;
+			top: 0;
+			left: 0;
+			white-space: nowrap;
+		}
+		.scroll-box::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.scroll-box span {
+			display: inline-block;
+			margin-top: 3px;
+			padding: 0 10px;
+			font-size: 12px;
+			line-height: 22px;
+			border: 1px solid #ccc;
+		}
+		.scroll-box span+span {
+			margin-left: 10px;
+		}
+
+		.add-btn {
+			display: block;
+			margin: 0 auto;
+			padding: 7px 40px;
+			border-radius: 3px;
+			border: 1px solid #999;
+			outline: 0;
+			background: #fff;
+			cursor: pointer;
+		}
+		.add-btn:active {
+			background: #eee;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="wrapper-box" id="wrapperBox">
+		<div class="scroll-box" id="scrollBox">
+			<span>哈哈哈</span><span>哈哈哈</span><span>哈哈哈</span><span>哈哈哈</span><span>哈哈哈</span>
+		</div>
+	</div>
+	<button class="add-btn" onclick="addFn()">添加</button>
+	<br>
+	<p style="text-align: center;">关键点：scroll-box的white-space设置nowrap；span的display设置inline-block，不是float</p>
+	
+	<script>
+		var oWrapperBox = document.getElementById('wrapperBox');
+		var oScrollBox = document.getElementById('scrollBox');
+		
+		oWrapperBox.addEventListener('mousewheel', scrollFn);
+
+
+		function scrollFn (event) {
+			var detail = event.wheelDelta || event.detail;
+			var just = 1;
+			var negative = -1;
+			var step = 0;
+			var iMax = 0;
+			var iMin = (oScrollBox.offsetWidth - oWrapperBox.clientWidth) > 0 ? -1 * (oScrollBox.offsetWidth - oWrapperBox.clientWidth) : 0;
+
+			if ( detail < 0 ) {
+				step = negative * 100;
+			} else {
+				step = just * 100;
+			}
+
+			var iLeft = Number(getStyle(oScrollBox, 'left').split('px')[0]);
+			
+			iLeft += step;
+			if ( iLeft >= iMax ) {
+				iLeft = iMax;
+			}
+			if ( iLeft <= iMin ) {
+				iLeft = iMin;
+			}
+
+			oScrollBox.style.left = iLeft + 'px';
+
+		}
+
+
+		function addFn () {
+			var oS = document.createElement('span');
+			oS.innerHTML = 'H啊哈哈';
+			oScrollBox.appendChild(oS);
+		}
+
+		function getStyle (obj, name) {
+			if ( window.getComputedStyle ) {
+				return getComputedStyle(obj, null)[name];
+			} else {
+				return obj.currentStyle[name];
+			}
+		}
+
+	</script>
+</body>
+</html>
