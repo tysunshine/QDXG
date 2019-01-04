@@ -54,6 +54,9 @@ window.screen.availWidth
 显示屏可工作区宽度，减去任务栏
 
 
-
-
+window.innerWidth
+页面宽，不是可视区域宽，兼容ie9及以上
+window.innerHeight
+页面高，不是可视区域高，兼容ie9及以上
+没有obj.innerWidth，obj.innerHeight
 
