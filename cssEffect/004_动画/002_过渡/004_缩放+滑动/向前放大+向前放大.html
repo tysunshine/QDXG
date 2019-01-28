@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf=8">
+	<title>向后放大+向前方大</title>
+	<link rel="stylesheet" type="text/css" href="../static/public.css">
+	<style>
+		.slide-out-start {
+			visibility: visible;
+		}
+		.slide-out-end {
+			transition: all .5s;
+			opacity: 0;
+			transform: scale(1.2);
+		}
+		.slide-in-start {
+			transform: scale(.8);
+			opacity: 0;
+			visibility: visible;
+		}
+		.slide-in-end {
+			transition: all .7s .3s;
+			transform: scale(1);
+			opacity: 1;
+		}
+	</style>
+</head>
+<body>
+	<div class="ts-main">
+		<div class="items-list" tsname="slide">
+			<div class="item current">页面 过渡效果 1</div>
+			<div class="item">页面 过渡效果 2</div>
+			<div class="item">页面 过渡效果 3</div>
+			<div class="item">页面 过渡效果 4</div>
+			<div class="item">页面 过渡效果 5</div>
+			<div class="item">页面 过渡效果 6</div>
+		</div>
+		<button class="ts-btn">向后放大+向前方大</button>
+	</div>
+
+	<script src="../lib/class.js"></script>
+	<script src="../static/public.js"></script>
+</body>
+</html>

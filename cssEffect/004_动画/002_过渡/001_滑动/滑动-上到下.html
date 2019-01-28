@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf=8">
+	<title>上到下滑动</title>
+	<link rel="stylesheet" type="text/css" href="../static/public.css">
+	<style>
+		.slide-out-start {
+			top: 0;
+			visibility: visible;
+		}
+		.slide-out-end {
+			transition: all .6s;
+			top: 100%;
+		}
+		.slide-in-start {
+			top: -100%;
+			visibility: visible;
+		}
+		.slide-in-end {
+			transition: all .6s;
+			top: 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="ts-main">
+		<div class="items-list" tsname="slide">
+			<div class="item current">页面 过渡效果</div>
+			<div class="item">页面 过渡效果</div>
+			<div class="item">页面 过渡效果</div>
+			<div class="item">页面 过渡效果</div>
+			<div class="item">页面 过渡效果</div>
+			<div class="item">页面 过渡效果</div>
+		</div>
+		<button class="ts-btn">从上到下滑动</button>
+	</div>
+
+	<script src="../lib/class.js"></script>
+	<script src="../static/public.js"></script>
+</body>
+</html>

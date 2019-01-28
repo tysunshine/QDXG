@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf=8">
+	<title>淡出+右边滑入</title>
+	<link rel="stylesheet" type="text/css" href="../static/public.css">
+	<style>
+		.slide-out-start {
+			opacity: 1;
+			visibility: visible;
+		}
+		.slide-out-end {
+			transition: all .6s;
+			opacity: 0.3;
+		}
+		.slide-in-start {
+			z-index: 999;
+			left: 100%;
+			visibility: visible;
+		}
+		.slide-in-end {
+			transition: all .6s;
+			left: 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="ts-main">
+		<div class="items-list" tsname="slide">
+			<div class="item current">页面 过渡效果</div>
+			<div class="item">页面 过渡效果</div>
+			<div class="item">页面 过渡效果</div>
+			<div class="item">页面 过渡效果</div>
+			<div class="item">页面 过渡效果</div>
+			<div class="item">页面 过渡效果</div>
+		</div>
+		<button class="ts-btn">淡出+右边滑入</button>
+	</div>
+
+	<script src="../lib/class.js"></script>
+	<script src="../static/public.js"></script>
+</body>
+</html>

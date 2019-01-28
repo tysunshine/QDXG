@@ -1,0 +1,144 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+li {
+	list-style: none;
+}
+
+body {
+	padding-top: 100px;
+	background: rgb(152, 191, 246);
+}
+
+main {
+	margin: 0 auto;
+	width: 400px;
+}
+
+.items-list {
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+}
+.item {
+	position: relative;
+	width: 100px;
+	height: 100px;
+}
+
+
+.ball-spin-clockwise {
+	position: absolute;
+	top: 18px;
+	left: 18px;
+	width: 64px;
+	height: 64px;
+}
+.ball-spin-clockwise div {
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	background: #fff;
+	border-radius: 50%;
+	animation: ball-spain-clockwise 1s infinite ease-in-out;
+}
+.ball-spin-clockwise div:nth-child(1) {
+	top: -8px;
+	left: 24px;
+	animation-delay: -0.875s;
+}
+.ball-spin-clockwise div:nth-child(2) {
+	top: 1.372583002030478px;
+	right: 1.372583002030478px;
+	animation-delay: -0.75s;
+}
+.ball-spin-clockwise div:nth-child(3) {
+	top: 24px;
+	right: -8px;
+	animation-delay: -0.625s;
+}
+.ball-spin-clockwise div:nth-child(4) {
+	bottom: 1.372583002030478px;
+	right: 1.372583002030478px;
+	animation-delay: -0.5s;
+}
+.ball-spin-clockwise div:nth-child(5) {
+	bottom: -8px;
+	left: 24px;
+	animation-delay: -0.375s;
+}
+.ball-spin-clockwise div:nth-child(6) {
+	bottom: 1.372583002030478px;
+	left: 1.372583002030478px;
+	animation-delay: -0.25s;
+}
+.ball-spin-clockwise div:nth-child(7) {
+	top: 24px;
+	left: -8px;
+	animation-delay: -0.125s;
+}
+.ball-spin-clockwise div:nth-child(8) {
+	top: 1.372583002030478px;
+	left: 1.372583002030478px;
+	animation-delay: 0s;
+}
+
+
+.ball-spin-clockwise.la-2 {
+	width: 32px;
+	height: 32px;
+	top: 34px;
+	left: 34px;
+}
+.ball-spin-clockwise.la-2 div {
+	width: 8px;
+	height: 8px;
+}
+.ball-spin-clockwise.la-2 div:nth-child(1) {
+	top: -4px;
+	left: 12px;
+}
+.ball-spin-clockwise.la-2 div:nth-child(2) {
+	top: 0.686291501015239;
+	right: 0.686291501015239;
+}
+.ball-spin-clockwise.la-2 div:nth-child(3) {
+	top: 12px;
+	right: -4px;
+}
+.ball-spin-clockwise.la-2 div:nth-child(4) {
+	bttom: 0.686291501015239;
+	right: 0.686291501015239;
+}
+.ball-spin-clockwise.la-2 div:nth-child(5) {
+	bottom: -4px;
+	left: 12px;
+}
+.ball-spin-clockwise.la-2 div:nth-child(6) {
+	bottom: 0.686291501015239;
+	left: 0.686291501015239;
+}
+.ball-spin-clockwise.la-2 div:nth-child(7) {
+	top: 12px;
+	left: -4px;
+}
+.ball-spin-clockwise.la-2 div:nth-child(8) {
+	top: 0.686291501015239;
+	left: 0.686291501015239;
+}
+
+
+@keyframes ball-spain-clockwise {
+	0%, 100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	20% {
+		opacity: 1;
+	}
+	80% {
+		opacity: 0;
+		transform: scale(0);
+	}
+}
