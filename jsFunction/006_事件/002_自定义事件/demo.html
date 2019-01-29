@@ -6,21 +6,48 @@
 </head>
 <body>
 
-	<button id="btn1">按钮</button>
+	<p>参考资料：<a href="https://www.jb51.net/article/78334.htm" target="_blank">https://www.jb51.net/article/78334.htm</a></p>
 
+	<button id="btn1">按钮</button>
+	<br><br>
+	<button onclick="fireFn()">触发按钮1的csfn事件</button>
+	<br><br>
+	<button onclick="removeFn()">移除按钮1的csfn事件</button>
+	<br><br>
+	<button onclick="showFn()">测试shownum</button>
+	<br><br>
 
 	<script src="./customEvent.js"></script>
 	<script>
 		
 		var oBtn1 = document.querySelector('#btn1');
 
-		customEvent.addEvent(oBtn1, 'setChecked', setChecked);
-		customEvent.addEvent(oBtn1, 'setChecked', setChecked);
+		customEvent.addEvent(oBtn1, 'csfn', csfn);
+		customEvent.addEvent(oBtn1, 'csfn2', csfn2);
 
-		customEvent.fireEvent(oBtn1, 'setChecked', 1, {a: 'HaHa'})
+	
+		oBtn1.showNum = function () {
+			console.log(1);
+		}
 
-		function setChecked () {
-			console.log(123);
+		function csfn (num, o) {
+			console.log(num, o);
+		}
+
+		function csfn2 () {
+			console.log(222);
+		}
+
+		function fireFn () {
+			customEvent.fireEvent(oBtn1, 'csfn', 1, {a: 'HaHa'})
+		}
+
+		function removeFn () {
+			customEvent.removeEvent(oBtn1, 'csfn', csfn);
+		}
+
+		function showFn () {
+			oBtn1.showNum();
 		}
 
 	</script>
