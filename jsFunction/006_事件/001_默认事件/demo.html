@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Hello</title>
+</head>
+<body>
+
+	<button id="btnA">按钮A：触发绑定的点击事件</button>
+	<br>
+	<button onclick="addEvent()">添加事件</button>
+	<button onclick="removeEvent()">移除事件</button>
+
+
+	<script src="./domEvent.js"></script>
+	<script>
+		var oBtnA = document.querySelector('#btnA');
+
+		function aClick () {
+			console.log('我是按钮A的点击事件');
+		}
+
+		function addEvent () {
+			domEvent.addEvent(oBtnA, 'click', aClick);
+			console.log('添加事件完成！');
+		}
+
+		function removeEvent () {
+			domEvent.removeEvent(oBtnA, 'click', aClick);
+			console.log('移除事件完成！');
+		}
+	</script>
+</body>
+</html>
