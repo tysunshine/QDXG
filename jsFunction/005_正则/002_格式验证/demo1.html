@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>格式验证</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			padding: 20px 0;
+			background: #cfcfcf;
+		}
+		.group {
+			margin: 0 auto;
+			padding: 10px 20px;
+			width: 600px;
+			background: #fff;
+			border-radius: 5px;
+			line-height: 24px;
+			font-size: 14px;
+		}
+		.group+.group {
+			margin-top: 20px;
+		}
+
+		.reg-item+.reg-item {
+			margin-top: 10px;
+		}
+		.reg-item::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.reg-item h4 {
+			font-weight: normal;
+		}
+		.reg-item input {
+			float: left;
+			padding: 0 10px;
+			height: 26px;
+			width: 200px;
+			border: 1px solid #ccc;
+			background: #fff;
+			line-height: 24px;
+			box-sizing: border-box;
+			border-radius: 4px;
+		}
+		.reg-item button {
+			float: left;
+			margin-left: 20px;
+			padding: 0 10px;
+			height: 26px;
+			line-height: 24px;
+			border-radius: 4px;
+			border: 1px solid #999;
+			box-sizing: border-box;
+			cursor: pointer;
+		}
+		.reg-item span {
+			float: left;
+			margin-left: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="group">
+		<h3>数值 ----</h3>
+		正整数<br>
+		负整数<br>
+		正整数+0<br>
+		负整数+0<br>
+		整数<br>
+		正数<br>
+		负数<br>
+		数值类型<br>
+		含2位小数的数值<br>
+		至少含2位小数的数值<br><br>
+
+
+		<h3>号码 ----</h3>
+		电话号码<br>
+		座机号码<br>
+		手机号码<br>
+		QQ号码<br>
+		身份证号码<br>
+		email邮箱<br>
+		InternetURL地址<br>
+		IP地址<br><br>
+		
+		<h3>其它 ----</h3>
+		用户名<br>
+		密码<br>
+		非空<br>
+		姓名
+	</div>
+
+	<div class="group">
+		<h3>数值 ----</h3>
+		<div class="reg-item">
+			<h4>正整数</h4>
+			<input type="text" regname="num1" value="1">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+		<div class="reg-item">
+			<h4>负整数</h4>
+			<input type="text" regname="num2" value="-1">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+		<div class="reg-item">
+			<h4>正整数+0</h4>
+			<input type="text" regname="num3" value="1">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+		<div class="reg-item">
+			<h4>负整数加+0</h4>
+			<input type="text" regname="num4" value="0">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+		<div class="reg-item">
+			<h4>整数</h4>
+			<input type="text" regname="num5" value="1">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+		<div class="reg-item">
+			<h4>正数</h4>
+			<input type="text" regname="num6" value="1">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+		<div class="reg-item">
+			<h4>负数</h4>
+			<input type="text" regname="num7" value="-1">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+		<div class="reg-item">
+			<h4>数值类型</h4>
+			<input type="text" regname="num8" value="1.1">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+		<div class="reg-item">
+			<h4>含2位小数的数值</h4>
+			<input type="text" regname="num9" value="1.01">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+		<div class="reg-item">
+			<h4>至少含2位小数</h4>
+			<input type="text" regname="num10" value="1.111">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+	</div>
+
+	<div class="group">
+		<h3>号码 ----</h3>
+		<div class="reg-item">
+			<h4>座机号码</h4>
+			<input type="text" regname="no1" value="010-12345678">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+		<div class="reg-item">
+			<h4>手机号码</h4>
+			<input type="text" regname="no2" value="13861792567">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+		<div class="reg-item">
+			<h4>QQ号码</h4>
+			<input type="text" regname="no3" value="801194478">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+		<div class="reg-item">
+			<h4>身份证号码</h4>
+			<input type="text" regname="no4" value="50022419980819789X">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+		<div class="reg-item">
+			<h4>email邮箱</h4>
+			<input type="text" regname="no5" value="87740318@qq.com">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+		<div class="reg-item">
+			<h4>InternetURL地址</h4>
+			<input type="text" regname="no6" value="www.baidu.com">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+		<div class="reg-item">
+			<h4>IP地址（有错）</h4>
+			<input type="text" regname="num7" value="125.86.181.224">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+	</div>
+
+	<div class="group">
+		<h3>其它 ----</h3>
+		<div class="reg-item">
+			<h4>用户名：4到16位（字母，数字，下划线，减号）</h4>
+			<input type="text" regname="other1" value="god001">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+		<div class="reg-item">
+			<h4>密码：以字母开头，长度在6-18之间，只能包含字符、数字和下划线</h4>
+			<input type="text" regname="other2" value="123456">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+		<div class="reg-item">
+			<h4>密码：最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符</h4>
+			<input type="text" regname="other3" value="A123&a">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+		<div class="reg-item">
+			<h4>非空</h4>
+			<input type="text" regname="other4" value="a">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+		<div class="reg-item">
+			<h4>姓名</h4>
+			<input type="text" regname="other5" value="王曦">
+			<button>验证</button>
+			<span>正确</span>
+		</div>
+	</div>
+
+	<script>
+		
+		var urlReg = '^((https|http|ftp|rtsp|mms)?://)'
+            +'?(([0-9a-z_!~*().&=+$%-]+: )?[0-9a-z_!~*().&=+$%-]+@)?' //ftp的user@
+            + '(([0-9]{1,3}.){3}[0-9]{1,3}' // IP形式的URL- 199.194.52.184
+            + '|' // 允许IP和DOMAIN（域名）
+            + '([0-9a-z_!~*()-]+.)*' // 域名- www.
+            + '([0-9a-z][0-9a-z-]{0,61})?[0-9a-z].' // 二级域名
+            + '[a-z]{2,6})' // first level domain- .com or .museum
+            + '(:[0-9]{1,4})?' // 端口- :80
+            + '((/?)|' // a slash isn't required if there is no file name
+            + '(/[0-9a-z_!~*().;?:@&=+$,%#-]+)+/?)$';
+
+		var regs = {
+			// 数值 -------
+			// 正整数
+			num1: /^\+?[1-9][0-9]*$/,
+			// 负整数
+			num2: /^\-[1-9][0-9]*$/,
+			// 正整数+0
+			num3: /^\d+$/,
+			// 负整数加+0
+			num4: /^((-\d+)|(0+))$/,
+			// 整数
+			num5: /^-?\d+$/,
+			// 正数
+			num6: /^\+?[1-9][0-9]*(\.\d+)?$/,
+			// 负数
+			num7: /^-[1-9][0-9]*(\.\d+)?$/,
+			// 数值类型
+			num8: /^(\-|\+)?\d+(\.\d+)?$/,
+			// 含2位小数的数值
+			num9: /^(\-|\+)?\d+(\.\d{2})?$/,
+			// 至少含2位小数
+			num10: /^(\-|\+)?\d+(\.\d{2,})?$/,
+
+			// 号码 -------
+			// 座机号码
+			no1: /^0[0-9]{2,3}-[0-9]{7,8}$/,
+			// 手机号码
+			no2: /^(13[0-9]|15[012356789]|18[0-9]|17[678]|14[57])[0-9]{8}$/,
+			// QQ号码
+			no3: /^[1-9][0-9]{4,10}$/,
+			// 身份证号码
+			no4: /\d{17}[\d|x]|\d{15}/,
+			// email邮箱
+			no5: /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/,
+			// InternetURL地址
+			no6: new RegExp(urlReg),
+			// IP地址
+			no7: /((?:(?:25[0-5]|2[0-4]\d|[01]?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d?\d))/,
+			
+			// 其它 -------
+			// 用户名4到16位（字母，数字，下划线，减号）
+			other1: /^[a-zA-Z0-9_-]{4,16}$/,
+			// 密码：以字母开头，长度在6-18之间，只能包含字符、数字和下划线
+			other2: /^[a-zA-Z]\w{5,17}$/,
+			// 最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符
+			other3: /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/,
+			// 非空,
+			other4: /^\S+$/,
+			// 姓名
+			other5: /^[\u4E00-\u9FA5]{2,}$/
+			
+		}
+
+		
+		var oIpts = document.querySelectorAll('.reg-item input');
+		var oBtns = document.querySelectorAll('.reg-item button');
+
+
+		for ( var i = 0; i < oIpts.length; i++ ) {
+			oIpts[i].onkeydown = iptEnter;
+			oBtns[i].onclick = btnClick;
+		}
+
+		function iptEnter (event) {
+			if ( event.keyCode == 13 ) {
+				var oBtn = this.nextElementSibling;
+				oBtn.onclick();
+			}
+		}
+		function btnClick () {
+			var oIpt = this.previousElementSibling;
+			var oSp = this.nextElementSibling;
+			var val = oIpt.value;
+			var reg = regs[oIpt.getAttribute('regname')];
+
+			if ( reg.test(val) ) {
+				oSp.innerHTML = '正确';
+			} else {
+				oSp.innerHTML = '错误';
+			}
+		}
+
+	</script>
+</body>
+</html>
