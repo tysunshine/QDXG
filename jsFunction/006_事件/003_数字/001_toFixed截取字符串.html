@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>toFixed</title>
+</head>
+<body>
+
+	<script>
+		
+		// toFixed方法可把Number四舍五入为指定小数位数的数字。
+		// 但返回的是string类型=_=
+
+		var a = 3.1415926;
+
+		console.log(a.toFixed(2));			// '3.14'
+		console.log(Number(a.toFixed(2)));	// 3.14
+
+		// 不能直接对整数进行调用
+		// var b = 3.toFixed(2);			// 报错
+		var c = 3;
+		console.log(c.toFixed(2));			// '3.00'
+	</script>
+</body>
+</html>

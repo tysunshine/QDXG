@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>禁用属性</title>
+</head>
+<body>
+
+	<p>disabled禁用属性是只要设置了disabled都会禁用如：</p>
+	<input type="text" disabled="false">
+
+	<p>在js中使用obj.setAttribute('disabled', false)时，disabled依然会生效</p>
+	<p>正确的做法是：obj.disabled = false</p>
+	<p>或者：obj.removeAttribute('disable')</p>
+
+	<script></script>
+</body>
+</html>
