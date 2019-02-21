@@ -1,0 +1,4 @@
+clientX		到可视区域左上角X距离
+pageX		到页面页面根左上角X距离
+offsetX		到事件源左上角X距离
+screenX		到显示屏左上角X距离

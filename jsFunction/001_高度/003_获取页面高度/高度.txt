@@ -60,3 +60,10 @@ window.innerHeight
 页面高，不是可视区域高，兼容ie9及以上
 没有obj.innerWidth，obj.innerHeight
 
+document.body.clientWidth
+可视区域宽度
+document.body.clientHeight
+可视区域高度
+window.innerWidth - document.body.clientWidth
+滚动条宽度
+
