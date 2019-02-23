@@ -3,11 +3,23 @@
 	/**
 	 * 等待执行函数
 	 * 可以用来链式执行动画
-	 * time -> 最低的等待时间，默认30毫秒
+	 * 参数
+	 * time -> 可选 默认的延迟时间，默认设置为30毫秒，因为页面重绘需要一点时间
+	 * fn -> 可选 第一个处理函数，这个函数等待时间是0
 	 */
-	function Delay (time) {
-		this._itime = this._or_itime = parseInt(time) > 0 ? parseInt(time) : 30;
+	function Delay () {
+		var arg1 = arguments[0];
+		var arg2 = arguments[1];
+		var ty1 = typeof arg1;
+		var ty2 = typeof arg2;
+		var fn = ty2 === 'function' ? arg2 : ty1 === 'function' ? arg1 : null;
+
+		this._time = ty1 === 'number' && arg1 >= 0 ? arg1 : 30;
 		this._do = [];
+
+		if ( fn ) {
+			this.then(0, fn);
+		}
 	}
 
 	Delay.prototype._resolve = function () {
@@ -18,31 +30,28 @@
 	}
 
 	/**
-	 * 设置下一次事件需要等待的事件
+	 * 向等待函数列表中加入函数
+	 * 参数1，可选，这一次函数多久后执行
+	 * 参数2，必须，这一次的函数名
 	 */
-	Delay.prototype.time = function (time) {
-		time = parseInt(time);
-		this._itime = time > 0 ? time : this._or_itime;
-		return this;
-	}
-
-	/**
-	 * 向事件列表中加入事件
-	 */
-	Delay.prototype.then = function (fn) {
+	Delay.prototype.then = function () {
 		var _this = this;
-		
-		if ( typeof fn !== 'function' ) {
-			return this;
+		var arg1 = arguments[0];
+		var arg2 = arguments[1];
+		var ty1 = typeof arg1;
+		var ty2 = typeof arg2;
+		var time = ty1 === 'number' && arg1 >= 0 ? arg1 : this._time;
+		var fn = ty2 === 'function' ? arg2 : ty1 === 'function' ? arg1 : null;
+
+		if ( !fn ) {
+			return false;
 		}
 
-		var itime = this._itime;
-		this._itime = this._or_itime;
 		function doFn () {
 			setTimeout(function () {
 				fn();
 				_this._resolve();
-			}, itime);
+			}, time);
 		}
 		
 		this._do.push(doFn);
