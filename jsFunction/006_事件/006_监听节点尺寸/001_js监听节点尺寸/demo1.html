@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Hello world</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+		  margin: 0;
+		  background: #e6e6e6;
+		}
+		.container {
+		  position: relative;
+		}
+		#item-left,
+		#item-right {
+		  position: absolute;
+		  top: 50px;
+		  left: 50px;
+		  width: 200px;
+		  height: 200px;
+		  background: #2ecc71;
+		}
+		#item-right {
+		  left: 50%;
+		}
+		.controller {
+		  position: absolute;
+		  z-index: 1000;
+		  bottom: 0;
+		  right: 0;
+		  width: 10px;
+		  height: 10px;
+		  border: 1px solid #fff;
+		  background: #3498db;
+		  cursor: se-resize;
+		  font-size: 0px;
+		}
+	</style>
+</head>
+<body>
+
+	<div>
+		<a href="https://blog.crimx.com/2017/07/15/element-onresize/" target="_blank">源码网页</a>
+	</div>
+
+	<div class="container">
+		<div class="container-left">
+			<div id="item-left">
+				<div id="controller-left" class="controller"></div>
+			</div>
+		</div>
+
+		<div class="container-right">
+			<div id="item-right">
+				<div id="controller-right" class="controller"></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="onelresize.js"></script>
+	<script>
+		var left = document.getElementById('item-left')
+		var right = document.getElementById('item-right')
+		var controllerLeft = document.getElementById('controller-left')
+		var controllerRight = document.getElementById('controller-right')
+
+		onelresize(left, function () {
+			right.style.width = left.offsetWidth + 'px'
+			right.style.height = left.offsetHeight + 'px'
+		})
+
+		onelresize(right, function () {
+			left.style.width = right.offsetWidth + 'px'
+			left.style.height = right.offsetHeight + 'px'
+		})
+
+		var isLeftMousedown = false
+		var isRightMousedown = false
+		var lastMouseX = 0
+		var lastMouseY = 0
+
+		document.addEventListener('mousemove', function (e) {
+			var el
+			if (isLeftMousedown) {
+				el = left
+			} else if (isRightMousedown) {
+				el = right
+			} else {
+				return
+			}
+
+			el.style.width = el.offsetWidth + e.clientX - lastMouseX + 'px'
+			el.style.height = el.offsetHeight + e.clientY - lastMouseY + 'px'
+
+			lastMouseX = e.clientX
+			lastMouseY = e.clientY
+		})
+
+		controllerLeft.addEventListener('mousedown', function (e) {
+			e.preventDefault()
+			lastMouseX = e.clientX
+			lastMouseY = e.clientY
+			isLeftMousedown = true
+			left.style.willChange = 'width,height'
+		})
+
+		controllerRight.addEventListener('mousedown', function (e) {
+			e.preventDefault()
+			lastMouseX = e.clientX
+			lastMouseY = e.clientY
+			isRightMousedown = true
+			right.style.willChange = 'width,height'
+		})
+
+		document.addEventListener('mouseup', function () {
+			isLeftMousedown = false
+			isRightMousedown = false
+			left.style.willChange = ''
+			right.style.willChange = ''
+		})
+
+		var passiveEvents = false
+		try {
+			var opts = Object.defineProperty({}, 'passive', {
+				get: function () {
+					passiveEvents = { passive: true }
+				}
+			})
+			window.addEventListener('test', null, opts)
+		} catch (e) {}
+	</script>
+</body>
+</html>

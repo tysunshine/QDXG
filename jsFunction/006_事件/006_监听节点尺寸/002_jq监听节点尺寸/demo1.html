@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Hello world</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.box {
+			position: absolute;
+			top: 100px;
+			left: 100px;
+			width: 100px;
+			height: 200px;
+			border: 1px solid #888;
+			background: #9f0;
+		}
+		.btn {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			border: 1px solid #fff;
+			background: #05f;
+			width: 10px;
+			height: 10px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+
+	<div>
+		<a href="https://www.cnblogs.com/libin-1/p/6018332.html" target="_blank">源码网站</a>
+	</div>
+	<div class="box">
+		<div class="btn"></div>
+	</div>
+
+	<script src="jquery.js"></script>
+	<script src="onresize.js"></script>
+	<script>
+		var oBox = $('.box');
+		var oBtn = $('.btn');
+
+		var iWidth = iHeight = 0;
+		var iMinW = iMinH = 40;
+		var iClientX = iClientY = 0;
+
+		var isDown = false;
+
+		oBtn.on("mousedown", function(event) {
+			isDown = true;
+			iClientX = event.clientX;
+			iClientY = event.clientY;
+
+			iWidth = oBox.width();
+			iHeight = oBox.height();
+		})
+
+		$(document).on('mousemove', function (event) {
+			if ( isDown ) {
+				var iMoveX = event.clientX - iClientX;
+				var iMoveY = event.clientY - iClientY;
+
+				var Width = iMinW >= iWidth + iMoveX ? iMinW : iWidth + iMoveX;
+				var Height = iMinH >= iHeight + iMoveY ? iMinH : iHeight + iMoveY;
+
+				oBox.css({
+					width: Width + 'px',
+					height: Height + 'px'
+				})
+			}
+		})
+		$(document).on('mouseup', function (event) {
+			if ( isDown ) {
+				isDown = false;
+			}
+		})
+
+		// *******************************************
+		// 监听尺寸变化
+
+		oBox.on('resize', function (event) {
+			console.log($(this).width(), $(this).height());
+		})
+
+
+
+	</script>
+</body>
+</html>
