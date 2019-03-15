@@ -39,8 +39,6 @@
 	    }
 	}
 
-	var aAnim = [];
-
 
 	/**
 	 * 动画函数
@@ -67,18 +65,6 @@
 		var easing = ty4 == 'string' ? arg4 : ty3 == 'string' ? arg3 : 'linear';
 		easing = easing	in tween ? easing : 'linear';
 		var fn = ty5 == 'function' ? arg5 : ty4 == 'function' ? arg4 : ty3 == 'function' ? arg3 : null;
-
-		var oAnim = {
-			elm: obj,
-			isEnd: false
-		}
-
-		for ( var i = 0; i < aAnim.length; i++ ) {
-			if ( obj === aAnim[i].elm ) {
-				aAnim[i].isEnd = true;
-				break;
-			}
-		}
 
 
 		var aTag = [];			// 过渡样式数组
@@ -130,7 +116,7 @@
 				setValue(obj, aTag[i].name, total);
 			}
 
-			if ( isUpdate && !oAnim.isEnd ) {
+			if ( isUpdate ) {
 				requestAnimationFrame(step)
 			} else {
 				for ( var i = 0; i < aTag.length; i++ ) {
@@ -140,17 +126,9 @@
 				if ( fn ) {
 					fn();
 				}
-				for ( var i = 0; i < aAnim.length; i++ ) {
-					if ( obj === aAnim[i].elm ) {
-						aAnim.splice(i, 1);
-						break;
-					}
-				}
 			}
 		}
 		requestAnimationFrame(step)
-
-		aAnim.push(oAnim);
 	}
 
 	window.animate = animate;
