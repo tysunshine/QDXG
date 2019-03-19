@@ -1,0 +1,79 @@
+﻿
+
+目录结构
+html
+	index.html
+css
+js
+	config.js
+	index.js
+lib
+	require.js
+	jquery.js
+
+
+
+
+**********************************************************************************
+方法一：加载require的之后加载config配置文件，然后在config中判断加载那个页面处理函数。
+一共三步。
+1、页面index.html
+<script data-main="../js/config" data-page="index" src="../lib/require.js"></script>
+
+2、配置文件config.js
+require.config({
+	baseUrl: '../js',
+	paths: {
+		"jquery": "../lib/jquery",
+		"index": "index"
+	}
+})
+var page = document.querySelector("[data-page]").getAttribute("data-page");
+require([page], function (page) {
+	page();
+})
+
+3、逻辑文件index.js
+define(["jquery"], function ($) {
+return function () {
+	console.log($);
+}
+})
+
+
+
+**********************************************************************************
+方法二：加载require的之后加载对应页面的逻辑文件，然后在逻辑文件中加载config配置文件。
+一共三步。
+1、页面index.html
+<script data-main="../js/index" src="../lib/require.js"></script>
+
+2、配置文件config
+require.config({
+	baseUrl: '../js',
+	paths: {
+		"jquery": "../lib/jquery"
+	}
+})
+
+3、逻辑文件index.js
+require(["../js/config"], function () {
+	require(["jquery"], function ($) {
+		console.log($);
+	})
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
