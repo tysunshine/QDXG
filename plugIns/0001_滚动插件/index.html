@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Hello</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			background: #ccc;
+		}
+		p {
+			padding: 0 10px;
+			line-height: 30px;
+		}
+		.main {
+			width: 600px;
+			padding: 20px;
+			height: 600px;
+			background: #fff;
+			border-radius: 10px;
+			margin: 0 auto;
+		}
+		.sp-scrollbar {
+			border: 1px solid #888;
+			overflow-y: hidden;
+			height: 500px;
+			max-height: 500px;
+		}
+
+		dl {
+			line-height: 30px;
+		}
+		dt {
+			background: #cc0;
+			cursor: pointer;
+		}
+		dt:hover {
+			color: #0cf;
+		}
+		dd {
+			transition: all .5s;
+			overflow: hidden;
+		}
+		dl:nth-child(1) dd {
+			height: 120px;
+		}
+		dl dd.is-hide {
+			height: 0 !important;
+		}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<div class="sp-scrollbar" id="spScrollbar">
+			<div class="scroll">
+				<dl>
+					<dt>第一章</dt>
+					<dd style="height: 300px;">
+						<p>道可道，非常道</p>
+						<p>名可名，非常名</p>
+						<p>无，名天地之始</p>
+						<p>有，名万物之母</p>
+						<p>故常无，欲以观其妙</p>
+						<p>常有，欲以观其徼</p>
+						<p>此两者，同出而异名</p>
+						<p>同谓之玄</p>
+						<p>玄之又玄</p>
+						<p>众妙之门</p>
+					</dd>
+				</dl>
+				<dl>
+					<dt>第二章</dt>
+					<dd style="height: 480px;">
+						<p>天下皆知美之为美，斯恶已</p>
+						<p>皆知善之为善，斯不善已</p>
+						<p>故有无相生</p>
+						<p>难易相成</p>
+						<p>长短相较</p>
+						<p>高下相倾</p>
+						<p>音声相和</p>
+						<p>前后相随</p>
+						<p>是以圣人处无为之事</p>
+						<p>行不言之教</p>
+						<p>万物做焉而不辞</p>
+						<p>生而不有</p>
+						<p>为而不恃</p>
+						<p>功成而不居</p>
+						<p>夫唯弗居</p>
+						<p>是以不去</p>
+					</dd>
+				</dl>
+				<dl>
+					<dt>第三章</dt>
+					<dd style="height: 330px;">
+						<p>不尚贤，使民不争</p>
+						<p>不贵难得之货，使民不为盗</p>
+						<p>不见可欲，使民心不乱</p>
+						<p>是以圣人之治</p>
+						<p>虚其心</p>
+						<p>实其腹</p>
+						<p>弱其志</p>
+						<p>强其骨</p>
+						<p>常使民无知无欲</p>
+						<p>使夫智者不敢为也</p>
+						<p>为无为，则无不治</p>
+					</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+
+
+	<script src="./spscrollbar.js"></script>
+	<script src="./tools.js"></script>
+	<script>
+		/*
+		 sp-scrollbar初始化需要完成的事
+		 1、	如果 有overflow-x:hidden 并且 存在maxWidth  则有X轴滚动
+		 2、	如果 有overflow-y:hidden 并且 存在maxHeight 则有Y轴滚动
+		 3、	参数
+		 	new ScrollBar({
+				el: '#spScrollbar',				// 选择器，必须
+				scrollTop: 0,
+				scrollLeft: 0,
+				time: 150,
+
+				// X滚动轴，默认值
+				XAxis: {
+					top: 'auto',
+					bottom: 0,
+					left: 0,
+					right: 0,
+					height: 10,
+					bgColor: 'rgba(255, 255, 255, 0)',
+					borderRadius: 0,
+					enterShow: true				// 是否鼠标进入才显示
+				},
+				// X滚动条，默认值
+				XBar: {
+					bgColor: 'rgba(255, 255, 255, 1)',
+					borderRadius: 0,
+					enterColor: 'rgba(255, 255, 255, 1)'
+				},
+
+				// Y滚动轴，默认值
+				YAxis: {
+					top: 0,
+					bottom: 0,
+					left: 'auto',
+					right: 0,
+					width: 10,
+					bgColor: 'rgba(255, 255, 255, 0)',
+					borderRadius: 0,
+					enterShow: true				// 是否鼠标进入才显示
+				},
+				// Y滚动条，默认值
+				YBar: {
+					bgColor: 'rgba(255, 255, 255, 1)',
+					borderRadius: 0,
+					enterColor: 'rgba(255, 255, 255, 1)'
+				}
+		 	})
+		*/
+	</script>
+	<script>
+
+		var oSp = new SpScrollBar({
+			el: '#spScrollbar'
+		})
+
+
+		// ***********************************************
+
+		var oDts = document.querySelectorAll('dt');
+
+		for ( var i = 0; i < oDts.length; i++ ) {
+			oDts[i].onclick = function () {
+				var oDds = this.parentNode.querySelectorAll('dd');
+
+				for ( var i = 0; i < oDds.length; i++ ) {
+					if ( this.isShow ) {
+						(function (i) {
+							setTimeout(function () {
+								tools.delClass(oDds[i], 'is-hide');
+							}, 30);
+						})(i)
+					} else {
+						tools.addClass(oDds[i], 'is-hide');
+					}
+				}
+
+				if ( i >= oDds.length ) {
+					this.isShow = !this.isShow;
+				}
+			}
+		}
+
+	</script>
+</body>
+</html>
