@@ -2,65 +2,120 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Hello</title>
+	<title>使用方法</title>
 	<style>
 		* {
 			margin: 0;
 			padding: 0;
 		}
 		body {
+			padding: 40px;
 			background: #ccc;
 		}
-		p {
-			padding: 0 10px;
+		.group {
+			margin: 0 auto;
+			padding: 10px;
+			width: 600px;
+			border-radius: 20px;
+			background: #fff;
+			font-size: 14px;
 			line-height: 30px;
 		}
-		.main {
-			width: 600px;
-			padding: 20px;
-			height: 600px;
-			background: #fff;
-			border-radius: 10px;
-			margin: 0 auto;
+		.group+.group {
+			margin-top: 20px;
 		}
-		.sp-scrollbar {
-			border: 1px solid #888;
-			overflow-y: hidden;
-			overflow-x: hidden;
-			max-width: 400px;
-			max-height: 500px;
-			/*height: 500px;*/
+		.group > h3 {
+			font-size: 16px;
+			font-weight: normal;
+			line-height: 40px;
+		}
+		pre, code {
+			line-height: 20px;
 		}
 
-		.scroll {
-			width: 900px;
+
+		.gp1 .sb1 {
+			overflow-y: hidden;
+			max-height: 300px;
+			border: 1px solid green;
 		}
-		dl {
+		.gp1 dl {
 			line-height: 30px;
 		}
-		dt {
+		.gp1 dt {
 			background: #cc0;
 			cursor: pointer;
 		}
-		dt:hover {
+		.gp1 dt:hover {
 			color: #0cf;
 		}
-		dd {
+		.gp1 dd {
 			transition: all .5s;
 			overflow: hidden;
 		}
-		dl:nth-child(1) dd {
+		.gp1 dl:nth-child(1) dd {
 			height: 120px;
 		}
-		dl dd.is-hide {
+		.gp1 dl dd.is-hide {
 			height: 0 !important;
+		}
+		.gp1 .btn-box {
+			margin-top: 10px;
+		}
+		.gp1 .btn-box button {
+			padding: 0 10px;
+			line-height: 30px;
+		}
+
+		.gp2 .sb2 {
+			overflow-x: hidden;
+			max-width: 300px;
+			border: 1px solid green;
+		}
+		.gp2 .scroll {
+			width: 500px;
+		}
+		.gp2 .scroll::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.gp2 .scroll p {
+			float: left;
+			width: 50px;
+			line-height: 50px;
+			text-align: center;
+			background: #cde;
+		}
+		.gp2 .scroll p:nth-child(2n) {
+			background: #edc;
+		}
+		.gp2 .btn-box {
+			margin-top: 10px;
+		}
+		.gp2 .btn-box button {
+			padding: 0 10px;
+			line-height: 30px;
 		}
 	</style>
 </head>
 <body>
-	<div class="main">
-		<div class="sp-scrollbar" id="spScrollbar">
-			<div class="scroll">
+	<div class="group gp1">
+		<h3>Y轴滚动</h3>
+		<p>要点：包裹成必须设置overflow-y:hidden、max-height之后创建滚动对象，Y轴滚动才会生效</p>
+		<p>初始化</p>
+<pre><code>new SpScrollBar({
+  el: '#id'	// el可以是选择器，也可以是dom对象
+})
+</code></pre>
+		<p>初始滚动距离</p>
+<pre><code>new SpScrollBar({
+  el: '.class',
+  scrollTop: 300
+})
+</code></pre>
+		<div class="sb1" id="sb1">
+			<div>
 				<dl>
 					<dt>第一章</dt>
 					<dd style="height: 300px;">
@@ -115,93 +170,176 @@
 				</dl>
 			</div>
 		</div>
+		<div class="btn-box">
+			<button class="getDisBtn">通过实例的scrollTop方法，获取Y轴滚动距离</button>
+			<p>Y滚动距离：<span class="text"></span></p>
+		</div>
+		<div class="btn-box">
+			<button class="setDisBtn">设置Y轴滚动距离为200</button>
+		</div>
+	</div>
+
+	<div class="group gp2">
+		<h3>X轴滚动</h3>
+		<p>要点：包裹成必须设置overflow-x:hidden、max-width之后创建滚动对象，X轴滚动才会生效</p>
+		<p>注意：X轴滚动必须给滚动层scroll设置宽度。</p>
+		<p>注意：Y轴与X轴同在的情况下，鼠标滚动时，Y轴滚动</p>
+		<div class="sb2" id="sb2">
+			<div class="scroll">
+				<p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p><p>10</p>
+			</div>
+		</div>
+		<div class="btn-box">
+			<button class="getDisBtn">通过实例的scrollLeft方法，获取X轴滚动距离</button>
+			<p>X滚动距离：<span class="text"></span></p>
+		</div>
+		<div class="btn-box">
+			<button class="setDisBtn">设置X轴滚动距离为100</button>
+		</div>
+	</div>
+
+	<div class="group gp3">
+		<h3>默认配置项</h3>
+<pre><code>new SpScrollBar({
+  el: '#spScrollbar',				// 选择器，必须
+  scrollTop: 0,
+  scrollLeft: 0,
+  time: 100,
+  enterShow: true,				// 是否鼠标进入才显示
+
+  // X滚动轴，默认值
+  XAxis: {
+    top: 'auto',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 10,
+    bgColor: 'rgba(255, 255, 255, 0)',
+    borderRadius: 0		
+  },
+  // X滚动条，默认值
+  XBar: {
+    bgColor: 'rgba(144,147,153,.3)',
+    borderRadius: 0,
+    enterColor: 'rgba(144,147,153,.3)'
+  },
+
+  // Y滚动轴，默认值
+  YAxis: {
+    top: 0,
+    bottom: 0,
+    left: 'auto',
+    right: 0,
+    width: 10,
+    bgColor: 'rgba(255, 255, 255, 0)',
+    borderRadius: 0
+  },
+  // Y滚动条，默认值
+  YBar: {
+    bgColor: 'rgba(144,147,153,.3)',
+    borderRadius: 0,
+    enterColor: 'rgba(144,147,153,.3)'
+  }
+})</code></pre>
 	</div>
 
 
-	<script src="./spscrollbar.js"></script>
-	<script src="./tools.js"></script>
+	<script src="spscrollbar.js"></script>
+	<script src="tools.js"></script>
 	<script>
-		/*
-		 sp-scrollbar初始化需要完成的事
-		 1、	如果 有overflow-x:hidden 并且 存在maxWidth  则有X轴滚动
-		 2、	如果 有overflow-y:hidden 并且 存在maxHeight 则有Y轴滚动
-		 3、	参数
-		 	new ScrollBar({
-				el: '#spScrollbar',				// 选择器，必须
-				scrollTop: 0,
-				scrollLeft: 0,
-				time: 150,
-				enterShow: true,				// 是否鼠标进入才显示
+		
+		var oGb1 = {
+			init: function () {
+				this.oGp = document.querySelector('.gp1');
+				this.oSb1 = this.oGp.querySelector('#sb1');
+				this.oDts = this.oGp.querySelectorAll('dt');
 
-				// X滚动轴，默认值
-				XAxis: {
-					top: 'auto',
-					bottom: 0,
-					left: 0,
-					right: 0,
-					height: 10,
-					bgColor: 'rgba(255, 255, 255, 0)',
-					borderRadius: 0		
-				},
-				// X滚动条，默认值
-				XBar: {
-					bgColor: 'rgba(255, 255, 255, 1)',
-					borderRadius: 0,
-					enterColor: 'rgba(255, 255, 255, 1)'
-				},
+				this.oGetDisBtn = this.oGp.querySelector('.getDisBtn');
+				this.oText =this.oGp.querySelector('.text');
 
-				// Y滚动轴，默认值
-				YAxis: {
-					top: 0,
-					bottom: 0,
-					left: 'auto',
-					right: 0,
-					width: 10,
-					bgColor: 'rgba(255, 255, 255, 0)',
-					borderRadius: 0
-				},
-				// Y滚动条，默认值
-				YBar: {
-					bgColor: 'rgba(255, 255, 255, 1)',
-					borderRadius: 0,
-					enterColor: 'rgba(255, 255, 255, 1)'
+				this.oSetDisBtn = this.oGp.querySelector('.setDisBtn');
+
+				this.oSB = null;
+
+				this.initState();
+				this.initEvent();
+			},
+			initState: function () {
+				this.oSB = new SpScrollBar({
+					el: '#sb1',
+					scrollTop: 300
+				})
+			},
+			initEvent: function () {
+				var _this = this;
+
+				this.oGetDisBtn.onclick = function () {
+					_this.oText.innerHTML = _this.oSB.scrollTop();
 				}
-		 	})
-		*/
-	</script>
-	<script>
 
-		var oSp = new SpScrollBar({
-			el: '#spScrollbar'
-		})
+				this.oSetDisBtn.onclick = function () {
+					_this.oSB.scrollTop(200);
+				}
 
 
-		// ***********************************************
+				for ( var i = 0; i < this.oDts.length; i++ ) {
+					this.oDts[i].onclick = function () {
+						var oDds = this.parentNode.querySelectorAll('dd');
 
-		var oDts = document.querySelectorAll('dt');
+						for ( var i = 0; i < oDds.length; i++ ) {
+							if ( this.isShow ) {
+								(function (i) {
+									setTimeout(function () {
+										tools.delClass(oDds[i], 'is-hide');
+									}, 30);
+								})(i)
+							} else {
+								tools.addClass(oDds[i], 'is-hide');
+							}
+						}
 
-		for ( var i = 0; i < oDts.length; i++ ) {
-			oDts[i].onclick = function () {
-				var oDds = this.parentNode.querySelectorAll('dd');
-
-				for ( var i = 0; i < oDds.length; i++ ) {
-					if ( this.isShow ) {
-						(function (i) {
-							setTimeout(function () {
-								tools.delClass(oDds[i], 'is-hide');
-							}, 30);
-						})(i)
-					} else {
-						tools.addClass(oDds[i], 'is-hide');
+						if ( i >= oDds.length ) {
+							this.isShow = !this.isShow;
+						}
 					}
-				}
-
-				if ( i >= oDds.length ) {
-					this.isShow = !this.isShow;
 				}
 			}
 		}
 
+		var oGb2 = {
+			init: function () {
+				this.oGp = document.querySelector('.gp2');
+
+				this.oGetDisBtn = this.oGp.querySelector('.getDisBtn');
+				this.oText =this.oGp.querySelector('.text');
+
+				this.oSetDisBtn = this.oGp.querySelector('.setDisBtn');
+
+				this.oSB = null;
+				this.initState();
+				this.initEvent();
+			},
+			initState: function () {
+				this.oSB = new SpScrollBar({
+					el: '#sb2'
+				})
+			},
+			initEvent: function () {
+				var _this = this;
+
+				this.oGetDisBtn.onclick = function () {
+					_this.oText.innerHTML = _this.oSB.scrollLeft();
+				}
+
+				this.oSetDisBtn.onclick = function () {
+					_this.oSB.scrollLeft(100);
+				}
+			}
+		}
+
+
+		oGb1.init();
+		oGb2.init();
 	</script>
 </body>
 </html>

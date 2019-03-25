@@ -1,5 +1,7 @@
 (function (window, document) {
-
+	/**
+	 * 
+	 */	
 	function SpScrollBar (o) {
 		this._init(o);
 	}
@@ -7,11 +9,15 @@
 	SpScrollBar.prototype = {
 		// 初始化
 		_init: function (o) {
-			if ( typeof o != 'object' || typeof o.el != 'string' ) {
+			if ( typeof o != 'object' || (typeof o.el != 'string' && !(o.el instanceof HTMLElement)) ) {
 				return false;
 			}
 
-			this.oWrapper = document.querySelector(o.el);
+			if (o.el instanceof HTMLElement) {
+				this.oWrapper = o.el;
+			} else {
+				this.oWrapper = document.querySelector(o.el);
+			}
 			if ( !this.oWrapper ) {
 				return false;
 			}
@@ -31,6 +37,7 @@
 		// 初始化状态
 		_initState: function (o) {
 			var pos = getStyle(this.oWrapper, 'position');
+
 			if (pos == 'static') {
 				setStyle(this.oWrapper, {
 					position: 'relative'
@@ -40,13 +47,6 @@
 				position: 'relative',
 				transition: 'transform ' + this.iTime + 'ms linear'
 			})
-
-			if (!isNull(o.scrollTop)) {
-				this._scrollTop(o.scrollTop);
-			}
-			if (!isNull(o.scrollLeft)) {
-				this._scrollLeft(o.scrollLeft);
-			}
 
 			if (this.XExist) {
 				setStyle(this.oXAxis, {
@@ -97,7 +97,7 @@
 			}
 
 			this._setBarSize();
-
+			this._setInitScroll();
 		},
 
 		// 初始化事件
@@ -105,7 +105,6 @@
 			var _this = this;
 
 			onelresize(this.oWrapper, function () {
-				// console.log(1);
 				_this._setAxisShow(true);
 			});
 
@@ -189,9 +188,8 @@
 			}
 			document.addEventListener('mousemove', function (evt) {
 				var e = evt || window.event;
-				evt ? e.preventDefault() : e.returnValue = false;
-
 				if (bYDown) {
+					evt ? e.preventDefault() : e.returnValue = false;
 					var iMove = e.clientY - iStartY;
 					var iTop = 0;
 					iMove += iStartTop;
@@ -200,6 +198,7 @@
 					_this._scrollTop(iTop);
 
 				} else if (bXDown) {
+					evt ? e.preventDefault() : e.returnValue = false;
 					var iMove = e.clientX - iStartX;
 					var iLeft = 0;
 					iMove += iStartLeft;
@@ -285,8 +284,8 @@
 			}
 
 			this.iTime = parseInt(o.time) > 0 ? parseInt(o.time) : 100;		// 过渡时间
-			this.iScrollTop = 0;											// Y滚动距离
-			this.iScrollLeft = 0;											// X滚动距离
+			this.iScrollTop = o.scrollTop || 0;								// Y滚动距离
+			this.iScrollLeft = o.scrollLeft || 0;							// X滚动距离
 			this.enterShow = o.enterShow === false ? false : true;			// 是否进入才显示滚动条
 		},
 
@@ -334,6 +333,19 @@
 				
 				this.iYMin = 0;
 				this.iYMax = this.iYAH - this.iYBH;
+			}
+		},
+
+		// 设置初始滚动尺寸
+		_setInitScroll: function () {
+			if (this.iScrollTop != 0 || this.iScrollLeft != 0) {
+				var _this = this;
+				this._setTransS(0);
+				this.scrollTop(this.iScrollTop);
+				this._scrollLeft(this.iScrollLeft);
+				setTimeout(function () {
+					_this._setTransS(_this.iTime);
+				}, 50);
 			}
 		},
 
@@ -448,7 +460,7 @@
 				this._scrollLeft(num);
 				this._setXBarLeft(iXLeft);
 			} else {
-				return this.iScrollTop;
+				return this.iScrollLeft;
 			}
 		},
 
