@@ -51,7 +51,7 @@
 			if (this.XExist) {
 				setStyle(this.oXAxis, {
 					position: 'absolute',
-					opacity: 0,
+					opacity: this.enterShow ? 0 : 1,
 					transition: 'opacity 200ms',
 					top: this.XAxis.top,
 					bottom: this.XAxis.bottom,
@@ -75,7 +75,7 @@
 			if (this.YExist) {
 				setStyle(this.oYAxis, {
 					position: 'absolute',
-					opacity: 0,
+					opacity: this.enterShow ? 0 : 1,
 					transition: 'opacity 200ms',
 					top: this.YAxis.top,
 					bottom: this.YAxis.bottom,
@@ -105,7 +105,8 @@
 			var _this = this;
 
 			onelresize(this.oWrapper, function () {
-				console.log(1);
+				// console.log(1);
+				_this._setAxisShow(true);
 			});
 
 			// 滚动层高度改变时，更新尺寸，更新滚动距离
@@ -172,7 +173,8 @@
 					iStartLeft = parseInt(getStyle(this, 'left'));
 					iStartLeft = iStartLeft > 0 ? iStartLeft : 0;
 				}
-			} else if (this.YExist) {
+			}
+			if (this.YExist) {
 				this.oYBar.onmousedown = function (evt) {
 					var e = evt || window.event;
 					evt ? e.preventDefault() : e.returnValue = false;
@@ -219,7 +221,7 @@
 					bXDown =false;
 					_this._setTransX(_this.iTime);
 					_this._setTransS(_this.iTime);
-					if (bEnter) {
+					if (!bEnter) {
 						_this._setAxisShow(false);
 					}
 				}
@@ -238,14 +240,13 @@
 					_this._setAxisShow(false);
 				}
 			}
-
 		},
 
 		// 初始参数
 		_initParam: function (o) {
 			var overflowX = getStyle(this.oWrapper, 'overflow-x');
-			var iMaxW = parseInt(getStyle(this.oWrapper, 'maxWidth'));
-			if (overflowX == 'hidden' && iMaxW > 0) {
+			this.iMaxW = parseInt(getStyle(this.oWrapper, 'maxWidth'));
+			if (overflowX == 'hidden' && this.iMaxW > 0) {
 				this.XExist = true;
 				this.XAxis = o.XAxis || {};
 				this.XAxis.top = this.XAxis.top ? parseInt(this.XAxis.top) + 'px' : 'auto';
@@ -264,8 +265,8 @@
 			}
 
 			var overflowY = getStyle(this.oWrapper, 'overflow-y');
-			var iMaxH = parseInt(getStyle(this.oWrapper, 'maxHeight'));
-			if (overflowY && iMaxH > 0) {
+			this.iMaxH = parseInt(getStyle(this.oWrapper, 'maxHeight'));
+			if (overflowY && this.iMaxH > 0) {
 				this.YExist = true;
 				this.YAxis = o.YAxis || {};
 				this.YAxis.top = this.YAxis.top ? parseInt(this.YAxis.top) + 'px' : 0;
@@ -283,9 +284,10 @@
 				this.YBar.enterColor = this.YBar.enterColor || 'rgba(144,147,153,.3)';
 			}
 
-			this.iTime = parseInt(o.time) > 0 ? parseInt(o.time) : 100;
-			this.iScrollTop = 0;
-			this.iScrollLeft = 0;
+			this.iTime = parseInt(o.time) > 0 ? parseInt(o.time) : 100;		// 过渡时间
+			this.iScrollTop = 0;											// Y滚动距离
+			this.iScrollLeft = 0;											// X滚动距离
+			this.enterShow = o.enterShow === false ? false : true;			// 是否进入才显示滚动条
 		},
 
 		// 初始化结构
@@ -374,28 +376,17 @@
 
 		// 设置滚动轴显隐
 		_setAxisShow: function (bl) {
-			if (bl) {
-				if (this.XExist) {
-					setStyle(this.oXAxis, {
-						opacity: 1
-					})
-				}
-				if (this.YExist) {
-					setStyle(this.oYAxis, {
-						opacity: 1
-					})
-				}
-			} else {
-				if (this.XExist) {
-					setStyle(this.oXAxis, {
-						opacity: 0
-					})
-				}
-				if (this.YExist) {
-					setStyle(this.oYAxis, {
-						opacity: 0
-					})
-				}
+			if (this.XExist) {
+				var bMaxW = this.oXAxis.clientWidth == this.oXBar.clientWidth ? true : false;
+				setStyle(this.oXAxis, {
+					opacity: bMaxW ? 0 : !this.enterShow ? 1 : bl ? 1 : 0
+				})
+			}
+			if (this.YExist) {
+				var bMaxH = this.oYAxis.clientHeight == this.oYBar.clientHeight ? true : false;
+				setStyle(this.oYAxis, {
+					opacity: bMaxH ? 0 : !this.enterShow ? 1 : bl ? 1 : 0
+				})
 			}
 		},
 
