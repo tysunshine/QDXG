@@ -17,7 +17,12 @@
 
 			this._initParam(o);
 			this._initStructure();
+			this._initState();
 			this._initEvent();
+		},
+
+		_initState: function () {
+			this.oDialog.addClass('dialog-box');
 		},
 
 		_initEvent: function () {
@@ -74,23 +79,27 @@
 		},
 
 		show: function () {
-			this.oDialog.css({
-				display: 'block'
-			})
-			this.oDialog.animate({
-				opacity: 1
-			}, 300);
+			var _this = this;
+
+			new Delay(function () {
+				_this.oDialog.css({
+					display: 'block'
+				})
+			}).then(function () {
+				_this.oDialog.addClass('is-show');
+			}).do();
 		},
 
 		hide: function () {
 			var _this = this;
-			this.oDialog.animate({
-				opacity: 0
-			}, 300, function () {
+
+			new Delay(function () {
+				_this.oDialog.removeClass('is-show');
+			}).then(300, function () {
 				_this.oDialog.css({
 					display: 'none'
 				})
-			})
+			}).do();
 		}
 	}
 
