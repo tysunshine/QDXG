@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalabel=no"/>
+    <title>选座</title>
+    <link rel="stylesheet" type="text/css" href="./carNoKeyBoard.css">
+    <style>
+    	* {
+    		margin: 0;
+    		padding: 0;
+    	}
+    	body {
+    		padding-top: 60px;
+    	}
+    	li {
+    		list-style: none;
+    	}
+
+    	.carno-list {
+    		margin: 0 auto;
+    		width: 280px;
+    	}
+    	.carno-list::after {
+    		content: '';
+    		display: block;
+    		clear: both;
+    	}
+   		.carno-list li {
+   			position: relative;
+   			float: left;
+   			width: 32px;
+   			height: 38px;
+   			border: 1px solid #ccc;
+   			border-radius: 4px;
+   			box-sizing: border-box;
+   			line-height: 36px;
+   			text-align: center;
+   		}
+   		.carno-list li+li {
+   			margin-left: 2px;
+   		}
+        .carno-list li.is-hover {
+            border-color: #1AAD19;
+        }
+        .carno-list li:nth-child(2) {
+            margin-right: 10px; 
+        }
+        .carno-list li:nth-child(2)::before {
+            content: '·';
+            position: absolute;
+            right: -9px;
+            top: 0;
+            bottom: 0;
+            line-height: 38px;
+        }
+        .carno-list li.new {
+            background: url(./xny.jpg) no-repeat center;
+            background-size: 100% auto;
+        }
+    </style>
+</head>
+<body>
+
+	<ul class="carno-list">
+		<li class="area"></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li class="new"></li>
+	</ul>
+
+	<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+	<script src="./carNoKeyBoard.js"></script>
+    <script>
+    	$(function () {
+    		var oPage = {
+    			init: function () {
+    				this.oCarNoItem = $('.carno-list li');
+
+                    this.maxIdx = 6;        // 最大下标
+                    this.noIdx = 0;         // 号码下标
+
+    				this._initState();
+    				this._initEvent();
+    			},
+
+    			_initState: function () {
+                    var _this = this;
+
+    				carNoKeyBoard.init({
+                        keyClick: function (val) {
+                            if (val == -1) {
+                                $(_this.oCarNoItem[_this.noIdx]).text('');
+
+                                if (_this.noIdx > 0) {
+                                    $(_this.oCarNoItem[_this.noIdx - 1]).click();
+                                }
+
+                            } else {
+                                $(_this.oCarNoItem[_this.noIdx]).text(val);
+
+                                if (_this.noIdx < _this.maxIdx) {
+                                    $(_this.oCarNoItem[_this.noIdx + 1]).click();
+                                }
+                            }
+                        }
+                    });
+    		    },
+
+    		    _initEvent: function () {
+                    var _this = this;
+                    this.oCarNoItem.on('click', function () {
+                        var oTag = $(this);
+                        var idx = oTag.index();
+
+
+                        // 如果是新能源
+                        if (oTag.hasClass('new')) {
+                            oTag.css({
+                                backgroundImage: 'none'
+                            })
+                            _this.maxIdx = 7;
+                        }
+
+                        // 添加is-hover类
+                        _this.oCarNoItem.removeClass('is-hover');
+                        oTag.addClass('is-hover');
+
+                        // 显示键盘
+                        if (oTag.hasClass('area')) {
+                            carNoKeyBoard.show(idx);
+                        } else {
+                            carNoKeyBoard.show(idx);
+                        }
+                        _this.noIdx = idx;
+                    })
+    			}
+    		}
+
+    		oPage.init();
+    	})
+    </script>
+</body>
+</html>

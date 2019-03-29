@@ -1,0 +1,51 @@
+.keyboard-box {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	transform: translateY(100%);
+	opacity: 0;
+	transition: transform 500ms, opacity 500ms;
+	z-index: 3000;
+	background: #CFD3DC;
+}
+.keyboard-box .header {
+	height: 30px;
+	border-top: 1px solid #ccc;
+	background: #fff;
+	text-align: right;
+}
+.keyboard-box .header .ok-btn {
+	display: inline-block;
+	padding: 0 8px;
+	color: #5F7BF6;
+	line-height: 30px;
+	cursor: pointer;
+}
+
+.keyboard-box .content ul::after {
+	content: '';
+	display: block;
+	clear: both;
+}
+.keyboard-box .content li {
+	float: left;
+	margin: 4px 0;
+	width: 10%;
+	text-align: center;
+}
+.keyboard-box .content li span {
+	display: inline-block;
+	width: 88%;
+	max-width: 40px;
+	height: 40px;
+	line-height: 40px;
+	background: #fff;
+	border-radius: 3px;
+	color: #444;
+	cursor: pointer;
+}
+.keyboard-box .content li span.is-disabled {
+	background: #999;
+	cursor: auto;
+}
