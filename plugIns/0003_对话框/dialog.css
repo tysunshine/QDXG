@@ -1,0 +1,68 @@
+.dialog-box {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, .4);
+  opacity: 0;
+}
+.dialog-box ._main {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  background: #fff;
+  border-radius: 10px;
+  text-align: center;
+  overflow: hidden;
+}
+.dialog-box ._header {
+  font-size: 18px;
+  padding: 15px 15px 5px;
+  line-height: 20px;
+}
+.dialog-box ._content {
+  padding: 15px 15px 20px;
+  min-height: 60px;
+  line-height: 60px;
+  font-size: 16px;
+  color: #888;
+  vertical-align: middel;
+}
+.dialog-box ._footer {
+  height: 46px;
+  border-top: 1px solid #ccc;
+  overflow: hidden;
+}
+.dialog-box ._footer::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.dialog-box ._btn {
+  float: left;
+  width: 50%;
+  box-sizing: border-box;
+  color: #353535;
+  background: #fff;
+  border: none;
+  outline: medium;
+  cursor: pointer;
+  border-radius: 0;
+  font-size: 17px;
+  line-height: 46px;
+}
+.dialog-box ._btn::after {
+  border:none;
+}
+.dialog-box ._btn:nth-child(2) {
+  border-left: 1px solid #ccc;
+  color: #3CC51F;
+}
+.dialog-box ._btn.is-hover {
+  background: #eee;
+}
