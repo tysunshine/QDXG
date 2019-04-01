@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Hello</title>
+	<link rel="stylesheet" type="text/css" href="../messagebox.css">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+
+	<script src="../jquery-1.9.1.min.js"></script>
+	<script src="../../delay.js"></script>
+	<script src="alert.js"></script>
+	<script>
+		
+		new Alert('你好',{
+			confirmFn: function () {
+				this.close();
+			}
+		});
+
+	</script>
+</body>
+</html>
