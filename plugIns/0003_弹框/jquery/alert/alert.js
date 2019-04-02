@@ -36,7 +36,7 @@
 
 			this.oRoot = null;		// 根节点
 			this.oContent = null;	// 显示内容
-			this.oConfrim = null;	// 确定按钮
+			this.oOk = null;		// 确定按钮
 
 			this._initParam();
 			this._initStructure();
@@ -58,9 +58,9 @@
 			})
 
 			// 确定按钮点击
-			this.oConfirm.on('click', function () {
-				if (_this.config.confirmFn) {
-					_this.config.confirmFn.apply(_this);
+			this.oOk.on('click', function () {
+				if (_this.config.onOk) {
+					_this.config.onOk.apply(_this);
 				} else {
 					_this.close();
 				}
@@ -68,7 +68,7 @@
 		},
 
 		_initParam: function () {
-			this.confirmText = this.config.confirmText || '确定';
+			this.okText = this.config.okText || '确定';
 		},
 
 		_initStructure: function () {
@@ -77,12 +77,12 @@
 						<div class="_header">${this.title}</div>
 						<div class="_message"><p>${this.msg}</p></div>
 						<div class="_footer">
-							<button class="_confirm-btn">${this.confirmText}</button>
+							<button class="_ok-btn">${this.okText}</button>
 						</div>
 					</div>
 				</div>`);
 			this.oContent = this.oRoot.find('._content');
-			this.oConfirm = this.oRoot.find('._confirm-btn');
+			this.oOk = this.oRoot.find('._ok-btn');
 			$('body').append(this.oRoot);
 		},
 
