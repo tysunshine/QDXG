@@ -35,15 +35,15 @@
   line-height: 20px;
 }
 ._wrapper ._message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 15px 15px 20px;
   min-height: 60px;
-  line-height: 60px;
   font-size: 16px;
   color: #888;
-  vertical-align: middle;
 }
 ._wrapper ._message p {
-  display: inline-block;
   line-height: 30px;
 }
 ._wrapper ._footer {
@@ -58,6 +58,8 @@
 }
 ._wrapper ._footer button {
   float: left;
+  margin: 0;
+  padding: 0;
   width: 50%;
   box-sizing: border-box;
   color: #353535;
@@ -80,7 +82,26 @@
   background: #eee;
 }
 
-.alert-box ._footer button {
+.alert-box._wrapper ._footer button {
   width: 100%;
   color: #3CC51F;
 }
+.prompt-box._wrapper ._message {
+  min-height: auto;
+  padding-bottom: 10px;
+}
+.prompt-box._wrapper ._input-box {
+  padding-bottom: 15px;
+}
+.prompt-box._wrapper ._input {
+  display: block;
+  margin: 0 auto;
+  padding: 0 6px;
+  width: 220px;
+  height: 30px;
+  line-height: 28px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  outline: medium;
+}
+

@@ -1,44 +1,43 @@
 (function (window, document) {
-
 	function Alert() {
-		var arg1 = arguments[0];
-		var arg2 = arguments[1];
-		var arg3 = arguments[2];
+		var arg1 = arguments[0],
+			arg2 = arguments[1],
+			arg3 = arguments[2];
 
-		var ty1 = typeof arg1;
-		var ty2 = typeof arg2;
-		var ty3 = typeof arg3;
+		var ty1 = typeof arg1,
+			ty2 = typeof arg2,
+			ty3 = typeof arg3;
 
-		if (!arg1) {
-			return;
+		var text = '',
+			title = '提示',
+			okText = '确定',
+			onOk = null;
+
+		if (ty1 == 'object') {
+			text = arg1.text || text;
+			title = arg1.title || title;
+			onOk = arg1.onOk || onOk;
+			okText = arg1.okText || okText;
+		} else {
+			text = ty1 == 'string' ? arg1 : text;
+			title = ty2 == 'string' ? arg2 : title;
+			onOk = ty3 == 'function' ? arg3 : onOk;
 		}
 
-		if (ty2 == 'object') {
-			arg3 = arg2;
-		}
+		this.text = text;
+		this.title = title;
+		this.okText = okText;
+		this.onOk = onOk;
 
-		if (ty2 != 'object' && ty3 != 'object') {
-			arg3 = {}
-		}
-
-		if (ty2 != 'string') {
-			arg2 = '提示';
-		}
-
-		this._init(arg1, arg2, arg3);
+		this._init();
 	}
 
 	Alert.prototype = {
-		_init: function (msg, title, config) {
-			this.msg = msg;
-			this.title = title;
-			this.config = config;
-
+		_init: function () {
 			this.oRoot = null;		// 根节点
 			this.oContent = null;	// 显示内容
 			this.oOk = null;		// 确定按钮
 
-			this._initParam();
 			this._initStructure();
 			this._initEvent();
 			this.show();
@@ -60,16 +59,11 @@
 
 			// 确定按钮点击
 			this.oOk.onclick = function () {
-				if (_this.config.onOk) {
-					_this.config.onOk.apply(_this);
-				} else {
-					_this.close();
+				_this.close();
+				if (_this.onOk) {
+					_this.onOk();
 				}
 			}
-		},
-
-		_initParam: function () {
-			this.okText = this.config.okText || '确定';
 		},
 
 		_initStructure: function () {
@@ -77,7 +71,7 @@
 			this.oRoot.className = 'alert-box _wrapper';
 			this.oRoot.innerHTML = `<div class="_content">
 					<div class="_header">${this.title}</div>
-					<div class="_message"><p>${this.msg}</p></div>
+					<div class="_message"><p>${this.text}</p></div>
 					<div class="_footer">
 						<button class="_ok-btn">${this.okText}</button>
 					</div>

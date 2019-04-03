@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Hello</title>
+	<link rel="stylesheet" type="text/css" href="../../messagebox.css">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			padding: 20px 0;
+		}
+		button {
+			display: block;
+			margin: 0 auto;
+			width: 100%;
+			height: 46px;
+			line-height: 46px;
+			border-radius: 5px;
+			background: #1AAD19;
+			border: none;
+			color: #fff;
+			font-size: 18px;
+			outline: medium;
+			cursor: pointer;
+		}
+		button+button {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+
+	<button onclick="show1()">输入框一</button>
+	<button onclick="show2()">输入框二</button>
+	<button onclick="show3()">确定</button>
+	<button onclick="show4()">确定取消</button>
+	<button onclick="show5()">输入框五</button>
+
+	<script src="../jquery-1.9.1.min.js"></script>
+	<script src="../../delay.js"></script>
+	<script src="prompt.js"></script>
+	<script>
+		
+		function show1 () {
+			new Prompt('内容内容内容');
+		}
+
+		function show2 () {
+			new Prompt('内容内容内容', '我是标题');
+		}
+
+		function show3 () {
+			new Prompt('内容内容内容', null, function (val) {
+				console.log(val);
+			});
+		}
+
+		function show4 () {
+			new Prompt('内容内容内容', null, function (val) {
+				console.log(val);
+			}, function () {
+				console.log('点击取消');
+			});
+		}
+
+		function show5 () {
+			new Prompt({
+				text: '名字不能超过6个字符，不得出现不和谐文字',
+				title: '请输入姓名',
+				input: 'Mr.wang',
+				okText: 'OK',
+				cancelText: 'NO',
+				onOk: function (val) {
+					console.log(val);
+				},
+				onCancel: function () {
+					console.log('取消');
+				}
+			});
+		}
+
+	</script>
+</body>
+</html>

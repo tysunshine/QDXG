@@ -4,26 +4,83 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Hello</title>
-	<link rel="stylesheet" type="text/css" href="../messagebox.css">
+	<link rel="stylesheet" type="text/css" href="../../messagebox.css">
 	<style>
 		* {
 			margin: 0;
 			padding: 0;
 		}
+		body {
+			padding: 20px 0;
+		}
+		button {
+			display: block;
+			margin: 0 auto;
+			width: 100%;
+			height: 46px;
+			line-height: 46px;
+			border-radius: 5px;
+			background: #1AAD19;
+			border: none;
+			color: #fff;
+			font-size: 18px;
+			outline: medium;
+			cursor: pointer;
+		}
+		button+button {
+			margin-top: 20px;
+		}
 	</style>
 </head>
 <body>
+
+	<button onclick="show1()">对话框一</button>
+	<button onclick="show2()">对话框二</button>
+	<button onclick="show3()">确定</button>
+	<button onclick="show4()">确定取消</button>
+	<button onclick="show5()">对话框五</button>
 
 	<script src="../tools.js"></script>
 	<script src="../../delay.js"></script>
 	<script src="confirm.js"></script>
 	<script>
 		
-		new Confirm('你好',{
-			onOk: function () {
-				this.close();
-			}
-		});
+		function show1 () {
+			new Confirm('内容内容内容');
+		}
+
+		function show2 () {
+			new Confirm('内容内容内容', '我是标题');
+		}
+
+		function show3 () {
+			new Confirm('内容内容内容', null, function () {
+				console.log('点击确定');
+			});
+		}
+
+		function show4 () {
+			new Confirm('内容内容内容', null, function () {
+				console.log('点击确定');
+			}, function () {
+				console.log('点击取消');
+			});
+		}
+
+		function show5 () {
+			new Confirm({
+				text: '内容一堆',
+				title: '这是一个标题',
+				okText: 'OK',
+				cancelText: 'NO',
+				onOk: function () {
+					console.log('确定');
+				},
+				onCancel: function () {
+					console.log('取消');
+				}
+			});
+		}
 
 	</script>
 </body>

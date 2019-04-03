@@ -1,45 +1,54 @@
 (function (window, document) {
 
 	function Confirm() {
-		var arg1 = arguments[0];
-		var arg2 = arguments[1];
-		var arg3 = arguments[2];
+		var arg1 = arguments[0],
+			arg2 = arguments[1],
+			arg3 = arguments[2],
+			arg4 = arguments[3];
 
-		var ty1 = typeof arg1;
-		var ty2 = typeof arg2;
-		var ty3 = typeof arg3;
+		var ty1 = typeof arg1,
+			ty2 = typeof arg2,
+			ty3 = typeof arg3,
+			ty4 = typeof arg4;
 
-		if (!arg1) {
-			return;
+		var text = '',
+			title = '提示',
+			okText = '确定',
+			cancelText = '取消',
+			onOk = null,
+			onCancel = null;
+
+		if (ty1 == 'object') {
+			text = arg1.text || text;
+			title = arg1.title || title;
+			okText = arg1.okText || okText;
+			cancelText = arg1.cancelText || cancelText;
+			onOk = typeof arg1.onOk == 'function' ? arg1.onOk : null;
+			onCancel = typeof arg1.onCancel == 'function' ? arg1.onCancel : null;
+		} else {
+			text = ty1 == 'string' ? arg1 : text;
+			title = ty2 == 'string' ? arg2 : title;
+			onOk = ty3 == 'function' ? arg3 : onOk;
+			onCancel = ty4 == 'function' ? arg4 : onCancel;
 		}
 
-		if (ty2 == 'object') {
-			arg3 = arg2;
-		}
+		this.text = text;
+		this.title = title;
+		this.okText = okText;
+		this.cancelText = cancelText;
+		this.onOk = onOk;
+		this.onCancel = onCancel;
 
-		if (ty2 != 'object' && ty3 != 'object') {
-			arg3 = {}
-		}
-
-		if (ty2 != 'string') {
-			arg2 = '提示';
-		}
-
-		this._init(arg1, arg2, arg3);
+		this._init();
 	}
 
 	Confirm.prototype = {
-		_init: function (msg, title, config) {
-			this.msg = msg;
-			this.title = title;
-			this.config = config;
-
+		_init: function () {
 			this.oRoot = null;		// 根节点
 			this.oContent = null;	// 显示内容
 			this.oOk = null;		// 确定按钮
 			this.oCancel = null;	// 取消按钮
 
-			this._initParam();
 			this._initStructure();
 			this._initEvent();
 			this.show();
@@ -60,33 +69,26 @@
 
 			// 确定按钮点击
 			this.oOk.on('click', function () {
-				if (_this.config.onOk) {
-					_this.config.onOk.apply(_this);
-				} else {
-					_this.close();
+				_this.close();
+				if (_this.onOk) {
+					_this.onOk();
 				}
 			})
 
 			// 取消按钮点击
 			this.oCancel.on('click', function () {
-				if (_this.config.onCancel) {
-					_this.config.onCancel.apply(_this);
-				} else {
-					_this.close();
+				_this.close();
+				if (_this.onCancel) {
+					_this.onCancel();
 				}
 			})
-		},
-
-		_initParam: function () {
-			this.okText = this.config.okText || '确定';
-			this.cancelText = this.config.cancelText || '取消';
 		},
 
 		_initStructure: function () {
 			this.oRoot = $(`<div class="confirm-box _wrapper">
 						<div class="_content">
 						<div class="_header">${this.title}</div>
-						<div class="_message"><p>${this.msg}</p></div>
+						<div class="_message"><p>${this.text}</p></div>
 						<div class="_footer">
 							<button class="_cancel-btn">${this.cancelText}</button>
 							<button class="_ok-btn">${this.okText}</button>

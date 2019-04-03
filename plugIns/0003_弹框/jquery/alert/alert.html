@@ -4,26 +4,71 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Hello</title>
-	<link rel="stylesheet" type="text/css" href="../messagebox.css">
+	<link rel="stylesheet" type="text/css" href="../../messagebox.css">
 	<style>
 		* {
 			margin: 0;
 			padding: 0;
 		}
+		body {
+			padding: 20px 0;
+		}
+		button {
+			display: block;
+			margin: 0 auto;
+			width: 100%;
+			height: 46px;
+			line-height: 46px;
+			border-radius: 5px;
+			background: #1AAD19;
+			border: none;
+			color: #fff;
+			font-size: 18px;
+			outline: medium;
+			cursor: pointer;
+		}
+		button+button {
+			margin-top: 20px;
+		}
 	</style>
 </head>
 <body>
+
+	<button onclick="show1()">对话框一</button>
+	<button onclick="show2()">对话框二</button>
+	<button onclick="show3()">对话框三</button>
+	<button onclick="show4()">对话框四</button>
 
 	<script src="../jquery-1.9.1.min.js"></script>
 	<script src="../../delay.js"></script>
 	<script src="alert.js"></script>
 	<script>
 		
-		new Alert('你好',{
-			confirmFn: function () {
+		function show1 () {
+			new Alert('内容内容内容');
+		}
+
+		function show2 () {
+			new Alert('内容内容内容内容内容内容内容内容内容', '标题标题');
+		}
+
+		function show3 () {
+			new Alert('内容内容内容内容内容内容内容内容内容', null, function () {
+				alert('我要关闭了！');
 				this.close();
-			}
-		});
+			})
+		}
+
+		function show4 () {
+			new Alert({
+				title: '我是标题',
+				text: '我是内容，内容呀',
+				okText: 'OK',
+				onOk: function () {
+					this.close();
+				}
+			})
+		}
 
 	</script>
 </body>
