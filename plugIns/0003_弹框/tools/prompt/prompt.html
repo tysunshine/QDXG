@@ -42,6 +42,7 @@
 
 	<script src="../tools.js"></script>
 	<script src="../../delay.js"></script>
+	<script src="../alert/alert.js"></script>
 	<script src="prompt.js"></script>
 	<script>
 		
@@ -61,7 +62,7 @@
 
 		function show4 () {
 			new Prompt('内容内容内容', null, function (val) {
-				console.log(val);
+				new Alert('我的名字是：' + val, '名称');
 			}, function () {
 				console.log('点击取消');
 			});
