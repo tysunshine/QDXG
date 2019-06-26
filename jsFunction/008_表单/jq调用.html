@@ -21,8 +21,16 @@
 			border: 1px solid #999;
 			background: #fefefe;
 		}
+
+
 		.name-check-box {
 			height: 60px;
+		}
+		.form-box .my-check-item {
+			padding-left: 60px;
+		}
+		.form-box .my-check-item .label-box {
+			width: 60px;
 		}
 	</style>
 
@@ -30,7 +38,6 @@
 <body>
 
 	<div class="form-box">
-
 		<div class="my-check-item is-require name-check-box">
 			<div class="label-box">
 				<div class="label">姓名</div>
@@ -51,7 +58,7 @@
 			</div>
 		</div>
 
-		<div class="my-check-item is-require">
+		<div class="my-check-item">
 			<div class="label-box">
 				<div class="label">性别</div>
 			</div>
@@ -104,8 +111,8 @@
 
 					sex: [{
 						fn: function (val) {
-							if (val.trim().length ==  0) {
-								return '请输入性别'
+							if (val.trim() == '') {
+								return '';
 							}
 							if (val != '男' && val != '女') {
 								return '性别为男或女';

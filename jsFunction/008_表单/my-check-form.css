@@ -13,6 +13,10 @@
 	text-align: right;
 	color: #666;
 }
+.my-check-item .label {
+	position: relative;
+	display: inline-block;
+}
 .my-check-item .input-box {
 	position: relative;
 	height: 40px;
@@ -50,11 +54,12 @@
 }
 
 
-/*错误*/
-.my-check-item.is-error {
-	/*margin-bottom: 20px;*/
+/*必填*/
+.my-check-item.is-require .label::before {
+	content: '*';
+	position: absolute;
+	height: 20px;
+	left: -10px;
+	top: 3px;
+	color: red;
 }
-.my-check-item.is-error .tip {
-	display: block;
-}
-
