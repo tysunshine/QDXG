@@ -29,12 +29,12 @@
      * console.log($.MyCheckForm.validate());	// 结果true/false
      **/
 
-	var MyCheckForm = (function () {
+	$.MyCheckForm = (function () {
 
 		var oDeploy = null;
 		var oCheckList = null;
 
-		var initState = function () {
+		var _initState = function () {
 			oCheckList = {};
 			for (var id in oDeploy.rules) {
 
@@ -53,19 +53,19 @@
 		}
 
 		// 绑定事件
-		var initEvent = function () {
+		var _initEvent = function () {
 			for (var id in oCheckList) {
 
 				oDeploy.rules[id].forEach(function (item, idx, arr) {
 					oCheckList[id].on(item.type, function () {
-						setErrorType($(this), item.fn);
+						_setErrorType($(this), item.fn);
 					})
 				})
 			}
 		}
 
 
-		var setErrorType = function (oTag, fn) {
+		var _setErrorType = function (oTag, fn) {
 			var oTip = oTag.prev();
 			var oBox = oTag.parent();
 			var val = oTag.val();		// 当前输入框值
@@ -106,8 +106,8 @@
 				oDeploy = o;
 
 
-				initState();
-				initEvent();
+				_initState();
+				_initEvent();
 
 			},
 
@@ -118,7 +118,7 @@
 				}
 				for (var id in oCheckList) {
 					oDeploy.rules[id].forEach(function (item, idx, arr) {
-						var res = setErrorType(oCheckList[id], item.fn);
+						var res = _setErrorType(oCheckList[id], item.fn);
 						if (bl && !res) {
 							bl = false;
 						}
@@ -130,7 +130,13 @@
 		}
 	})()
 
-	$.MyCheckForm = MyCheckForm;
+	var MyCheckForm = function (o) {
+		$.MyCheckForm.init(o);
+	}
+
+	MyCheckForm.prototype.validate = function () {
+		return $.MyCheckForm.validate();
+	}
 
 	if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(MyCheckForm);
