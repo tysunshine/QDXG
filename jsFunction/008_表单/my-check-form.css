@@ -1,0 +1,60 @@
+.my-check-item {
+	position: relative;
+	padding-left: 160px;
+	line-height: 40px;
+}
+.my-check-item .label-box {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 160px;
+	height: 40px;
+	padding-right: 10px;
+	text-align: right;
+	color: #666;
+}
+.my-check-item .input-box {
+	position: relative;
+	height: 40px;
+}
+.my-check-item .input-box::after {
+	content: '';
+	display: block;
+	clear: both;
+}
+.my-check-item .input-box .tip {
+	display: none;
+	position: absolute;
+	bottom: -20px;
+	line-height: 20px;
+	left: 0;
+	color: #f56c6c;
+	font-size: 12px;
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.my-check-item .input-box input {
+	float: left;
+	margin-top: 4px;
+	padding: 0 10px;
+	width: 100%;
+	height: 32px;
+	border: 1px solid #cfcfcf;
+	border-radius: 4px;
+	line-height: 30px;
+}
+.my-check-item .input-box input:hover {
+	border-color: #bbb;
+}
+
+
+/*错误*/
+.my-check-item.is-error {
+	/*margin-bottom: 20px;*/
+}
+.my-check-item.is-error .tip {
+	display: block;
+}
+
