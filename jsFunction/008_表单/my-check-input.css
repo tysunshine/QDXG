@@ -1,32 +1,32 @@
-.my-check-item {
+.my-check-input {
 	position: relative;
-	padding-left: 160px;
+	padding-left: 100px;
 	line-height: 40px;
 }
-.my-check-item .label-box {
+.my-check-input .label-box {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 160px;
+	width: 100px;
 	height: 40px;
 	padding-right: 10px;
 	text-align: right;
 	color: #666;
 }
-.my-check-item .label {
+.my-check-input .label {
 	position: relative;
 	display: inline-block;
 }
-.my-check-item .input-box {
+.my-check-input .input-box {
 	position: relative;
 	height: 40px;
 }
-.my-check-item .input-box::after {
+.my-check-input .input-box::after {
 	content: '';
 	display: block;
 	clear: both;
 }
-.my-check-item .input-box .tip {
+.my-check-input .input-box .tip {
 	display: none;
 	position: absolute;
 	bottom: -20px;
@@ -39,7 +39,7 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
-.my-check-item .input-box input {
+.my-check-input .input-box input {
 	float: left;
 	margin-top: 4px;
 	padding: 0 10px;
@@ -49,13 +49,13 @@
 	border-radius: 4px;
 	line-height: 30px;
 }
-.my-check-item .input-box input:hover {
+.my-check-input .input-box input:hover {
 	border-color: #bbb;
 }
 
 
 /*必填*/
-.my-check-item.is-require .label::before {
+.my-check-input.is-require .label::before {
 	content: '*';
 	position: absolute;
 	height: 20px;

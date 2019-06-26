@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>表单验证方法</title>
-	<link rel="stylesheet" type="text/css" href="./my-check-form.css">
+	<link rel="stylesheet" type="text/css" href="./my-check-input.css">
 	<style>
 		* {
 			margin: 0;
@@ -31,7 +31,7 @@
 
 	<div class="form-box">
 
-		<div class="my-check-item is-require name-check-box">
+		<div class="my-check-input is-require name-check-box">
 			<div class="label-box">
 				<div class="label">姓名</div>
 			</div>
@@ -41,7 +41,7 @@
 			</div>
 		</div>
 
-		<div class="my-check-item is-require">
+		<div class="my-check-input is-require">
 			<div class="label-box">
 				<div class="label">年龄</div>
 			</div>
@@ -51,7 +51,7 @@
 			</div>
 		</div>
 
-		<div class="my-check-item is-require">
+		<div class="my-check-input is-require">
 			<div class="label-box">
 				<div class="label">性别</div>
 			</div>
@@ -66,15 +66,15 @@
 	</div>
 
 	<script src="./jquery.min.js"></script>
-	<script src="./my-check-form.js"></script>
+	<script src="./my-check-input.js"></script>
 	<script>
 
 
 		$(function () {
 			var okBtn = $('#okBtn');
 
-			var myCheckForm = new MyCheckForm({
-				class: 'my-check-item',
+			var myCheckInput = new MyCheckInput({
+				class: 'my-check-input',
 				rules: {
 					name: [{
 						type: 'blur',
@@ -121,7 +121,7 @@
 			})
 
 			okBtn.on('click', function () {
-				console.log(myCheckForm.validate());
+				console.log(myCheckInput.validate());
 			})
 		})
 		

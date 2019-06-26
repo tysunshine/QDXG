@@ -1,5 +1,5 @@
 /**
- * @my-check-form.js
+ * @my-check-input.js
  * @作者 田园
  * @版本 1.0.1
  * @Created: 19-06-26
@@ -10,8 +10,8 @@
      * 支持jQuery $全局调用以及模块化调用
      * @example
      * 初始化
-     * $.MyCheckForm.init({
-     *		class: 'my-check-item', 			// 默认class: 'my-check-item'
+     * $.MyCheckInput.init({
+     *		class: 'my-check-input', 			// 默认class: 'my-check-input'
      *		rules: {
 	 *			id1: [{
 	 *				type: 'blur',				// 默认type:'blur'
@@ -26,10 +26,10 @@
      *	});
      * 
      * 按钮验证
-     * console.log($.MyCheckForm.validate());	// 结果true/false
+     * console.log($.MyCheckInput.validate());	// 结果true/false
      **/
 
-	$.MyCheckForm = (function () {
+	$.MyCheckInput = (function () {
 
 		var oDeploy = null;
 		var oCheckList = null;
@@ -97,7 +97,7 @@
 					return;
 				}
 				if (!o.class) {
-					o.class = 'my-check-item';
+					o.class = 'my-check-input';
 				}
 				if (!o.rules) {
 					return;
@@ -130,17 +130,17 @@
 		}
 	})()
 
-	var MyCheckForm = function (o) {
-		$.MyCheckForm.init(o);
+	var MyCheckInput = function (o) {
+		$.MyCheckInput.init(o);
 	}
 
-	MyCheckForm.prototype.validate = function () {
-		return $.MyCheckForm.validate();
+	MyCheckInput.prototype.validate = function () {
+		return $.MyCheckInput.validate();
 	}
 
 	if (typeof define === 'function' && (define.amd || define.cmd)) {
-        define(MyCheckForm);
+        define(MyCheckInput);
     } else {
-        window.MyCheckForm = MyCheckForm;
+        window.MyCheckInput = MyCheckInput;
     }
 })(window, document);

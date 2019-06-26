@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>表单验证方法</title>
-	<link rel="stylesheet" type="text/css" href="./my-check-form.css">
+	<link rel="stylesheet" type="text/css" href="./my-check-input.css">
 	<style>
 		* {
 			margin: 0;
@@ -26,10 +26,10 @@
 		.name-check-box {
 			height: 60px;
 		}
-		.form-box .my-check-item {
+		.form-box .my-check-input {
 			padding-left: 60px;
 		}
-		.form-box .my-check-item .label-box {
+		.form-box .my-check-input .label-box {
 			width: 60px;
 		}
 	</style>
@@ -38,7 +38,7 @@
 <body>
 
 	<div class="form-box">
-		<div class="my-check-item is-require name-check-box">
+		<div class="my-check-input is-require name-check-box">
 			<div class="label-box">
 				<div class="label">姓名</div>
 			</div>
@@ -48,7 +48,7 @@
 			</div>
 		</div>
 
-		<div class="my-check-item is-require">
+		<div class="my-check-input is-require">
 			<div class="label-box">
 				<div class="label">年龄</div>
 			</div>
@@ -58,7 +58,7 @@
 			</div>
 		</div>
 
-		<div class="my-check-item">
+		<div class="my-check-input">
 			<div class="label-box">
 				<div class="label">性别</div>
 			</div>
@@ -73,15 +73,15 @@
 	</div>
 
 	<script src="./jquery.min.js"></script>
-	<script src="./my-check-form.js"></script>
+	<script src="./my-check-input.js"></script>
 	<script>
 
 
 		$(function () {
 			var okBtn = $('#okBtn');
 
-			$.MyCheckForm.init({
-				class: 'my-check-item',
+			$.MyCheckInput.init({
+				class: 'my-check-input',
 				rules: {
 					name: [{
 						type: 'blur',
@@ -107,6 +107,15 @@
 
 							return '';
 						}
+					}, {
+						type: 'input',
+						fn: function (val) {
+							var reg = /^[1-9][0-9]*$/;
+							if (!reg.test(val)) {
+								return '年龄为整数'
+							}
+							return '';
+						}
 					}],
 
 					sex: [{
@@ -130,7 +139,7 @@
 
 			okBtn.on('click', function () {
 
-				console.log($.MyCheckForm.validate());
+				console.log($.MyCheckInput.validate());
 
 			})
 		})
