@@ -49,36 +49,47 @@
 			left: option.left,
 			bottom: option.bottom,
 			width: option.width,
-			textAlign: 'right'
+			textAlign: 'right',
+			overflow: 'hidden'
 		})
 
 		for (var i = 0; i < option.list.length; i++) {
 			var oT = document.createElement('div');
 			oT.className = 'y-title';
-
 			setStyle(oT, {
 				position: 'absolute',
 				right: 0,
 				overflow: 'hidden',
 				textOverflow: 'ellipsis',
-				width: '100%',
+				width: '1000px',
 				whiteSpace: 'nowrap',
 				visibility: 'hidden',
-				top: 'calc(100% / ' + option.list.length  + ' * ' + i + ')'
+				top: 'calc(100% / ' + option.list.length  + ' * ' + (option.list.length - 1 - i) + ')'
 			})
 			
-			oT.innerHTML = '<span>' + option.list[i] + '</span>';
+			var oSp = document.createElement('span');
+			oSp.innerText = option.list[i];
+			setStyle(oSp, {
+				display: 'inline-block'
+			})
+			oT.appendChild(oSp);
+
 
 			oYTitleBox.appendChild(oT);
 
-			(function (oT) {
+			(function (oT, oSp) {
 				setTimeout(function () {
+					if ( parseInt(getStyle(oYTitleBox, 'width')) < parseInt(getStyle(oSp, 'width')) ) {
+						oSp.className = 'is-show';
+					}
+
 					setStyle(oT, {
 						lineHeight: parseInt(getStyle(oYTitleBox, 'height')) / option.list.length + 'px',
-						visibility: 'visible'
+						visibility: 'visible',
+						width: '100%'
 					})
 				}, 30);
-			})(oT);
+			})(oT, oSp);
 		}
 
 		oMain.appendChild(oYTitleBox);
@@ -89,12 +100,16 @@
 	function setEvent (dom) {
 		dom.onmouseenter = function (evt) {
 			var e = evt || window.event;
-			showTip(e)
+			if (e.target.className == 'is-show') {
+				showTip(e)
+			}
 		}
 
 		dom.onmousemove = function (evt) {
 			var e = evt || window.event;
-			showTip(e)
+			if (e.target.className == 'is-show') {
+				showTip(e)
+			}
 		}
 
 		dom.onmouseleave = function () {

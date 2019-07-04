@@ -17,7 +17,7 @@
 	</style>
 </head>
 <body>
-
+	<div class="tip">需要将y轴颜色设为transparent或none</div>
 	<div id="main" class="main"></div>
 
 	<script src="../echarts.js"></script>
@@ -57,7 +57,11 @@
 			yAxis: {
 			    type: 'category',
 			    data: aYTitle,
-			    show: false
+			    axisLabel: {
+			    	textStyle: {
+			    		color: 'transparent'
+			    	}
+			    }
 			},
 			series: [
 			    {
