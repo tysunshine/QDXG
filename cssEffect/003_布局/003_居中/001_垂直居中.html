@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>垂直居中</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			background: #ccc;
+		}
+		.box {
+			margin: 0 auto 50px;
+			width: 600px;
+			height: 200px;
+			background: #fff;
+			border-radius: 10px;
+		}
+
+		/*line-height居中*/
+		.box1 {
+			line-height: 200px;
+			text-align: center;
+		}
+		.box1 p {
+			height: 30px;
+			line-height: 30px;
+			display: inline-block;
+		}
+
+		/*伪元素居中*/
+		.box2 {
+			text-align: center;
+		}
+		.box2:before {
+			content: '';
+			display: inline-block;
+			vertical-align: middle;
+			height: 100%;
+		}
+		.box2 p {
+			display: inline-block;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="box box1">
+		<p>1123123</p>
+	</div>
+
+	<div class="box box2">
+		<p>1123123</p>
+	</div>
+
+	<script></script>
+</body>
+</html>
