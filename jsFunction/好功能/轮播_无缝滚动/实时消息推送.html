@@ -144,7 +144,7 @@
 					setTiming();
 
 					function setTiming () {
-						timer = setInterval(function () {
+						_this.timer = setInterval(function () {
 							autoPlay();
 						}, 20);
 					}
@@ -177,6 +177,14 @@
 						}
 
 						_this.oUl.style.left = _this.iLeft + 'px';
+					}
+
+					_this.oUl.onmouseenter = function () {
+						clearInterval(_this.timer);
+					}
+
+					_this.oUl.onmouseleave = function () {
+						setTiming();
 					}
 
 				}
