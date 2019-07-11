@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>拖拽原理1</title>
+		<style>
+			
+		</style>
+		<script>
+			window.onload = function() {
+				var div1 = document.getElementById("div1");
+				var div2 = document.getElementById("div2");
+				var disX = 0, disY = 0;
+				var isDown = 0;
+				div2.onmousedown = function(evt) {
+					var e = evt || window.event;
+					disX = e.offsetX;
+					disY = e.offsetY;
+					isDown = 1;
+					return false;//会有拖的蓝色
+				}
+				document.onmousemove = function(evt) {
+					// var e = evt || window.event;
+					if(isDown) {//true false
+						var e = evt || window.event;
+						// 注意要用到mousedown时候的偏移量
+						div1.style.left = e.clientX - disX + "px";
+						div1.style.top = e.clientY - disY + "px";
+					}
+				}
+				document.onmouseup = function() {//可能会拖到边界
+					isDown = 0;
+				}
+
+
+				// if(e.clientX - X >= oBody.offsetWidth - oBox1.offsetWidth){
+				// 		oBox1.style.left = oBody.offsetWidth - oBox1.offsetWidth + "px";
+				// 	}else if(e.clientX - X <=0){
+				// 		oBox1.style.left = 0 + "px";
+				// 	}else{
+				// 		oBox1.style.left = e.clientX - X + "px";
+				// 	}
+				// 	if(e.clientY - Y >= oBody.offsetHeight - oBox1.offsetHeight){
+				// 		oBox1.style.top = oBody.offsetHeight - oBox1.offsetHeight + "px";
+				// 	}else if(e.clientY - Y <=0){
+				// 		oBox1.style.top = 0 + "px";
+				// 	}else{
+				// 		oBox1.style.top  = e.clientY - Y + "px";
+				// 	}
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="div1" style="width: 400px;height: 400px;background-color: red;position: absolute;left: 200px;top: 200px;">
+			<div id="div2" style="cursor: move; width: 100%; height: 40px; background-color: gray;"></div>
+		</div>
+	</body>
+
+</html>

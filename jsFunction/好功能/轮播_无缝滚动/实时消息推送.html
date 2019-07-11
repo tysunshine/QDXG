@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>实时消息推送</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			background: #9ef;
+			padding-top: 1px;
+		}
+
+		li {
+			list-style: none;
+		}
+
+		.msg-box {
+			position: relative;
+			margin: 50px auto 0;
+			background: #fff;
+			width: 50%;
+			height: 30px;
+			line-height: 30px;
+			overflow: hidden;
+		}
+		.msg-box ul {
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			width: 100%;
+		}
+		.msg-box ul:after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.msg-box li {
+			float: left;
+			padding-right: 30px;
+			font-size: 14px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="msg-box">
+		<ul></ul>
+	</div>
+
+	<script>
+
+
+		window.onload = function () {
+
+			// 模拟ajax进入页面获取数据
+			setTimeout(function () {
+				var data = [
+					'1福泉市第一人民医院 ●2019-07-11 19:46:11 单号：20190711001063 检查标识为空',
+					'2老孟市第一人民医院 ●2019-07-14 19:46:11 单号：20190711001063 检查标识为空',
+					'3贵阳市第一人民医院 ●2019-07-10 19:46:11 单号：20190711001063 检查标识为空',
+					'4冷月市第一人民医院 ●2019-08-23 19:46:11 单号：20190711001063 检查标识为空',
+					'5积极式市第一人民医院 ●2019-07-08 19:46:11 单号：20190711001063 检查标识为空',
+					'6吗嗯市第一人民医院 ●2019-07-12 19:46:11 单号：20190711001063 检查标识为空'
+				]
+
+				oMsgScroll.addMsg(data, true);
+			}, 300);
+
+			// 模拟后台推送数据过来
+			setInterval(function () {
+				var data = Math.random().toFixed(2) + '第一人民医院 ●' + new Date().toLocaleString() + ' 单号：20190711001063 检查标识为空';
+
+				console.log('推送数据：' + data);
+
+				oMsgScroll.addMsg(data);
+			}, 5000);
+
+
+			var oMsgScroll = {
+				oUl: document.querySelector('.msg-box > ul'),
+				iLeft: 0,
+				ulW: 0,
+				timer: null,
+				// 保存20条滚动数据
+				oldList: {
+					idx: 0,
+					list: []
+				},
+
+				addMsg: function (data, bl) {
+					var _this = this;
+					var oFragment = document.createDocumentFragment();
+
+					if (typeof data == 'string') {
+						data = [data];
+					}
+
+					// 添加节点
+					for (var i = 0; i < data.length; i++) {
+						var oLi = document.createElement('li');
+						oLi.innerText = data[i];
+
+						oFragment.appendChild(oLi);
+					}
+					this.oUl.appendChild(oFragment);
+
+					_this.oldList.list = _this.oldList.list.concat(data);
+					if (_this.oldList.list > 20) {
+						_this.oldList.list.splice(0, _this.oldList.list.length - 20);
+					}
+
+					setTimeout(function () {
+						_this.setMsgUlW();
+						if (bl) {
+							_this.initMsgScroll();
+						}
+					}, 4);
+				},
+
+
+				setMsgUlW: function () {
+					var oLi = this.oUl.children;
+				
+					var iW = 0;
+					for (var i = 0; i < oLi.length; i++) {
+						var lW = oLi[i].clientWidth;
+
+						iW += lW
+					}
+
+					// 加个100做保险
+					this.oUl.style.width = iW + 100 + 'px';
+
+					this.ulW = iW;
+				},
+
+
+				initMsgScroll: function () {
+					var _this = this;
+					setTiming();
+
+					function setTiming () {
+						timer = setInterval(function () {
+							autoPlay();
+						}, 20);
+					}
+
+					function autoPlay () {
+						var firstLi = _this.oUl.children[0];
+						var firstW = firstLi.clientWidth;
+
+						_this.iLeft -= 2;
+
+						_this.oUl.style.left = _this.iLeft + 'px';
+
+						if (_this.iLeft <= -firstW) {
+							_this.iLeft = 0;
+							_this.oUl.removeChild(firstLi);
+
+							if (_this.oUl.children.length < 5) {
+								var dom = document.createElement('li');
+								dom.innerText = _this.oldList.list[_this.oldList.idx];
+								_this.oUl.appendChild(dom);
+
+								if (_this.oldList.idx >= _this.oldList.list.length - 1) {
+									_this.oldList.idx = 0;
+								} else {
+									_this.oldList.idx++;
+								}
+							}
+
+							_this.setMsgUlW();
+						}
+
+						_this.oUl.style.left = _this.iLeft + 'px';
+					}
+
+				}
+			}
+		}
+	</script>
+</body>
+</html>

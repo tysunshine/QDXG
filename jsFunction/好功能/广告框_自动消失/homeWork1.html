@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>广告框自动关闭</title>
+		<style>
+			.ad {
+				width: 400px;
+				height: 200px;
+				position: fixed;
+				top: 100px;
+				left: 400px;
+				background-color: blue;
+				border: 2px solid black;
+			}
+		</style>
+		
+		<script>
+				
+			window.onload = function() {
+				var ad = document.getElementById("ad");
+				var num = document.getElementById("num");
+				var count = 5;
+				var timer = setInterval(function() {
+					count--;
+					if(count == 0) {
+						ad.style.display = "none";
+						clearInterval(timer);
+					}
+					num.innerHTML = count;
+				}, 1000)
+			}
+		</script>
+		
+		
+	</head>
+	<body>
+		<div id="ad" class="ad">我是广告框<span id="num">5</span>s后消失</div>
+	</body>
+</html>

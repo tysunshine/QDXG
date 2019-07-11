@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>选项卡jQuery</title>
+		<style>
+			.div input {
+				background: #CCC;
+				cursor: pointer;
+			}
+			.div input.active {
+				background: yellow;
+			}
+			.div div {
+				width: 200px; 
+				height: 200px; 
+				background: #CCC; 
+				display: none;
+			}
+			.div div.active {
+				display: block;
+			}
+		</style>
+		<script src="jquery-1.12.3.js"></script>
+		<script>
+			window.onload = function(){
+				var oDiv = document.getElementById("div1");
+				var aBtn = oDiv.getElementsByTagName("input");
+				var aDiv = oDiv.getElementsByTagName("div");
+				for(var i=0;i<aBtn.length;i++){
+					aBtn[i].index = i;
+					aBtn[i].onclick =function(){
+						for(var i=0;i<aBtn.length;i++) {
+							aBtn[i].className = "";
+							aDiv[i].style.display = "none";
+						}
+						this.className = "active";
+						aDiv[this.index].style.display = "block";
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="div1" class="div">
+			<input class="active" type="button" value="1606" />
+			<input type="button" value="1607" />
+			<input type="button" value="1608" />
+			<div class="active">1606</div>
+			<div>1607</div>
+			<div>1608</div>
+		</div>
+
+	</body>
+</html>

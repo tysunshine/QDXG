@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+	<head>
+		<title>百度搜索框原理</title>
+		<meta charset="utf-8"/>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#box{
+				width: 300px;
+				position: relative;
+				margin: 20px auto;
+			}
+			#box input{
+				width: 300px;
+				height: 40px;
+				padding: 5px;
+				position: absolute;
+				left: 0;
+				top: 0;
+				font-size: 16px;
+			}
+			#box div{
+				width: 312px;
+				position: absolute;
+				left: 0;
+				top: 54px;
+				border: 1px solid #aaa;
+				border-top: 0;
+				border-bottom: 0;
+			}
+			#box div ul li{
+				list-style: none;
+				padding: 8px;
+				color: gray;
+				border-bottom: 1px solid gray;
+				cursor: pointer;
+			}
+		</style>
+		<script>
+			// 百度搜索框功能 jsonp接口
+			// url: https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su
+			// 参数	值
+			// wd	关键字
+			// json	1
+			// p	3
+			// cb	回调函数
+			window.onload = function() {
+				var oBox = document.getElementById("box");
+				var oUl = document.getElementById("tipList");
+				var oInput = document.getElementById("searchInput");
+				var nowIndex = -1;
+				oInput.onkeyup = function(evt) {
+					var e = evt || window.event;
+					if(e.keyCode != 40 && e.keyCode != 38 && e.keyCode != 13) {
+						var oScript = document.createElement("script");
+						oScript.src = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su&wd="+oInput.value+"&json=1&p=3&cb=suggestion";
+						document.body.appendChild(oScript);
+						nowIndex = -1;
+					}	
+				}
+				//在文本框中上下键按下
+				oInput.onkeydown = function(evt) {
+					var e = evt || window.event;
+					if(e.keyCode == 40 || e.keyCode == 38) {
+						nowIndex = keyFn(e.keyCode,nowIndex);
+					} else if(e.keyCode == 13) {
+						if(nowIndex != -1) {
+							var aLi = oUl.getElementsByTagName("li");
+							oInput.value = aLi[nowIndex].innerHTML;
+							oUl.innerHTML = "";
+							oUl.style.display = "none";
+							nowIndex = -1;
+						}	
+					}
+				}
+				//阻止事件冒泡
+				oBox.onmousedown = function(evt) {
+					var e = evt || window.event;
+					evt ? e.stopPropagation() : e.cancelBubble = true;
+				}
+				document.onmousedown = function() {
+					oUl.innerHTML = "";
+					oUl.style.display = "none";
+					nowIndex = -1;
+				}
+
+
+				//事件委托
+				oUl.onclick = function(evt) {
+					var e = evt || window.event;
+					var tag = e.target || e.srcElement;
+					liClick(tag);
+
+				}
+
+				//列表单机事件
+				function liClick(obj) {
+					if(obj.tagName.toLowerCase() == "li") {
+						oInput.value = obj.innerHTML;
+						oUl.style.display = "none";
+					}
+				}
+
+				//按下上下键函数
+				function keyFn(keyCode,oldIndex) {
+					var oUl = document.getElementById("tipList");
+					var aLi = oUl.getElementsByTagName("li");
+					var n = 1;
+					var nowIndex;
+					if(keyCode == 38) {
+						nowIndex = oldIndex-1;
+						if(oldIndex <= 0) {
+							oldIndex = 0;
+							nowIndex = aLi.length-1;
+						}
+					} else if(keyCode == 40) {
+						nowIndex = oldIndex+1;
+						if(oldIndex == aLi.length-1 || oldIndex < 0) {
+							oldIndex = aLi.length-1;
+							nowIndex = 0;
+						}
+					}		
+					aLi[oldIndex].style.backgroundColor = "white";
+					aLi[nowIndex].style.backgroundColor = "#aaaadd";
+					return nowIndex;
+				}
+			}
+
+			//回调函数
+			function suggestion(data) {
+				var result = data.s;
+				var oUl = document.getElementById("tipList");
+				oUl.innerHTML = "";
+				oUl.style.display = "block";
+				for(var i=0; i<result.length; i++) {
+					var oLi = document.createElement("li");
+					oLi.innerHTML = result[i];
+					oUl.appendChild(oLi);
+				}
+			}
+		</script> 
+	</head>
+	<body>
+		<div id="box">
+			<input type="text" id="searchInput" placeholder="请输入搜索内容：">
+			<div id="tip">
+				<ul id="tipList">
+					<!-- <li>aaa</li>
+					<li>aaa</li>
+					<li>aaa</li>
+					<li>aaa</li>
+					<li>aaa</li>
+					<li>aaa</li>
+					<li>aaa</li>
+					<li>aaa</li>
+					<li>aaa</li>
+					<li>aaa</li> -->
+				</ul>
+			</div>
+		</div>
+
+		<script src="tools.js"></script>
+	</body>
+</html>
