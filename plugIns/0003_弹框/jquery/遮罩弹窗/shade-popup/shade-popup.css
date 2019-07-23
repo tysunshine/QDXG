@@ -1,0 +1,46 @@
+._shade-popup ._shade-popup * {
+	padding: 0;
+	margin: 0;
+}
+._shade-popup._shade {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 2000;
+	width: 100vw;
+	height: 100vh;
+	background: #000;
+	opacity: 0;
+	transition: opacity .3s;
+}
+._shade-popup._shade.show {
+	opacity: .3;
+}
+._shade-popup._container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 2001;
+	padding-top: 15vw;
+	width: 100vw;
+	height: 100vh;
+	overflow: auto;
+	box-sizing: border-box;
+	opacity: 0;
+	transition: opacity .3s;
+}
+._shade-popup._container.show {
+	opacity: 1;
+}
+
+/*处方详情*/
+._shade-popup ._content.recipel-content {
+	margin: 0 auto;
+	padding: 2vw 4vw;
+	width: 70%;
+	height: 200px;
+	background: #fff;
+}
+
+
+
