@@ -1,0 +1,76 @@
+3种使用方法
+1、固定间距显示一个文本
+new MyTimeAxis({
+	id: 'box2',
+	list: []
+})
+id与list时必须的，list是时间与文本数组
+
+
+2、固定间距显示所有文本
+new MyTimeAxis({
+	id: 'box2',
+	showItems: true,
+	list: [
+		{date: '2019-04-05', text: '看手机打开'},
+		{date: '2019-05-05', text: '水电费'},
+		{date: '2019-06-06', text: '温热'}
+	],
+	onSlideChange: function () {
+		console.log(this.activeIndex);
+	}
+})
+要显示所有文本需要配置showItems:true
+在节点切换时如果设置了onSlideChange函数会自动调用，在函数里面可以通过this.activeIndex获取到当前点的下标
+
+
+3、时间为间距显示一个文本
+var list = [
+	{date: '2018-09-05', text: '看手机打开'},
+	{date: '2019-05-05', text: '水电费'},
+	{date: '2019-06-06', text: '温热'},
+	{date: '2019-07-07', text: '尔特让他'},
+	{date: '2019-08-08', text: '地方规划法规'},
+	{date: '2019-09-09', text: '从编程序'},
+	{date: '2019-09-14', text: '驱蚊草'},
+	{date: '2019-10-05', text: '一天半而'},
+	{date: '2019-10-13', text: '权威性恶'},
+	{date: '2020-01-05', text: '任女士人'},
+	{date: '2020-02-05', text: '色彩'},
+	{date: '2020-03-05', text: '传不少地方而'},
+	{date: '2020-04-05', text: '看手机健康为科技打开'},
+	{date: '2020-05-05', text: '欠款金额空气'}
+]
+
+list.reverse();
+
+new MyTimeAxis({
+	id: 'box2',
+	space: 'date',
+	list: list
+})
+使用时间做间隔时，需要设置space为'date'
+使用时间做间隔时，需要自己先把数组顺序排好。需要倒序时将数组排列为倒序就好了
+
+
+配置选项
+{	
+	id: '#xxx',				// 必填。id
+	list: [					// 必填。时间文本数组
+		{date: '2019-07-26', text: 'Hello World!'}
+	],
+	time: 500,				// 非必填。默认500。两点过渡时间
+	space: 150,				// 非必填。默认150。两点间距，为'date'时两点间距根据两点时间date间隔天数乘以dateSpace决定
+	dot: 10,				// 非必填。默认10。点的尺寸
+	showItems: false,		// 非必填。默认false。是否显示所有的文本，在space为'date'时最好别设为true，因为两点可能隔得很近，让文本重叠了
+	dateSpace: 2,			// 非必填。默认2。在space为'date'时有用，一天间距多少px
+	onSlideChange: null		// 非必填。默认null。点切换的时候调用的函数，可以通过this.activeIndex获取到当前点的下标
+}
+
+注：需要设置id节点的高度
+注：需要改变前后按钮样式，或者改变图片时，请改js代码
+
+
+
+
+

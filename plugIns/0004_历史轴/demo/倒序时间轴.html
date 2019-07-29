@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Swiper 历史发展</title>
-	<link rel="stylesheet" href="css/swiper.min.css">
+	<link rel="stylesheet" href="../lib/swiper.min.css">
 	<style>
 		body {
 			font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -85,20 +85,17 @@
 </head>
 <body>
 	<div id="swiper-history">
-	<div class="swiper-container">
-	<div class="swiper-pagination"></div>
-	<div class="swiper-wrapper">
-
-	</div>
-	<div class="short-line"></div>    
-	<div class="long-line"></div>   
-
-	</div>
-	<div class="swiper-button-prev"></div>
-	<div class="swiper-button-next"></div>
+		<div class="swiper-container">
+			<div class="swiper-pagination"></div>
+			<div class="swiper-wrapper"></div>
+			<div class="short-line"></div>    
+			<div class="long-line"></div>   
+		</div>
+		<div class="swiper-button-prev"></div>
+		<div class="swiper-button-next"></div>
 	</div>    
 	<!-- Swiper JS -->
-	<script src="js/swiper.min.js"></script>
+	<script src="../lib/swiper.min.js"></script>
 
 	<!-- Initialize Swiper -->
 	<script>
@@ -153,41 +150,38 @@
 					swiper.appendSlide('<div class="swiper-slide slide'+i+'"><span class="detail">'+historyList[i]['detail']+'</span><span class="date">'+historyList[i]['date']+'</span></div>');
 					swiper.slides[i].style.transform='translate3d(' + (-i)*swiper.width + 'px, 0px, 0px)';
 				}
-				// swiper.slideTo(3);
-				slideChangeStartFn(swiper);
+
+				// swiper.slideTo(1);
+				// swiper.slideTo(0);
+				this.onSlideChangeStart(swiper);
 			},
 			onSlideChangeStart: function(swiper){
-				slideChangeStartFn(swiper);
+				detailPrev = swiper.slides[swiper.previousIndex].querySelector('.detail');
+				datePrev = swiper.slides[swiper.previousIndex].querySelector('.date');
+				detailPrev.offsetHeight;
+				datePrev.offsetHeight;
+				swiper.slides[swiper.previousIndex].style.zIndex = 1;
+				detailPrev.style.opacity = datePrev.style.opacity = 0;
+				detailPrev.style.transform = datePrev.style.transform = 'translate3d(0px, 0px, 0px)';
+
+				detailActive = swiper.slides[swiper.activeIndex].querySelector('.detail');
+				dateActive = swiper.slides[swiper.activeIndex].querySelector('.date');
+				detailActive.offsetHeight;
+				dateActive.offsetHeight;
+				swiper.slides[swiper.activeIndex].style.zIndex = 999;
+				detailActive.style.opacity = dateActive.style.opacity = 1;
+				detailActive.style.transform = 'translate3d(0px, 10px, 0px)';
+				dateActive.style.transform = 'translate3d(0px, -10px, 0px)';
+
+				moveDay1 = new Date(historyList[swiper.activeIndex]['date'].replace(/-/g, "/"));
+				moveDay2 = new Date(historyList[0]['date'].replace(/-/g, "/"));
+				moveTime = moveDay2 - moveDay1;
+				moveDistance = parseInt(moveTime / (1000 * 60 * 60 * 24)) * modifier + 10 * swiper.activeIndex;
+				move = swiper.width / 2 - 5 - moveDistance;
+
+				swiper.paginationContainer[0].style.left=move+'px';
 			},
 		});
-
-
-		function slideChangeStartFn (swiper) {
-			detailPrev = swiper.slides[swiper.previousIndex].querySelector('.detail');
-			datePrev = swiper.slides[swiper.previousIndex].querySelector('.date');
-			detailPrev.offsetHeight;
-			datePrev.offsetHeight;
-			swiper.slides[swiper.previousIndex].style.zIndex = 1;
-			detailPrev.style.opacity = datePrev.style.opacity = 0;
-			detailPrev.style.transform = datePrev.style.transform = 'translate3d(0px, 0px, 0px)';
-
-			detailActive = swiper.slides[swiper.activeIndex].querySelector('.detail');
-			dateActive = swiper.slides[swiper.activeIndex].querySelector('.date');
-			detailActive.offsetHeight;
-			dateActive.offsetHeight;
-			swiper.slides[swiper.activeIndex].style.zIndex = 999;
-			detailActive.style.opacity = dateActive.style.opacity = 1;
-			detailActive.style.transform = 'translate3d(0px, 10px, 0px)';
-			dateActive.style.transform = 'translate3d(0px, -10px, 0px)';
-
-			moveDay1 = new Date(historyList[swiper.activeIndex]['date'].replace(/-/g, "/"));
-			moveDay2 = new Date(historyList[0]['date'].replace(/-/g, "/"));
-			moveTime = moveDay2 - moveDay1;
-			moveDistance = parseInt(moveTime / (1000 * 60 * 60 * 24)) * modifier + 10 * swiper.activeIndex;
-			move = swiper.width / 2 - 5 - moveDistance;
-
-			swiper.paginationContainer[0].style.left=move+'px';
-		}
 	</script>
 
 </body>

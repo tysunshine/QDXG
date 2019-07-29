@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>时间轴</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			padding-top: 1px;
+			background: #ccc;
+		}
+
+		.time-axis-box {
+			margin: 50px auto 0;
+			width: 80%;
+			height: 100px;
+			background: #fff;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="time-axis-box" id="box2"></div>
+
+	<script src="MyTimeAxis/MyTimeAxis.js"></script>
+	<script>
+		// 未完成
+		new MyTimeAxis({
+			id: 'box2',
+			showItems: true,
+			list: [
+				{date: '2019-04-05', text: '看手机打开'},
+				{date: '2019-05-05', text: '水电费'},
+				{date: '2019-06-06', text: '温热'},
+				{date: '2019-07-07', text: '尔特让他'},
+				{date: '2019-08-08', text: '地方规划法规'},
+				{date: '2019-09-09', text: '从编程序'},
+				{date: '2019-10-10', text: '驱蚊草'},
+				{date: '2019-04-05', text: '一天半而'},
+				{date: '2019-04-05', text: '权威性恶'},
+				{date: '2019-04-05', text: '任女士人'},
+				{date: '2019-04-05', text: '色彩'},
+				{date: '2019-04-05', text: '传不少地方而'},
+				{date: '2019-04-05', text: '看手机健康为科技打开'},
+				{date: '2019-04-05', text: '欠款金额空气'}
+			],
+			onSlideChange: function () {
+				console.log(this.activeIndex);
+			}
+		})
+
+	</script>
+</body>	
+</html>

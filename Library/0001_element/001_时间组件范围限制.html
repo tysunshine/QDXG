@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>时间组件选择范围限制</title>
+	<link rel="stylesheet" type="text/css" href="./lib/element-ui/element-ui.css">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		html, body {
+			height: 100%;
+			font-size: 14px;
+			background: #efefef;
+		}
+
+		.app {
+			padding: 30px;
+		}
+		.group {
+			margin: 0 auto;
+			padding: 20px;
+			width: 800px;
+			min-height: 100px;
+			background: #fff;
+			border-radius: 10px;
+			box-sizing: border-box;
+		}
+		.group+.group {
+			margin-top: 30px;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div id="app" class="app">
+		
+		<div class="group">
+			<el-date-picker
+				v-model="value"
+				type="monthrange"
+				range-separator="至"
+				start-placeholder="开始日期"
+				end-placeholder="结束日期"
+				:picker-options="pickerYearOptions">
+			</el-date-picker>
+		</div>
+
+	</div>
+	
+	<script src="./lib/vue.js"></script>
+	<script src="./lib/element-ui/element-ui.js"></script>
+	<script>
+		new Vue({
+			el: '#app',
+			data: {
+				value: '',
+
+				choiceOne: '',
+				pickerYearOptions: {
+					onPick: ({ maxDate, minDate }) => {
+						this.choiceOne = minDate.getTime()
+						if (maxDate) {
+							this.choiceOne = ''
+						}
+					},
+	                disabledDate: time => {
+	                	var res = false;
+	                	// 一年内
+	                	if (this.choiceOne) {
+	                		const one = 365 * 24 * 3600 * 1000;
+							const minTime = this.choiceOne - one
+							const maxTime = this.choiceOne + one
+							res = time.getTime() < minTime || time.getTime() > maxTime;
+	                	}
+	                	// 未来年
+	                	if (time > new Date(new Date(new Date().toLocaleDateString()).getTime()+24*60*60*1000-1)) {
+	                		res = true;
+	                	}
+	                    return res;
+	                }
+				}
+			}
+		})
+
+	</script>
+</body>	
+</html>

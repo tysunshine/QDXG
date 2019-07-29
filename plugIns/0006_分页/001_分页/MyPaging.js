@@ -62,6 +62,11 @@
 					html += '<div class="total pg-item">共<span>' + this.total + '</span>条</div>';
 				}
 
+				// 总页数
+				if (key == 'totalPage') {
+					html += '<div class="sizes pg-item">共<span>' + this.totalPage + '</span>页</div>'
+				}
+
 				// 上一条
 				if (key == 'prev') {
 					html += '<div class="link-btn prev pg-item' + (this.current == 1 ? ' disabled' : '') + '" data-current="prev">' + this.prevHtml + '</div>';
@@ -71,39 +76,58 @@
 				if (key == 'pager') {
 					html += '<ul class="link-list pg-item">';
 
-					if (this.current > Math.ceil(this.linkNum / 2)) {
-						html += '<li class="link-btn" data-current="1">1</li>';
-						html += '<li>···</li>';
-					}
-
+					
+					var start = end = 0;
+					var sPager = ''
 					// 总页数小于按钮个数
 					if (this.totalPage <= this.linkNum) {
+						start = 1;
+						end = this.totalPage;
 						for (var i = 1; i <= this.totalPage; i++) {
-							html += '<li class="link-btn' + (this.current == i ? ' active' : '') + '" data-current="' + i + '">' + i + '</li>';
+							sPager += '<li class="link-btn' + (this.current == i ? ' active' : '') + '" data-current="' + i + '">' + i + '</li>';
 						}
 
 					// 当前页小于2分之最大按钮数
 					} else if (this.current < Math.ceil(this.linkNum / 2)) {
+						start = 1;
+						end = this.linkNum;
 						for (var i = 1; i <= this.linkNum; i++) {
-							html += '<li class="link-btn' + (this.current == i ? ' active' : '') + '" data-current="' + i + '">' + i  + '</li>';
+							sPager += '<li class="link-btn' + (this.current == i ? ' active' : '') + '" data-current="' + i + '">' + i  + '</li>';
 						}
 
 					// 当前页大于总条数减2分之最大按钮数
 					} else if (this.current > this.totalPage - Math.ceil(this.linkNum / 2)) {
+						start = this.totalPage - this.linkNum + 1;
+						end = this.totalPage;
 						for (var i = this.totalPage - this.linkNum + 1; i <= this.totalPage; i++) {
-							html += '<li class="link-btn' + (this.current == i ? ' active' : '') + '" data-current="' + i + '">' + i  + '</li>';
+							sPager += '<li class="link-btn' + (this.current == i ? ' active' : '') + '" data-current="' + i + '">' + i  + '</li>';
 						}
 
 					// 其它
 					} else {
+						start = this.current - Math.ceil(this.linkNum / 2) + 1;
+						end = this.current - Math.ceil(this.linkNum / 2) + this.linkNum;
 						for (var i = 1; i <= this.linkNum; i++) {
 							var idx = this.current - Math.ceil(this.linkNum / 2) + i;
-							html += '<li class="link-btn' + (this.current == idx ? ' active' : '') + '" data-current="' + idx + '">' + idx  + '</li>';
+							sPager += '<li class="link-btn' + (this.current == idx ? ' active' : '') + '" data-current="' + idx + '">' + idx  + '</li>';
 						}
 					}
 
-					if (this.current <= this.totalPage - Math.ceil(this.linkNum / 2)) {
-						html += '<li>···</li>';
+					// 当前页大于按钮页一般及总页数大于按钮数
+					if (this.current > Math.ceil(this.linkNum / 2) && this.totalPage > this.linkNum) {
+						html += '<li class="link-btn" data-current="1">1</li>';
+						if (start > 2) {
+							html += '<li>···</li>';
+						}
+					}
+
+					html += sPager;
+
+					// 当前页小于按钮数一般并且总页数大于按钮数
+					if (this.current <= this.totalPage - Math.ceil(this.linkNum / 2) && this.totalPage > this.linkNum) {
+						if (end < this.totalPage - 1) {
+							html += '<li>···</li>';
+						}
 						html += '<li class="link-btn" data-current="' + this.totalPage + '">' + this.totalPage + '</li>';
 					}
 

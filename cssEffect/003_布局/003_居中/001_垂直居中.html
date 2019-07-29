@@ -8,6 +8,9 @@
 			margin: 0;
 			padding: 0;
 		}
+		html, body {
+			height: 100%;
+		}
 		body {
 			background: #ccc;
 		}
@@ -32,6 +35,7 @@
 
 		/*伪元素居中*/
 		.box2 {
+			height: 30%;
 			text-align: center;
 		}
 		.box2:before {
@@ -44,6 +48,18 @@
 			display: inline-block;
 		}
 
+		/*display: table居中*/
+		.box3 {
+			height: auto;
+			min-height: 30%;
+			display: table;
+			text-align: center;
+		}
+		.box3 p {
+			display: table-cell;
+			vertical-align: middle;
+		}
+
 	</style>
 </head>
 <body>
@@ -54,6 +70,10 @@
 
 	<div class="box box2">
 		<p>1123123</p>
+	</div>
+
+	<div class="box box3">
+		<p>快速健康的教科书建档立卡</p>
 	</div>
 
 	<script></script>
