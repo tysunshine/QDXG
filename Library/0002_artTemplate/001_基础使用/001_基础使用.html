@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>artTemplate基础使用</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		html,body {
+			height: 100%;
+			font-size: 14px;
+		}
+		dl {
+			margin: 0 auto;
+			width: 500px;
+		}
+		dl dt::after, dl dd::after {
+			content: '';
+			display: block;
+			clear: both;
+		} 
+		dl span {
+			float: left;
+			padding: 5px 10px;
+			width: 100px;
+			height: 30px;
+			line-height: 20px;
+			box-sizing: border-box;
+		}
+		dl span:first-child {
+			width: 100px;
+		}
+	</style>
+</head>
+<body>
+
+	<dl id="gradeList"></dl>
+	
+	<script src="../lib/template-web.js"></script>
+	<script id="grade" type="text/html">
+		<dt>
+			<span>序号</span>
+			<span>姓名</span>
+			<span>成绩</span>
+			<span>技能</span>
+		</dt>
+		<% for (var i = 0; i < $data.length; i++) { %>
+		<dd>
+			<span><%= i %></span>
+			<span><%= $data[i].name %></span>
+			<span><%= $data[i].value %></span>
+			
+			<% if ($data[i].show) { %>
+			<span><%- $data[i].show %></span>
+			<% } else { %>
+			<span>无</span>
+			<% } %>
+		</dd>
+		<% } %>
+	</script>
+
+	<script>
+		window.onload = function () {
+
+			var oGroup = document.getElementById('gradeList');
+			var html = template('grade', [
+					{name: '小明', value: '99', show: '<div style="background: green; width: 30px;height: 100%;"></div>'},
+					{name: '王绪', value: '100', show: '<div style="background: gray; width: 30px;height: 100%;"></div>'},
+					{name: '冯跃', value: '87'}
+				])
+			oGroup.innerHTML = html;
+		}
+	</script>
+</body>	
+</html>

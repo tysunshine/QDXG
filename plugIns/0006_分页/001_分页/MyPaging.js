@@ -1,4 +1,4 @@
-;(function ($, window) {
+;(function ($, window, document) {
 	/**
 	  opt: {
 		linkNum: 5,		// 中间按钮个数 		默认5
@@ -12,8 +12,9 @@
 	  jump方法中获取当前页数this.current，获取显示条数this.current
 	  jump中必须调用this.setTotal(100)方法设置总页数
 	 */
-	function MyPaging (oPagingParent, opt) {
-		this.oPagingParent = oPagingParent;	// 初始化分页的盒子
+	function MyPaging (el, opt) {
+
+		this.oPagingParent = $(el);			// 初始化分页的盒子
 		this.total =  0;					// 总条数
 		this.totalPage =  0;				// 总页数
 
@@ -24,7 +25,7 @@
 		this.nextHtml = opt.nextHtml || '&gt;';	// 下一页html
 		
 
-		this.layout = ['total', '  prev', 'pager', 'next', 'jumper'];
+		this.layout = ['total', 'prev', 'pager', 'next', 'jumper'];
 		if (opt.layout) {
 			this.layout = opt.layout.split(',');
 		}
@@ -38,6 +39,16 @@
 	}
 	var prototype = {
 		_init: function () {
+			this.jump();
+		},
+
+		// 跳转指定页
+		setCurrent: function (data) {
+			if (data > 0 && data <= this.totalPage) {
+				this.current = data;
+			} else {
+				this.current = 1;
+			}
 			this.jump();
 		},
 
@@ -200,8 +211,5 @@
 		MyPaging.prototype[i] = prototype[i];
 	}
 
-
-	$.fn.MyPaging = function (opt) {
-		new MyPaging(this, opt || {});
-	}
-})(jQuery, window);
+	window.MyPaging = MyPaging;
+})(jQuery, window, document);

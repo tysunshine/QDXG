@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>模板单文件</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="header"></div>
+	<div id="footer"></div>
+
+	<script src="../lib/template-web.js"></script>
+	<script src="tmp.js"></script>
+	<script>
+		var oHeader = document.getElementById('header');
+		var oFooter = document.getElementById('footer');
+
+		var headerHtml = template.render(tmp.header, {name: '我是header'});
+
+		var render = template.compile(tmp.footer);
+		var footerHtml = render({
+			name: '我是footer'
+		})
+
+		var oFragment1 = document.createDocumentFragment();
+		oHeader.innerHTML = headerHtml;
+
+		var oFragment2 = document.createDocumentFragment();
+		oFooter.innerHTML = footerHtml;
+
+	</script>
+</body>	
+</html>
