@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Hello</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		html, body {
+			height: 100%;
+			font-size: 14px;
+		}
+		body {
+			padding-top: 1px;
+			background: #ccc;
+		}
+
+		.main {
+			margin: 50px auto;
+			width: 60%;
+			height: 400px;
+			background: #fff;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="main" class="main"></div>
+	
+	<script src="../../lib/echarts/echarts.js"></script>
+	<script>
+		var myChart = echarts.init(document.getElementById('main'));
+
+		var symbolSize = 20;
+		var data = [[15, 0], [-50, 10], [-56.5, 20], [-46.5, 30], [-22.1, 40]];
+		var option = {
+			tooltip: {
+				triggerOn: 'none',
+				formatter: function (params) {
+					return 'X：' + params.data[0].toFixed(2) + '<br/>Y：' + params.data[1].toFixed(2);
+				}
+			},
+			xAxis: {
+				min: -100,
+				max: 80,
+				type: 'value',
+				axisLine: {
+					onZero: false
+				}
+			},
+			yAxis: {
+				min: -30,
+				max: 60,
+				type: 'value',
+				axisLine: {
+					onZero: false
+				}
+			},
+			series: {
+				id: 'a',
+				type: 'line',
+				smooth: true,			// 让折现圆滑
+				symbolSize: symbolSize,	// 圆点的尺寸
+				data: data
+			}
+		}
+
+		myChart.setOption(option);
+
+		myChart.setOption({
+			graphic: echarts.util.map(data, function (dataItem, dataIndex) {
+		        return {
+		            // 'circle' 表示这个 graphic element 的类型是圆点。
+		            type: 'circle',
+
+		            shape: {
+		                // 圆点的半径。
+		                r: symbolSize / 2
+		            },
+		            // 用 transform 的方式对圆点进行定位。position: [x, y] 表示将圆点平移到 [x, y] 位置。
+		            // 这里使用了 convertToPixel 这个 API 来得到每个圆点的位置，下面介绍。
+		            position: myChart.convertToPixel('grid', dataItem),
+
+		            // 这个属性让圆点不可见（但是不影响他响应鼠标事件）。
+		            invisible: true,
+		            // 这个属性让圆点可以被拖拽。
+		            draggable: true,
+		            // 把 z 值设得比较大，表示这个圆点在最上方，能覆盖住已有的折线图的圆点。
+		            z: 100,
+		            // 此圆点的拖拽的响应事件，在拖拽过程中会不断被触发。下面介绍详情。
+		            // 这里使用了 echarts.util.curry 这个帮助方法，意思是生成一个与 onPointDragging
+		            // 功能一样的新的函数，只不过第一个参数永远为此时传入的 dataIndex 的值。
+		            ondrag: echarts.util.curry(onPointDragging, dataIndex),
+		            onmousemove: echarts.util.curry(showTooltip, dataIndex),
+		            onmouseout: echarts.util.curry(hideTooltip, dataIndex)
+		        };
+		    })
+		})
+
+		function onPointDragging (dataIndex) {
+			data[dataIndex] = myChart.convertFromPixel('grid', this.position);
+			myChart.setOption({
+				series: [{
+					id: 'a',
+					data: data
+				}]
+			})
+		}
+
+		function showTooltip (dataIndex) {
+			myChart.dispatchAction({
+				type: 'showTip',
+				seriesIndex: 0,
+				dataIndex: dataIndex
+			})
+		}
+
+		function hideTooltip (dataIndex) {
+			myChart.dispatchAction({
+				type: 'hideTip'
+			})
+		}
+
+		window.addEventListener('resize', function () {
+			myChart.resize();
+			myChart.setOption({
+				graphic: echarts.util.map(data, function (item, dataIndex) {
+					return {
+						position: myChart.convertToPixel('grid', item)
+					}
+				})
+			})
+		})
+
+	</script>
+</body>	
+</html>

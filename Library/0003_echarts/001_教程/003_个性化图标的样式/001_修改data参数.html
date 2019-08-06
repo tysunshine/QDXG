@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Hello</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		html, body {
+			height: 100%;
+			font-size: 14px;
+		}
+		body {
+			padding-top: 1px;
+			background: #ccc;
+		}
+
+		.main {
+			margin: 50px auto;
+			width: 600px;
+			height: 400px;
+			background: #fff;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="main" class="main"></div>
+
+	<div id="main2" class="main"></div>
+
+	<div id="main3" class="main"></div>
+
+	<div id="main4" class="main"></div>
+	
+	<script src="../../lib/echarts/echarts.js"></script>
+	<script>
+		var myCharts = echarts.init(document.getElementById('main'));
+		var option = {
+			title: {
+				text: '修改柱形图data参数方式试试'
+			},
+			tooltip: {
+				trigger: 'axis'
+			},
+			xAxis: {
+				data: ['金融', '计算机', '历史', '物联网']
+			},
+			yAxis: {},
+			series: {
+				type: 'bar',
+				data: [555, 489, 731, 325]
+			}
+		}
+		myCharts.setOption(option);
+
+		var myCharts2 = echarts.init(document.getElementById('main2'));
+		var option2 = {
+			title: {
+				text: '修改柱形图data参数方式试试'
+			},
+			textStyle: {
+				color: '#ee9'
+			},
+			series: {
+				type: 'pie',
+				roseType: 'angle',
+				data: [
+					{
+						value:235, 
+						name:'视频广告', 
+						itemStyle: {
+							color: '#f9f'
+						},
+						label: {
+							textStyle: {
+								color: '#000'
+							}
+						}
+					},
+	                {value:274, name:'联盟广告'},
+	                {value:310, name:'邮件营销'},
+	                {value:335, name:'直接访问'},
+	                {value:400, name:'搜索引擎'}
+				]
+			}
+		}
+		myCharts2.setOption(option2);
+
+		var myCharts3 = echarts.init(document.getElementById('main3'));
+		var option3 = {
+			title: {
+				text: '阴影'
+			},
+			itemStyle: {
+				shadowBlur: 20,
+				shadowOffsetX: 0,
+				shadowOffsetY: 0,
+				shadowColor: '#0ff'
+			},
+			series: {
+				type: 'pie',
+				roseType: 'angle',
+				data: [
+					{value:235, name:'视频广告'},
+	                {value:274, name:'联盟广告'},
+	                {value:310, name:'邮件营销'},
+	                {value:335, name:'直接访问'},
+	                {value:400, name:'搜索引擎'}
+				]
+			}
+		}
+		myCharts3.setOption(option3);
+
+		var myCharts4 = echarts.init(document.getElementById('main4'));
+		myCharts4.showLoading();
+		setTimeout(function () {
+			myCharts4.hideLoading();
+			var option4 = {
+				title: {
+					text: '阴影'
+				},
+				backgroundColor: '#ddd',
+				tooltip: {
+					type: 'axis'
+				},
+				itemStyle: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowOffsetY: 0,
+					shadowColor: 'green',
+				},
+				xAxis: {},
+				yAxis: {
+					data: ['A', 'B', 'C', 'D']
+				},
+				series: {
+					type: 'bar',
+					data: [5, 6, 3, 8]
+				}
+			}
+			myCharts4.setOption(option4);
+		}, 2000);
+			
+	</script>
+</body>	
+</html>

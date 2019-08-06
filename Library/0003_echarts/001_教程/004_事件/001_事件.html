@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Hello</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		html, body {
+			height: 100%;
+			font-size: 14px;
+		}
+		body {
+			padding-top: 1px;
+			background: #ccc;
+		}
+
+		.main {
+			margin: 50px auto;
+			width: 600px;
+			height: 400px;
+			background: #fff;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="main" class="main"></div>
+	
+	<script src="../../lib/echarts/echarts.js"></script>
+	<script>
+		var myCharts = echarts.init(document.getElementById('main'));
+		var option = {
+			title: {
+				text: '事件'
+			},
+			tooltip: {
+				// type: 'item'
+			},
+			series: {
+				type: 'pie',
+				data: [
+					{name: '重庆', value: '37'},
+					{name: '北京', value: '38'},
+					{name: '贵阳', value: '22'},
+					{name: '西藏', value: '44'}
+				]
+			}
+		}
+		myCharts.setOption(option);
+
+		myCharts.on('click', function (params) {
+			console.log(params);
+		})
+
+	</script>
+</body>	
+</html>

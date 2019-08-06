@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>自定义构建Echarts</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		html, body {
+			height: 100%;
+			font-size: 14px;
+		}
+		li {
+			list-style: none;
+		}
+
+		.main {
+			margin: 50px auto;
+			width: 500px;
+			height: 400px;
+		}
+		dl {
+			margin: 0 auto;
+			width: 500px;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div id="main" class="main"></div>
+
+	<dl>
+		<dt>自定义构建ECharts步骤</dt>
+		<dd>1.使用npm install echarts安装echarts</dd>
+		<dd>2.在echarts目录下npm install安装echarts需要的包</dd>
+		<dd>3.在node_modules同级目录下创建文件echarts.custom.js</dd>
+		<dd>4.写代码<pre><code>// 引入 echarts 主模块。
+export * from 'echarts/src/echarts';
+// 引入饼图。
+import 'echarts/src/chart/pie';
+// 在这个场景下，可以引用 `echarts/src` 或者 `echarts/lib` 下的文件（但是不可混用），
+// 参见下方的解释：“引用 `echarts/lib/**` 还是 `echarts/src/**`”。</code></pre></dd>
+		<dd>5.shift+鼠标左键打开控制台</dd>
+		<dd>6.执行：node node_modules/echarts/build/build.js --min -i echarts.custom.js -o lib/echarts.custom.min.js</dd>
+		<dd>7.完成在node_modules同级目录下生成了lib文件夹</dd>
+	</dl>
+	
+	<script src="./echarts.custom.min.js"></script>
+	<script>
+		var myCharts = echarts.init(document.getElementById('main'));
+
+		var option = {
+			series: {
+				type: 'pie',
+				data: [
+					{name: 'A', value: 1010},
+					{name: 'B', value: 111},
+					{name: 'C', value: 523}
+				]
+			}
+		}
+
+		myCharts.setOption(option);
+	</script>
+</body>	
+</html>
