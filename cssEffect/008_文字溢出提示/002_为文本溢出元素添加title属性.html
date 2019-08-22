@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>为文本溢出元素添加title属性</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			padding: 50px 0;
+			background: #D3D3D3;
+		}
+		.group {
+			margin: 0 auto;
+			padding: 10px;
+			width: 60%;
+			min-height: 100px;
+			background: #fff;
+			border-radius: 10px;
+			box-sizing: border-box;
+		}
+		.group+.group {
+			margin-top: 30px;
+		}
+
+		.t1 {
+			display: inline-block;
+			padding: 0 10px;
+			width: 150px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="group">
+		<span class="t1 hover-tip">加手机砥砺奋进阿喀琉斯等级分类</span>
+		<span class="t1 hover-tip">加手机砥砺奋</span>
+	</div>
+		
+	<script>
+		;(function (window, document) {
+			var oPrototype = {
+				init: function (el) {
+					this.oTip = document.querySelectorAll(el);	
+					this.initEvent();
+				},
+				initEvent: function () {
+					for (var i = 0; i < this.oTip.length; i++) {
+						var oThis = this.oTip[i];
+
+						if (oThis.bindTip) {
+							continue;
+						}
+
+						oThis.bindTip = true;
+						oThis.onmouseenter = function () {
+							var iTw = this.clientWidth;
+							var iPl = parseInt(getComputedStyle(this, null)['paddingLeft']);
+							var iPr = parseInt(getComputedStyle(this, null)['paddingRight']);
+							var iSize =  getComputedStyle(this, null)['fontSize'];
+							var strText = this.innerText;
+							iTw = iTw - iPl - iPr;
+
+							var oCalc = document.createElement('div');
+							oCalc.className = '_calc-hover-tip';
+							oCalc.style.display = 'inline-block';
+							oCalc.style.whiteSpace = 'nowrap';
+							oCalc.style.fontSize = iSize;
+							oCalc.style.visibility  = 'hidden';
+							oCalc.innerText = strText;
+							document.body.appendChild(oCalc);
+
+							iCw = oCalc.clientWidth;
+
+							if (iCw > iTw) {
+								this.setAttribute('title', strText);
+							}
+						}
+						oThis.onmouseleave = function () {
+							var oCalc = document.querySelectorAll('._calc-hover-tip');
+							this.removeAttribute('title');
+							for (var i = 0; i < oCalc.length; i++) {
+								document.body.removeChild(oCalc[i]);
+							}
+						}
+					}
+				}
+			}
+			var initHoverTip = function (el) {
+				this.el = el || '.hover-tip';
+				oPrototype.init(this.el);
+			}
+
+			window.initHoverTip = initHoverTip;
+		})(window, document);
+
+
+		initHoverTip();
+	</script>
+</body>	
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>使用title模拟title属性</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			padding: 50px 0;
+			background: #D3D3D3;
+		}
+		.group {
+			margin: 0 auto;
+			padding: 10px;
+			width: 60%;
+			min-height: 100px;
+			background: #fff;
+			border-radius: 10px;
+			box-sizing: border-box;
+		}
+		.group+.group {
+			margin-top: 30px;
+		}
+
+		.show-tip {
+			position: relative;
+		}
+		.show-tip:hover::after {
+			display: inline-block;
+		}
+		.show-tip::after {
+			content: attr(data-title);
+			display: none;
+			position: absolute;
+			top: 24px;
+			left: 20px;
+			font-size: 14px;
+			line-height: 18px;
+			border: 1px solid #999;
+			background: #fff;
+			white-space: nowrap;
+		}
+	</style>
+</head>
+<body>
+	
+	<div class="main">
+		
+		<div class="group">
+			<span title="计算机科学与技术">重庆科技学院</span> 阿斯顿发
+		</div>
+
+		<div class="group">
+			<span class="show-tip" data-title="计算机科学与技术">重庆科技学院</span> 玩儿若翁rsdd
+		</div>
+
+	</div>
+
+	<script></script>
+</body>	
+</html>
