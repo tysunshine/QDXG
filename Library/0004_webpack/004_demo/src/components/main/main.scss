@@ -1,0 +1,19 @@
+.main-container {
+	&::after {
+		content: '';
+		display: block;
+		clear: both;
+	}
+	& > .sidebar {
+		float: left;
+		width: 200px;
+		height: 100vh;
+		background: #99f;
+	}
+	& > .main {
+		float: left;
+		width: calc(100vw - 200px);
+		height: 100vh;
+		background: #9f9;
+	}
+}

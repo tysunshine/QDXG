@@ -38,6 +38,9 @@
 <body>
 
 	<div class="group">
+		<div class="t1" title="加手机砥砺奋进阿喀琉斯等级分类">加手机砥砺奋进阿喀琉斯等级分类</div>
+	</div>
+	<div class="group">
 		<span class="t1 hover-tip">加手机砥砺奋进阿喀琉斯等级分类</span>
 		<span class="t1 hover-tip">加手机砥砺奋</span>
 	</div>
@@ -66,16 +69,20 @@
 							var strText = this.innerText;
 							iTw = iTw - iPl - iPr;
 
-							var oCalc = document.createElement('div');
-							oCalc.className = '_calc-hover-tip';
-							oCalc.style.display = 'inline-block';
-							oCalc.style.whiteSpace = 'nowrap';
+							var oCalc = document.getElementById('_calcMinWidthSpan');
+							if (!oCalc) {
+								oCalc = document.createElement('div');
+								oCalc.id = '_calcMinWidthSpan';
+								oCalc.style.display = 'inline-block';
+								oCalc.style.whiteSpace = 'nowrap';
+								oCalc.style.visibility  = 'hidden';
+								document.body.appendChild(oCalc);
+							}
+								
 							oCalc.style.fontSize = iSize;
-							oCalc.style.visibility  = 'hidden';
 							oCalc.innerText = strText;
-							document.body.appendChild(oCalc);
-
-							iCw = oCalc.clientWidth;
+							
+							var iCw = oCalc.clientWidth;
 
 							if (iCw > iTw) {
 								this.setAttribute('title', strText);

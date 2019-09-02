@@ -1,0 +1,6 @@
+html, body {
+	background: #9ff;
+}
+.flex-div {
+	display: flex;
+}

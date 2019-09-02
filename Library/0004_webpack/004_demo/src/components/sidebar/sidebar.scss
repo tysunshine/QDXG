@@ -1,0 +1,11 @@
+.sidebar-container {
+	.item {
+		padding: 0 20px;
+		line-height: 30px;
+		box-sizing: border-box;
+		cursor: pointer;
+		&:hover {
+			background: #9f9;
+		}
+	}
+}

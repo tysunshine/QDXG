@@ -1,0 +1,15 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+body, html {
+	font-size: 14px;
+	background: #9ff;
+}
+ul, li {
+	list-style: none;
+}
+.flex-div {
+	display: flex;
+}
+
