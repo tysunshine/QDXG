@@ -23,6 +23,7 @@ module.exports = {
 		new htmlWebpackPlugin({
 			template: 'index.html'
 		})
-	]
+	],
+	mode: "development"	// 设置mode
 }
 

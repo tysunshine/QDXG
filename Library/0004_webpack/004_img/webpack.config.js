@@ -1,8 +1,9 @@
 var path = require("path");
 var htmlWebpackPlugin = require("html-webpack-plugin");
 
+
 module.exports = {
-	entry: './src/app.js',
+	entry: "./src/app.js",
 	output: {
 		path: path.resolve(__dirname, "./dist"),
 		filename: 'js/[name].bundle.js'
@@ -10,12 +11,16 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.js$/,
-				loader: 'babel-loader',
-				exclude: path.resolve(__dirname, "node_modules"),
-				query: {
-					presets: ["@babel/preset-env"]
-				}
+				test: /\.css$/,
+				loader: 'style-loader!css-loader'
+			},
+			{
+				test: /\.html$/,
+				loader: 'html-loader'
+			},
+			{
+				test: /\.(png|jpg|svg|gif)$/i,
+				loader: 'url-loader?limit=20000&name=assets/[name]-[hash:5].[ext]!image-webpack-loader'
 			}
 		]
 	},
@@ -26,3 +31,5 @@ module.exports = {
 	],
 	mode: "development"	// 设置mode
 }
+
+
