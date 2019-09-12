@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Hello</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			background: #9ff;
+		}
+
+		.main {
+			padding: 50px;
+		}
+
+		.data-nums {
+		    margin-bottom: 20px;
+		}
+		.data-nums::after {
+		    content: "";
+		    display: block;
+		    clear: both;
+		}
+		.data-nums > div {
+		    float: left;
+		    height: 30px;
+		    font-size: 18px;
+		    color: #f99;
+		    line-height: 30px;
+		}
+		.data-nums > .item {
+		    position: relative;
+		    width: 24px;
+		    background: #002A80;
+		    text-align: center;
+		    overflow: hidden;
+		}
+		.data-nums > .item+.item {
+		    margin-left: 5px;
+		}
+		.data-nums > .dot {
+		    padding-left: 3px;
+		    width: 1vw;
+		    text-align: left;
+		}
+		.data-nums .num-group {
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    z-index: 10;
+		    width: 100%;
+		}
+		.data-nums .num {
+		    width: 100%;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="main">
+
+		<div id="dataNums"></div>
+
+	</div>
+		
+	
+	<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+	<script src="./ScrollNumber.js"></script>
+	<script>
+		var sn = new ScrollNumber($('#dataNums'), {
+			deVal: 1234567,
+			className: 'data-nums'
+		})
+		
+		setTimeout(function () {
+			sn.setNum(8321);
+		}, 5000);
+
+		setTimeout(function () {
+			sn.setNum(34583872);
+		}, 10000);
+	</script>
+</body>	
+</html>
