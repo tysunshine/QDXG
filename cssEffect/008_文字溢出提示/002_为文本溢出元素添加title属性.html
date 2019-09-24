@@ -61,6 +61,7 @@
 						}
 
 						oThis.bindTip = true;
+						var timer = null, isEnter = false;
 						oThis.onmouseenter = function () {
 							var iTw = this.clientWidth;
 							var iPl = parseInt(getComputedStyle(this, null)['paddingLeft']);
@@ -69,6 +70,8 @@
 							var strText = this.innerText;
 							iTw = iTw - iPl - iPr;
 
+							isEnter = true;
+
 							var oCalc = document.getElementById('_calcMinWidthSpan');
 							if (!oCalc) {
 								oCalc = document.createElement('div');
@@ -76,7 +79,17 @@
 								oCalc.style.display = 'inline-block';
 								oCalc.style.whiteSpace = 'nowrap';
 								oCalc.style.visibility  = 'hidden';
+								oCalc.style.position = 'absolute';
 								document.body.appendChild(oCalc);
+								
+								clearInterval(timer);
+								timer = setInterval(function () {
+									if (!isEnter) {
+										document.body.removeChild(oCalc);
+										clearInterval(timer);
+									}
+									isEnter = false;
+								}, 10000);
 							}
 								
 							oCalc.style.fontSize = iSize;

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>折线</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			padding: 50px;
+			background: #cfcfcf;
+		}
+	</style>
+</head>
+<body>
+
+	<div style="width: 600px;height:400px;background: #fff;margin: 0 auto;" id="myChart"></div>
+	
+	<script src="../lib/echarts/echarts.js"></script>
+	<script>
+		var myChart = echarts.init(document.getElementById('myChart'));
+
+		var option = {
+			title: {
+				text: '未来一周气温变化',
+				subtext: '村属虚构'
+			},
+			tooltip: {
+				trigger: 'axis'
+			},
+			legend: {
+				data: ['最高气温', '最低气温']
+			},
+			xAxis: [
+				{
+					type: 'category',
+					data: ['周一','周二','周三','周四','周五','周六','周日'],
+					axisLine: {										// x轴线
+						onZero: false,								// 不以y轴0点为起始
+						lineStyle: {
+							color: 'red'
+						}
+					},
+					axisLabel: {									// x轴字
+						textStyle: {
+							// color: 'green'
+							color: function (val) {
+								var res = 'green';
+								switch(val) {
+									case '周一': res = '#1f1'; break;
+									case '周二': res = '#3f3'; break;
+									case '周三': res = '#5f5'; break;
+									case '周四': res = '#7f7'; break;
+									case '周五': res = '#9f9'; break;
+									case '周六': res = '#bfb'; break;
+									case '周日': res = '#efe'; break;
+								}
+								return res;
+							}
+						}
+					},
+					boundaryGap: [5, 5]								// x轴左右两边留白
+				}
+			],
+			yAxis: [
+				{
+					axisLine: {
+						show: false
+					}
+				}
+			],
+			series: [
+				{
+					name: '最高气温',
+					type: 'line',
+					// smooth: true,									// 是否平滑
+					lineStyle: {
+						type: 'dashed'									// smooth为true时不支持虚线
+					},
+					data: [11, 11, {
+						value: 15,
+						symbol: 'emptyCircle',
+						label: {
+							show: true,
+							formatter: '{c}',
+							position: 'bottom'
+						}
+					}, 13, 12, 13, 10],
+					markLine: {											
+						data: [
+							{type: 'average', name: '平均值'}			// 平均线
+						]
+					},
+					markPoint: {										
+						data: [
+							{type: 'max', name: '最大值'},
+							{type: 'min', name: '最小值'}
+						]
+					},
+					symbol: 'arrow',									// 转折点的类型
+					symbolRotate: -90,
+					symbolSize: 10
+				},
+				{
+					name: '最低气温',
+					type: 'line',
+					smooth: true,									
+					data: [1, -2, 2, 5, 3, 2, 0],
+					label: {
+						show: true,										// 在每个点上显示数值
+						formatter: '{c}'
+					},
+					markLine: {
+						data: [
+							{type: 'average', name: '平均值'}
+						]
+					},
+					areaStyle: {										// 区域填充
+						color: 'yellow'			
+					}
+				}
+			]
+		}
+
+		myChart.setOption(option);
+
+
+	</script>
+</body>	
+</html>
