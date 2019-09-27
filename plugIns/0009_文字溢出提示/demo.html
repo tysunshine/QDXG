@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Hello</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			padding: 50px 0;
+			background: #D3D3D3;
+		}
+		.group {
+			margin: 0 auto;
+			padding: 10px;
+			width: 60%;
+			min-height: 100px;
+			background: #fff;
+			border-radius: 10px;
+			box-sizing: border-box;
+		}
+		.group+.group {
+			margin-top: 30px;
+		}
+
+		.t1 {
+			display: inline-block;
+			padding: 0 10px;
+			width: 150px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="group">
+		<div class="t1" title="加手机砥砺奋进阿喀琉斯等级分类">加手机砥砺奋进阿喀琉斯等级分类</div>
+	</div>
+	<div class="group">
+		<span class="t1 hover-tip">加手机砥砺奋进阿喀琉斯等级分类</span>
+		<span class="t1 hover-tip">加手机砥砺奋</span>
+	</div>
+	
+	<script src="./hoverTip.js"></script>
+	<script>
+		hoverTip('.hover-tip');
+	</script>
+</body>	
+</html>
