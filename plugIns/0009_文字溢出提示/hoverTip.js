@@ -36,6 +36,9 @@
 						oCalc.style.whiteSpace = 'nowrap';
 						oCalc.style.visibility  = 'hidden';
 						oCalc.style.position = 'absolute';
+						oCalc.style.top = 0;
+						oCalc.style.left = 0;
+	            		oCalc.style.zIndex =  -1000;
 						document.body.appendChild(oCalc);
 						
 						clearInterval(timer);
