@@ -1,0 +1,15 @@
+.com-header {
+	padding: 15px;
+}
+.com-header ul {
+	float: right;
+}
+.com-header ul li {
+	float: left;
+	line-height: 40px;
+}
+.com-header ul li+li {
+	margin-left: 20px;
+}
+
+

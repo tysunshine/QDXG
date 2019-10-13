@@ -1,10 +1,10 @@
-import tpl from './index.ejs';
+import tpl from './news.ejs';
 
 import oComHeader from '../../components/com-header/com-header.js';
 import oComFooter from '../../components/com-footer/com-footer.js';
 
-var oIndex = {
-	name: 'index',
+var oNews = {
+	name: 'news',
 	init () {
 		this.initState();
 		this.initEvent();
@@ -29,4 +29,4 @@ var oIndex = {
 	}
 }
 
-export default oIndex;
+export default oNews;

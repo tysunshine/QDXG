@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/entrys/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/entrys/news.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -233,38 +233,38 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _com
 
 /***/ }),
 
-/***/ "./src/entrys/index.js":
-/*!*****************************!*\
-  !*** ./src/entrys/index.js ***!
-  \*****************************/
+/***/ "./src/entrys/news.js":
+/*!****************************!*\
+  !*** ./src/entrys/news.js ***!
+  \****************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _static_lib_jquery_1_12_3_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../static/lib/jquery-1.12.3.js */ \"./src/static/lib/jquery-1.12.3.js\");\n/* harmony import */ var _static_css_common_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../static/css/common.css */ \"./src/static/css/common.css\");\n/* harmony import */ var _static_css_common_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_static_css_common_css__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _pages_index_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../pages/index/index.js */ \"./src/pages/index/index.js\");\n\n\n\n\n(function () {\n  _pages_index_index_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"].init();\n})();\n\n//# sourceURL=webpack:///./src/entrys/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _static_lib_jquery_1_12_3_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../static/lib/jquery-1.12.3.js */ \"./src/static/lib/jquery-1.12.3.js\");\n/* harmony import */ var _static_css_common_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../static/css/common.css */ \"./src/static/css/common.css\");\n/* harmony import */ var _static_css_common_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_static_css_common_css__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _pages_news_news_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../pages/news/news.js */ \"./src/pages/news/news.js\");\n\n\n\n\n(function () {\n  _pages_news_news_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"].init();\n})();\n\n//# sourceURL=webpack:///./src/entrys/news.js?");
 
 /***/ }),
 
-/***/ "./src/pages/index/index.ejs":
-/*!***********************************!*\
-  !*** ./src/pages/index/index.ejs ***!
-  \***********************************/
+/***/ "./src/pages/news/news.ejs":
+/*!*********************************!*\
+  !*** ./src/pages/news/news.ejs ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = function(obj) {\nobj || (obj = {});\nvar __t, __p = '';\nwith (obj) {\n__p += '<div class=\"index-page page-wrapper\">\\r\\n\t' +\n((__t = ( comHeader )) == null ? '' : __t) +\n'\\r\\n\t<div class=\"page-main\">\\r\\n\t\t首页\\r\\n\t</div>\\r\\n\t' +\n((__t = ( comFooter )) == null ? '' : __t) +\n'\\r\\n</div>';\n\n}\nreturn __p\n}\n\n//# sourceURL=webpack:///./src/pages/index/index.ejs?");
+eval("module.exports = function(obj) {\nobj || (obj = {});\nvar __t, __p = '';\nwith (obj) {\n__p += '<div class=\"index-page page-wrapper\">\\r\\n\t' +\n((__t = ( comHeader )) == null ? '' : __t) +\n'\\r\\n\t<div class=\"page-main\">\\r\\n\t\t新闻\\r\\n\t</div>\\r\\n\t' +\n((__t = ( comFooter )) == null ? '' : __t) +\n'\\r\\n</div>';\n\n}\nreturn __p\n}\n\n//# sourceURL=webpack:///./src/pages/news/news.ejs?");
 
 /***/ }),
 
-/***/ "./src/pages/index/index.js":
-/*!**********************************!*\
-  !*** ./src/pages/index/index.js ***!
-  \**********************************/
+/***/ "./src/pages/news/news.js":
+/*!********************************!*\
+  !*** ./src/pages/news/news.js ***!
+  \********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _index_ejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.ejs */ \"./src/pages/index/index.ejs\");\n/* harmony import */ var _index_ejs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_index_ejs__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _components_com_header_com_header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/com-header/com-header.js */ \"./src/components/com-header/com-header.js\");\n/* harmony import */ var _components_com_footer_com_footer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/com-footer/com-footer.js */ \"./src/components/com-footer/com-footer.js\");\n\n\n\nvar oIndex = {\n  name: 'index',\n  init: function init() {\n    this.initState();\n    this.initEvent();\n  },\n  initState: function initState() {\n    this.tpl = _index_ejs__WEBPACK_IMPORTED_MODULE_0___default.a;\n    this.initWebPage();\n  },\n  initEvent: function initEvent() {},\n  // 初始化页面结构\n  initWebPage: function initWebPage() {\n    $('#app').html(this.tpl({\n      comHeader: _components_com_header_com_header_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"].init(),\n      comFooter: _components_com_footer_com_footer_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"].init()\n    }));\n  }\n};\n/* harmony default export */ __webpack_exports__[\"default\"] = (oIndex);\n\n//# sourceURL=webpack:///./src/pages/index/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _news_ejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./news.ejs */ \"./src/pages/news/news.ejs\");\n/* harmony import */ var _news_ejs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_news_ejs__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _components_com_header_com_header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/com-header/com-header.js */ \"./src/components/com-header/com-header.js\");\n/* harmony import */ var _components_com_footer_com_footer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/com-footer/com-footer.js */ \"./src/components/com-footer/com-footer.js\");\n\n\n\nvar oNews = {\n  name: 'news',\n  init: function init() {\n    this.initState();\n    this.initEvent();\n  },\n  initState: function initState() {\n    this.tpl = _news_ejs__WEBPACK_IMPORTED_MODULE_0___default.a;\n    this.initWebPage();\n  },\n  initEvent: function initEvent() {},\n  // 初始化页面结构\n  initWebPage: function initWebPage() {\n    $('#app').html(this.tpl({\n      comHeader: _components_com_header_com_header_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"].init(),\n      comFooter: _components_com_footer_com_footer_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"].init()\n    }));\n  }\n};\n/* harmony default export */ __webpack_exports__[\"default\"] = (oNews);\n\n//# sourceURL=webpack:///./src/pages/news/news.js?");
 
 /***/ }),
 

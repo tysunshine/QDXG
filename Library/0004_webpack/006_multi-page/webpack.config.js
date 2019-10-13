@@ -4,7 +4,7 @@ var htmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
 	entry: {
 		index: './src/entrys/index.js',
-		page1: './src/entrys/page1.js'
+		news: './src/entrys/news.js'
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
@@ -56,8 +56,8 @@ module.exports = {
 		}),
 		new htmlWebpackPlugin({
 			template: 'index.html',
-			filename: 'pages/page1.html',
-			chunks: ['page1']
+			filename: 'pages/news.html',
+			chunks: ['news']
 		})
 	],
 	mode: "development"	// 设置mode
