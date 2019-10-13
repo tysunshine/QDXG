@@ -3,6 +3,7 @@
 		config: {
 			fontSize: 14,	// 字体大小
 			distance: 10,	// 预留间隔
+			width: -1, 		// 设置最小宽度
 			min: 90,		// 最小宽度
 			max: 250,		// 最大宽度
 			pl: 10,			// padding-left
@@ -31,6 +32,9 @@
 
 		    // 间隔
 		    this.config.distance = config.distance || this.config.distance;
+
+		    // 最小宽度
+		    this.config.width = config.width || this.config.width;
 
 		    // 最小值，可谓auto
 		    this.config.min = config.min || this.config.min;
@@ -103,6 +107,11 @@
 		basisTextMin: function (key, text) {
 			var _this = this;
 			var oKey = this.key[key]; // key项的配置
+
+			// 是否有自设置的最小宽度
+			if (oKey.width != '-1') {
+				return oKey.width;
+			}
 
 			var oCalc = document.getElementById('_calcMinWidthSpan');
 	        if (!oCalc) {
