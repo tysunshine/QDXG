@@ -1,0 +1,80 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+body, html {
+	height: 100%;
+	font-size: 14px;
+	background: #eee;
+}
+ul, li {
+	list-style: none;
+}
+
+.clearfix::after {
+	content: '';
+	display: block;
+	clear: both;
+}
+.pull-left {
+	float: left;
+}
+.pull-right {
+	float: right;
+}
+.text-left {
+	text-align: left;
+}
+.text-right {
+	text-align: right;
+}
+.text-center {
+	text-align: center;
+}
+
+.com-btn {
+	height: 40px;
+	background: #56A1EE;
+	border-radius: 4px;
+	border: none;
+	color: #fff;
+	cursor: pointer;
+}
+.com-btn.is-block {
+	width: 100%;
+}
+
+#app {
+	height: 100%;
+}
+
+.page-wrapper {
+	position: relative;
+	padding: 80px 0 10px; 
+	height: 100%;
+	box-sizing: border-box;
+	overflow: auto;
+}
+.com-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 70px;
+	background: #fff;
+	box-shadow: #ccc 0 0 10px;
+	box-sizing: border-box;
+}
+.com-footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	background: #fff;
+}
+.page-main {
+	min-height: 100%;
+}
+

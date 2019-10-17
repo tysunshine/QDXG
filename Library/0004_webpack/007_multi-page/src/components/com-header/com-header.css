@@ -1,0 +1,21 @@
+.com-header {
+	padding: 15px;
+}
+.com-header .logo {
+	float: left;
+	width: 40px;
+	height: 40px;
+	background: url(../../static/img/logo.png) no-repeat left center;
+}
+.com-header ul {
+	float: right;
+}
+.com-header ul li {
+	float: left;
+	line-height: 40px;
+}
+.com-header ul li+li {
+	margin-left: 20px;
+}
+
+

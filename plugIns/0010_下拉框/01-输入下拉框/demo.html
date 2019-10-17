@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>下拉框</title>
+	<link rel="stylesheet" type="text/css" href="./MyDropDownBox.css">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			background: #ccc;
+		}
+
+		.group {
+			margin: 0 auto 50px;
+			padding: 20px;
+			width: 1000px;
+			min-height: 200px;
+			background: #fff;
+			border-radius: 10px;
+		}
+
+
+		.select-box {
+			width: 300px;
+			height: 40px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="group">
+		<select>
+			<option>重庆</option>
+			<option>铜梁</option>
+			<option>上海</option>
+		</select>
+	</div>
+
+	<!-- <div class="my-drop-down-box">
+				<input type="text" readonly>
+				<div class="drop-down-wrapper">
+					<ul class="drop-down-list">
+						<li>阿斯顿发送到发</li>
+						<li>撒的发放</li>
+						<li>王企鹅二若群二</li>
+						<li>而他也</li>
+						<li>好地方规划</li>
+						<li>阿斯顿发送到发阿斯顿发送到发阿斯顿发送到发阿斯顿发送到发</li>
+						<li>撒的发放</li>
+						<li>王企鹅二若群二</li>
+						<li>而他也</li>
+						<li>好地方规划</li>
+						<li>阿斯顿发送到发</li>
+						<li>撒的发放</li>
+						<li>王企鹅二若群二</li>
+						<li>而他也</li>
+						<li>好地方规划</li>
+					</ul>
+					<div class="input-box">
+						<input type="text">
+						<button>确定</button>
+					</div>
+				</div>
+			</div> -->
+
+	<div class="group">
+		<div class="select-box" id="dropdown1"></div>
+	</div>
+		
+	<script src="../jquery-1.12.3.js"></script>
+	<script src="./MyDropDownBox.js"></script>
+	<script>
+		
+		var oDropDown1 = new MyDropDownBox({
+			el: '#dropdown1',
+			valKey: 'value',
+			txtKey: 'name',
+			val: 6,
+			maxH: 200,
+			list: [
+				{value: 1, name: 'A'},
+				{value: 2, name: 'V'},
+				{value: 3, name: 'C'},
+				{value: 4, name: 'D'},
+				{value: 5, name: 'B'},
+				{value: 6, name: 'E'},
+				{value: 7, name: 'F'},
+				{value: 8, name: 'G'},
+				{value: 9, name: 'H'},
+				{value: 10, name: 'J'},
+			],
+			itemClick: function () {
+				console.log('aaa')
+			},
+			inputChange: function (input) {
+				console.log($(input).val());
+			}
+		})
+
+
+	</script>
+</body>	
+</html>
