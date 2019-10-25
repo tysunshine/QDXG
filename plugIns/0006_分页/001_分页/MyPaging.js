@@ -4,7 +4,7 @@
 		linkNum: 5,		// 中间按钮个数 		默认5
 		current: 1,		// 页面初始当前页 	默认1
 		size: 10,		// 每页显示的条数 	默认10
-		layout: 'total, prev, pager, next, jumper',	// 设置显示的内容		// 默认'total, prev, pager, next, jumper'
+		layout: 'total, totalPage, sizes, prev, pager, next, jumper',	// 设置显示的内容		// 默认'total, prev, pager, next, jumper'
 		prevHtml: '&lt;',	// 上一页html	默认&lt;
 		nextHtml: '&gt;',	// 下一页html	默认&gt;
 		jump: fn 		// 跳转时执行方法 	必须
@@ -21,6 +21,7 @@
 		this.linkNum = opt.linkNum || 5;	// 中间按钮个数
 		this.current = opt.current || 1;	// 当前页
 		this.size = opt.size || 10;			// 每页多少条
+		this.sizes = opt.sizes || [10, 20, 50, 100, 200]; // 每页多少条
 		this.prevHtml = opt.prevHtml || '&lt;';	// 上一页html
 		this.nextHtml = opt.nextHtml || '&gt;';	// 下一页html
 		
@@ -76,7 +77,16 @@
 
 					// 总页数
 					if (key == 'totalPage') {
-						html += '<div class="sizes pg-item">共<span>' + this.totalPage + '</span>页</div>'
+						html += '<div class="total-page pg-item">共<span>' + this.totalPage + '</span>页</div>'
+					}
+
+					// 每页显示多少条
+					if (key == 'sizes') {
+						html += '<select class="sizes pg-item">';
+						for (var i = 0; i < this.sizes.length; i++) {
+							html += '<option value="' + this.sizes[i] + '"' + (this.size == this.sizes[i] ? ' selected' : '') + '>' + this.sizes[i] + '条/页</option>';
+						}
+						html += '</select>';
 					}
 
 					// 上一条
@@ -166,9 +176,16 @@
 		// 设置分页事件
 		_setPagingEvent: function () {
 			var _this = this;
-			var oMyPaging = this.oPagingParent.find('._my-paging-box');
-			var oLinkBtn = oMyPaging.find('.link-btn');
-			var oIpt = oMyPaging.find('.jumper input');
+			var oMyPaging = this.oPagingParent.find('._my-paging-box'); // 分页盒子元素
+			var oSizes = oMyPaging.find('.sizes'); // 每页多少条下拉框
+			var oLinkBtn = oMyPaging.find('.link-btn'); // 页码按钮
+			var oIpt = oMyPaging.find('.jumper input'); // 跳转输入框
+
+			// 每页显示条数改变
+			oSizes.on('change', function () {
+				_this.size = $(this).val();
+				_this.setCurrent(1);
+			})
 
 			// 按钮点击事件
 			oLinkBtn.on('click', function () {

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Hello</title>
+	<link rel="stylesheet" type="text/css" href="oImgReveal/oImgReveal.css">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		html, body {
+			height: 100%;
+		}
+		body {
+			padding-top: 50px;
+			box-sizing: border-box;
+		}
+
+		.img-box {
+			margin: 0 auto;
+			width: 606px;
+			border: 2px solid #999;
+			border-left: none;
+			border-top: none;
+		}
+		.img-box::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.img-box > div {
+			position: relative;
+			float: left;
+			margin-right: -2px;
+			margin-bottom: -2px;
+			width: 200px;
+			height: 200px;
+			border: 2px solid #999;
+			cursor: pointer;
+		}
+		.img-box > div > img {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			max-width: 100%;
+			max-height: 100%;
+			transform: translate(-50%, -50%);
+			-webkit-transform: translate(-50%, -50%);
+			-moz-transform: translate(-50%, -50%);
+			-ms-transform: translate(-50%, -50%);
+			-o-transform: translate(-50%, -50%);
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="img-box">
+		<div><img src="./img/timg1.jpg"></div>
+		<div><img src="./img/timg2.jpg"></div>
+		<div><img src="./img/timg3.jpg"></div>
+		<div><img src="./img/timg4.jpg"></div>
+		<div><img src="./img/timg5.jpg"></div>
+		<div><img src="./img/timg6.jpg"></div>
+		<div><img src="./img/timg7.jpg"></div>
+	</div>
+
+
+	<button>显示图片</button>
+	
+	<script src="./jquery-1.12.3.js"></script>
+	<script src="./jquery.mousewheel.min.js"></script>
+	<script src="oImgReveal/oImgReveal.js"></script>
+	<script>
+		var aImg = [
+			'./img/timg1.jpg',
+			'./img/timg2.jpg',
+			'./img/timg3.jpg',
+			'./img/timg4.jpg',
+			'./img/timg5.jpg',
+			'./img/timg6.jpg',
+			'./img/timg7.jpg',
+		]
+
+		
+
+		$('.img-box > div').on('click', function () {
+			oImgReveal.show({
+				list: aImg,
+				index: $(this).index()
+			})
+		})
+		
+	</script>
+</body>	
+</html>

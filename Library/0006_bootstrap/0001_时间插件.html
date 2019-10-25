@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Hello</title>
+	<link rel="stylesheet" type="text/css" href="./lib/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="./lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.main {
+			margin: 0 auto;
+			width: 400px;
+		}
+		.date-box {
+			width: 200px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="main clearfix">
+		<div class='input-group date pull-left' id='datetimepicker1'>
+            <input type='text' class="form-control"/>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+	</div>
+	
+	<script src="./lib/jquery-1.12.3.js"></script>
+	
+	<script src="./lib/bootstrap/js/bootstrap.js"></script>
+	<script src="./lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+	<!-- <script src="https://cdn.bootcss.com/moment.js/2.22.0/moment-with-locales.js"></script> -->
+	<script>
+		$('#datetimepicker1').datetimepicker({
+			format: 'yyyy-mm-dd', // 年月日
+			language: 'zh-cn', // 中文 - 改了源码的
+			endDate: '2019-10-11', // 结束时间
+			minView: 2 // 最低点到日结束
+		})
+
+	</script>
+</body>	
+</html>

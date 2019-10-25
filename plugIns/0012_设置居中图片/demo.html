@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>图片居中</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			padding-top: 50px;
+			background: #eee;
+		}
+		.img-box {
+			margin: 0 auto;
+			width: 300px;
+			height: 300px;
+			background: #fff;
+			border: 1px solid #999;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="img-box"></div>
+	
+	<script src="jquery-1.12.3.js"></script>
+	<script src="oCenterImg.js"></script>
+	<script>
+		var idx = 3;
+		var aImg = [
+			'./img/timg1.jpg',
+			'./img/timg2.jpg',
+			'./img/timg3.jpg',
+			'./img/timg4.jpg',
+			'./img/timg5.jpg',
+			'./img/timg6.jpg',
+			'./img/timg7.jpg',
+		];
+
+		
+		$('.img-box').CenterImg(aImg[idx]);
+
+	</script>
+</body>	
+</html>
