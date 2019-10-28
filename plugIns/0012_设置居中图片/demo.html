@@ -13,22 +13,29 @@
 			background: #eee;
 		}
 		.img-box {
+			position: relative;
 			margin: 0 auto;
 			width: 300px;
 			height: 300px;
 			background: #fff;
 			border: 1px solid #999;
+			overflow: hidden;
+		}
+		.changeBtn {
+			display: block;
+			margin: 20px auto;
 		}
 	</style>
 </head>
 <body>
 
 	<div class="img-box"></div>
+	<button class="changeBtn">改变</button>
 	
 	<script src="jquery-1.12.3.js"></script>
-	<script src="oCenterImg.js"></script>
+	<script src="jqeury.centerImg.js"></script>
 	<script>
-		var idx = 3;
+		var idx = 0;
 		var aImg = [
 			'./img/timg1.jpg',
 			'./img/timg2.jpg',
@@ -40,7 +47,20 @@
 		];
 
 		
-		$('.img-box').CenterImg(aImg[idx]);
+		$('.img-box').centerImg(aImg[idx]);
+
+
+		$('.changeBtn').on('click', function () {
+			idx++;
+			if (idx >= aImg.length) {
+				idx = 0;
+			}
+
+			$('.img-box').centerImg({
+				src: aImg[idx]
+			});
+		})
+
 
 	</script>
 </body>	
