@@ -58,6 +58,10 @@
 	color: #ccc;
 	cursor: default;
 }
+/*._my-paging-box .link-btn.prev, ._my-paging-box .link-btn.next {
+	font-family: '宋体';
+}*/
+
 
 /*跳*/
 .jumper span {

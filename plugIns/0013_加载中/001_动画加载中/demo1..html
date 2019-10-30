@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>加载中</title>
+	<style>
+		@-webkit-keyframes line-scale-pulse-out-rapid {
+		0% {
+		-webkit-transform: scaley(1);
+		transform: scaley(1); }
+
+		80% {
+		-webkit-transform: scaley(0.3);
+		transform: scaley(0.3); }
+
+		90% {
+		-webkit-transform: scaley(1);
+		transform: scaley(1); } }
+
+		@keyframes line-scale-pulse-out-rapid {
+		0% {
+		-webkit-transform: scaley(1);
+		transform: scaley(1); }
+
+		80% {
+		-webkit-transform: scaley(0.3);
+		transform: scaley(0.3); }
+
+		90% {
+		-webkit-transform: scaley(1);
+		transform: scaley(1); } }
+
+		.line-scale-pulse-out-rapid > div {
+		background-color: #fff;
+		width: 4px;
+		height: 35px;
+		border-radius: 2px;
+		margin: 2px;
+		-webkit-animation-fill-mode: both;
+		animation-fill-mode: both;
+		display: inline-block;
+		-webkit-animation: line-scale-pulse-out-rapid 0.9s 0s infinite cubic-bezier(.11, .49, .38, .78);
+		animation: line-scale-pulse-out-rapid 0.9s 0s infinite cubic-bezier(.11, .49, .38, .78); }
+		.line-scale-pulse-out-rapid > div:nth-child(2), .line-scale-pulse-out-rapid > div:nth-child(4) {
+		-webkit-animation-delay: 0.25s !important;
+		animation-delay: 0.25s !important; }
+		.line-scale-pulse-out-rapid > div:nth-child(1), .line-scale-pulse-out-rapid > div:nth-child(5) {
+		-webkit-animation-delay: 0.5s !important;
+		animation-delay: 0.5s !important; }
+	</style>
+
+</head>
+<body>
+	
+	<button onclick="login()">登陆吧</button>
+
+	<script>
+		//动画加载
+		var showLoading = function () {
+		    var tips = document.getElementById('loadingBox');
+
+		    if (tips) {
+		        return;
+		    }
+
+		    //模态框
+		    tips = document.createElement('div');
+		    tips.id = "loadingBox";
+		    tips.className = 'loadingBox animated fadeIn';
+		    tips.style.zIndex = '9999999';
+		    tips.style.background = 'none';
+		    tips.style.overflow = "auto";
+		    tips.style.display = "flex";
+		    tips.style.justifyContent = "center";
+		    tips.style.alignItems = "center";
+		    tips.style.position = 'fixed';
+		    tips.style.top = '0';
+		    tips.style.left = '0';
+		    tips.style.bottom = '0';
+		    tips.style.right = '0';
+
+		    //动画容器
+		    var loadingBox = document.createElement('div');
+		    loadingBox.style.boxSizing = "border-box";
+		    loadingBox.style.display = "flex";
+		    loadingBox.style.flexDirection = "column";
+		    loadingBox.style.flexWrap = "1";
+		    loadingBox.style.flexShrink = "25%";
+		    loadingBox.style.flexBasis = "25%";
+		    loadingBox.style.alignItems = "center";
+		    loadingBox.style.justifyContent = "center";
+		    loadingBox.style.maxWidth = "10vw";
+		    loadingBox.style.padding = "1vw 2vw";
+		    // loadingBox.style.boxShadow = "0 0 1vw rgba(238,154,0,0.5)";
+		    loadingBox.style.boxShadow = "0 0 1vw #B0E2FF";
+
+		    // loadingBox.style.height = "5vw";
+		    loadingBox.style.background = "rgba(0,0,0,0.6)";
+		    tips.appendChild(loadingBox);
+
+		    //动画
+		    var loadingDiv = document.createElement('div');
+		    // loadingDiv.className = "loader-inner line-scale";
+		    loadingDiv.className = "loader-inner line-scale-pulse-out-rapid";
+		    loadingBox.appendChild(loadingDiv);
+
+		    //文本提示
+		    var contentDiv = document.createElement("div");
+		    contentDiv.innerText = "请稍候";
+		    contentDiv.style.fontSize = "0.8vw";
+		    contentDiv.style.fontWeight = "600";
+		    contentDiv.style.letterSpacing = "0.3vw";
+		    // contentDiv.style.color = "rgba(238,154,0,1)";
+		    contentDiv.style.color = "#87CEFF";
+
+		    var item = {};
+		    for (var i = 0; i < 5; i++) {
+		        item[i] = document.createElement('div');
+		        // item[i].style.background = "rgba(238,154,0,1)";
+		        item[i].style.background = "#87CEFF";
+		        item[i].style.margin = "0.3vw";
+		        item[i].style.width = "0.2vw";
+		        item[i].style.height = "2vw";
+
+		        loadingDiv.appendChild(item[i]);
+
+
+		        if (i === 4) {
+		            loadingBox.appendChild(contentDiv);
+		        }
+		    }
+
+		    if (!document.getElementById("loadingBox")) {
+		        document.body.appendChild(tips);
+		    }
+
+		}
+
+		//@删除弹框
+		var colseLoading = function () {
+	        var dom = document.getElementById('loadingBox');
+	        if (dom) {
+	            document.body.removeChild(dom);
+	        }
+		}
+
+
+
+
+
+		function login () {
+
+			showLoading();
+
+		}
+
+
+	</script>
+</body>	
+</html>

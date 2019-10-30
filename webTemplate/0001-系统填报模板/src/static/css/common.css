@@ -17,19 +17,19 @@ ul, li {
 	clear: both;
 }
 .pull-left {
-	float: left;
+	float: left !important;
 }
 .pull-right {
-	float: right;
+	float: right !important;
 }
 .text-left {
-	text-align: left;
+	text-align: left !important;
 }
 .text-right {
-	text-align: right;
+	text-align: right !important;
 }
 .text-center {
-	text-align: center;
+	text-align: center !important;
 }
 
 .com-btn {

@@ -1,5 +1,8 @@
 ;(function ($, window, document) {
-
+	/**
+	 * (src) -> 图片路径
+	 * (option) -> option.src图片路径，option.type图片尺寸类型
+	 */
 	function CenterImg () {
 		this.data = {
 			$dom: null, // 图片盒子

@@ -2,10 +2,14 @@
 	padding: 15px;
 }
 .com-header .logo {
-	float: left;
+	margin-right: 20px;
 	width: 40px;
 	height: 40px;
 	background: url(../../static/img/logo.png) no-repeat left center;
+}
+.com-header .title {
+	font-size: 24px;
+	line-height: 40px;
 }
 .com-header ul {
 	float: right;
