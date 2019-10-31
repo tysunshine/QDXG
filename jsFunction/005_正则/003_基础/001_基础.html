@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>正则</title>
+</head>
+<body>
+	
+	<script>
+		// 1.创建
+		// var reg = new RegExp("a.c");//ac中间有一个任意字符的字符串
+		// var reg = /a.c/;
+
+		// 2.关键字
+		// ^ $ . \ * + ? {} [] () |
+
+		// 3.match方法 获取匹配正则的字符串 不查找全部g相等于exec方法
+		// var str = 'abcadcaefgcaac';
+		// var arr = str.match(/a[^ac]+c/g); // ["abc", "adc", "aefgc"]
+		// console.log(arr); 
+
+		// 4.test方法 判断字符串是否全是数字
+		// var reg = /^\d+$/g;
+		// // var bl = reg.test('123456789'); // true
+		// var bl = reg.test('123456789a'); // false
+		// console.log(bl);
+
+		// 5.exec方法
+		// var reg = /a[^ac]+c/;
+		// var arr = reg.exec('abcadcaefgcaac'); // ["abc", index: 0, input: "abcadcaefgcaac", groups: undefined]
+		// console.log(arr);
+
+
+	</script>
+</body>	
+</html>
