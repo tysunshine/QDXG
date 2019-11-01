@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>绘制一个掉落小球</title>
+</head>
+<body>
+
+	<canvas id="canvas" width="1024" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	
+	<script>
+		/**
+		 * @绘制小球掉落
+		 */
+		var WINDOW_WIDTH = 0;
+		var WINDOW_HEIGHT = 0;
+
+		var ball = {x: 512, y: 100, r: 20, g: 2, vx: -4, vy: 0, color: '#005588'}
+
+		window.onload = function () {
+			var oCanvas = document.getElementById('canvas');
+			var context = oCanvas.getContext('2d');
+
+			WINDOW_WIDTH = context.canvas.width;
+			WINDOW_HEIGHT = context.canvas.height;
+
+			render(context);
+			setInterval(function () {
+				update();
+				render(context);
+			}, 50)
+		}
+
+
+		function update () {
+			ball.x += ball.vx;
+			ball.y += ball.vy;
+
+			ball.vy += ball.g;
+
+			// 碰撞底部
+			if (ball.y >= WINDOW_HEIGHT - ball.r) {
+				ball.y = WINDOW_HEIGHT - ball.r;
+				ball.vy = -ball.vy*0.5;
+			}
+
+			// 碰撞左边界
+			if (ball.x <= ball.r) {
+				ball.x = 512;
+				ball.y = 100;
+				ball.vy = 0;
+			}
+		}
+
+		function render (cxt) {
+			cxt.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+			cxt.fillStyle = ball.color;
+			cxt.beginPath();
+			cxt.arc(ball.x, ball.y, ball.r, 0, 2*Math.PI);
+			cxt.closePath();
+
+			cxt.fill();
+		}
+	</script>
+</body>	
+</html>

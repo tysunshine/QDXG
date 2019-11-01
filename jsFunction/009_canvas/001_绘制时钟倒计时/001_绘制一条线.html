@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>绘制一条线</title>
+</head>
+<body>
+
+	<canvas id="canvas" width="1024" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	
+	<script>
+		/**
+		 * @线段
+		 */
+		// var oCanvas = document.getElementById('canvas');
+		// var context = oCanvas.getContext('2d');
+
+		// // 设置状态
+		// context.moveTo(100, 100); // 笔落在100,100
+		// context.lineTo(700, 600); // 笔画到700,600
+		// context.lineTo(100, 600);
+		// context.lineTo(100, 100);
+
+		// context.lineWidth = 5;	// 线条宽度
+		// context.strokeStyle = "#005588"; // 设置线条样式，主要指颜色
+
+		// // 绘制
+		// context.stroke(); // stroke笔画的意思，在canvas中用于绘制线条
+
+
+		/**
+		 * @填充线
+		 */
+		// var oCanvas = document.getElementById('canvas');
+		// var context = oCanvas.getContext('2d');
+
+		// // 设置状态
+		// context.moveTo(100, 100); // 笔落在100,100
+		// context.lineTo(700, 600); // 笔画到700,600
+		// context.lineTo(100, 600);
+		// context.lineTo(100, 100);
+
+		// context.fillStyle = "rgba(100, 255, 100, .5)";
+		// context.fill();
+
+
+		/**
+		 * @填充与边框
+		 */
+		// var oCanvas = document.getElementById('canvas');
+		// var context = oCanvas.getContext('2d');
+
+		// // 设置状态
+		// context.moveTo(100, 100); // 笔落在100,100
+		// context.lineTo(700, 600); // 笔画到700,600
+		// context.lineTo(100, 600);
+		// context.lineTo(100, 100);
+
+		// context.fillStyle =  'rgba(100, 255, 100, .5)';
+		// context.fill();
+
+		// context.lineWidth = 5;	// 线条宽度
+		// context.strokeStyle = "#005588"; // 设置线条样式，主要指颜色
+		// context.stroke(); // stroke笔画的意思，在canvas中用于绘制线条
+
+
+		/**
+		 * @绘制多个线段
+		 * 错误代码
+		 * 因为，canvas是基于状态的，在绘制第二条线段时，第一条线段的状态还存在着，相当于第二次绘制了两条线段，将第一条线段覆盖了。
+		 */
+		// var oCanvas = document.getElementById('canvas');
+		// var context = oCanvas.getContext('2d');
+
+		// // 设置状态
+		// context.moveTo(100, 100);
+		// context.lineTo(700, 600);
+		// context.lineTo(100, 600);
+		// context.lineTo(100, 100);
+		// context.lineWidth = 5;
+		// context.strokeStyle = "#005588";
+		// context.stroke();
+
+		// context.moveTo(200, 100);
+		// context.lineTo(800, 600);
+		// context.strokeStyle = "black";
+		// context.stroke();
+
+
+		/**
+		 * @绘制多个线段
+		 * closePath:当我们绘制的线段是不封闭的时候，closePath会用一条线段将我们的绘制首位连接起来
+		 */
+		// var oCanvas = document.getElementById('canvas');
+		// var context = oCanvas.getContext('2d');
+
+		// // 设置状态
+		// context.beginPath();// 开始一段路径
+		// context.moveTo(100, 100);
+		// context.lineTo(700, 600);
+		// context.lineTo(100, 600);
+		// context.lineTo(100, 100);
+		// context.closePath();//结束一段路径
+		// context.lineWidth = 5;
+		// context.strokeStyle = "#005588";
+		// context.stroke();
+
+		// context.beginPath();
+		// context.moveTo(200, 100);
+		// context.lineTo(800, 600);
+		// context.closePath();
+		// context.strokeStyle = "black";
+		// context.stroke();
+
+
+		/**
+		 * @绘制七巧板
+		 */
+		// var trangram = [
+		// 	{p: [{x: 0, y: 0}, {x: 800, y: 0}, {x: 400, y: 400}], color: '#caff67'},
+		// 	{p: [{x: 0, y: 0}, {x: 400, y: 400}, {x: 0, y: 800}], color: '#67becf'},
+		// 	{p: [{x: 800, y: 0}, {x: 800, y: 400}, {x: 600, y: 600}, {x: 600, y: 200}], color: '#ef3d61'},
+		// 	{p: [{x: 600, y: 200}, {x: 600, y: 600}, {x: 400, y: 400}], color: '#f9f51a'},
+		// 	{p: [{x: 400, y: 400}, {x: 600, y: 600}, {x: 400, y: 800}, {x: 200, y: 600}], color: '#a594c0'},
+		// 	{p: [{x: 200, y: 600}, {x: 400, y: 800}, {x: 0, y: 800}], color: '#fa8ecc'},
+		// 	{p: [{x: 800, y: 400}, {x: 800, y: 800}, {x: 400, y: 800}], color: '#f6ca29'},
+		// ]
+		// var oCanvas = document.getElementById('canvas');
+		// var context = oCanvas.getContext('2d');
+
+		// for (var i = 0; i < trangram.length; i++) {
+		// 	draw(context, trangram[i]);
+		// }
+		// function draw (context, option) {
+		// 	context.beginPath();
+		// 	for (var i = 0; i < option.p.length; i++) {
+		// 		var item = option.p[i];
+		// 		if (i == 0) {
+		// 			context.moveTo(item.x, item.y);
+		// 		} else {
+		// 			context.lineTo(item.x, item.y);
+		// 		}
+		// 	}
+		// 	context.closePath();
+		// 	context.fillStyle = option.color;
+		// 	context.fill();
+		// }
+
+
+
+	</script>
+</body>	
+</html>

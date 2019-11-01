@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>绘制点阵数字</title>
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+		}
+	</style>
+</head>
+<body>
+
+	<canvas id="canvas" style="border: 1px solid #999;display: block;height: 90%;width: 90%;margin: 0 auto;"></canvas>
+	
+	<script src="./digit.js"></script>
+	<script>
+		// 不需要结束时间，将当前小时、分钟、毫秒相加得到显示秒数
+
+		var WINDOW_WIDTH = 1024;	// 宽度
+		var WINDOW_HEIGHT = 800;	// 高度
+		var RADIUS = 6;				// 组成点阵的园半径
+		var MARGIN_LEFT = 20;		// 数字距离左边距的距离
+		var MARGIN_TOP = 100;		// 数字距离上边距的距离
+
+		var remainSeconds = 0;	// 当前距离结束时间剩余秒数
+
+		var balls = []; // 掉落小球数组
+		const colors = ["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"]
+
+
+		window.onload = function () {
+
+			var oCanvas = document.getElementById('canvas');
+			var context = oCanvas.getContext('2d');
+
+			WINDOW_WIDTH = oCanvas.width =  parseInt(document.body.clientWidth * 0.9);
+			WINDOW_HEIGHT = oCanvas.height =  parseInt(document.body.clientHeight * 0.9);
+			MARGIN_LEFT = parseInt(WINDOW_WIDTH * 0.13);	// 左边5分之1，宽度没算好
+			MARGIN_TOP = parseInt(WINDOW_HEIGHT * 0.2);
+
+			RADIUS = parseInt(WINDOW_WIDTH * 4 / 5 / 108) - 1;
+
+			remainSeconds = getRemainSeconds(); // 获取剩余秒数
+
+			// 使用计时器改变绘图
+			render(context);
+			setInterval(function () {
+				update();
+				render(context);
+			}, 50);
+		}
+
+		// 获取剩余毫秒数
+		function getRemainSeconds () {
+			var nowTime = new Date();
+			var res = nowTime.getHours() * 3600 + nowTime.getMinutes() * 60 + nowTime.getSeconds();
+
+			return res;
+		}
+
+		// 改变时间
+		function update () {
+			var nowRemainSeconds = getRemainSeconds(); // 当前剩下的秒
+			var nHours = parseInt(nowRemainSeconds / 3600);				// 当前剩余小时
+			var nMinutes = parseInt((nowRemainSeconds % 3600) / 60);	// 当前剩余分
+			var nSeconds = nowRemainSeconds % 60;						// 当前剩余秒
+
+			var rHours = parseInt(remainSeconds / 3600);				// 上一次剩余小时
+			var rMinutes = parseInt((remainSeconds % 3600) / 60);		// 上一次剩余分
+			var rSeconds = remainSeconds % 60;							// 上一次剩余秒
+
+			// 判断剩余秒是否改变
+			if (nowRemainSeconds != remainSeconds) {
+				// 添加小球
+				// 小时改变
+				if (parseInt(nHours / 10) != parseInt(rHours / 10)) {
+					addBalls(MARGIN_LEFT, MARGIN_TOP, parseInt(rHours / 10));
+				}
+				if (parseInt(nHours % 10) != parseInt(rHours % 10)) {
+					addBalls(MARGIN_LEFT + 15 * (RADIUS+1), MARGIN_TOP, parseInt(rHours % 10));
+				}
+
+				// 分钟改变
+				if (parseInt(nMinutes / 10) != parseInt(rMinutes / 10)) {
+					addBalls(MARGIN_LEFT + 39 * (RADIUS+1), MARGIN_TOP, parseInt(rMinutes / 10));
+				}
+				if (parseInt(nMinutes % 10) != parseInt(rMinutes % 10)) {
+					addBalls(MARGIN_LEFT + 54 * (RADIUS+1), MARGIN_TOP, parseInt(rMinutes % 10));
+				}
+
+				// 秒改变
+				if (parseInt(nSeconds / 10) != parseInt(rSeconds / 10)) {
+					addBalls(MARGIN_LEFT + 78 * (RADIUS+1), MARGIN_TOP, parseInt(rSeconds / 10));
+				}
+				if (parseInt(nSeconds % 10) != parseInt(rSeconds % 10)) {
+					addBalls(MARGIN_LEFT + 93 * (RADIUS+1), MARGIN_TOP, parseInt(rSeconds % 10));
+				}
+
+				// 改变剩余秒
+				remainSeconds = nowRemainSeconds;
+			}
+
+			updateBalls(); // 对已经存在的小球状态进行更新
+		}
+
+		// 对已经存在的小球状态进行更新
+		function updateBalls () {
+			balls = balls.filter(function (item, index, arr) {
+				item.x += item.vx;
+				item.y += item.vy;
+				item.vy += item.g;
+
+				// 碰撞检测
+				if (item.y >= WINDOW_HEIGHT - RADIUS) {
+					item.y = WINDOW_HEIGHT - RADIUS;
+					item.vy = - item.vy * 0.5;
+				}
+
+				// 判断小球是否超出画布
+				return item.x > 0 - RADIUS && item.x < WINDOW_WIDTH + RADIUS
+			})
+		}
+
+		// 绘制剩余时间
+		function render (cxt) {
+			// 清除四边形画布
+			cxt.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+			// cxt.clearRect(0, 0, cxt.canvas.width, cxt.canvas.height);
+
+			var hours = parseInt(remainSeconds / 3600);
+			var minutes = parseInt((remainSeconds % 3600) / 60);
+			var seconds = remainSeconds % 60;
+
+			// 一个数字占的宽度是14*(RADIUS+1)，每个数字间隔1*(RADIUS+1)
+			renderRadius(MARGIN_LEFT, MARGIN_TOP, parseInt(hours / 10), cxt);
+			renderRadius(MARGIN_LEFT + 15 * (RADIUS+1), MARGIN_TOP, parseInt(hours % 10), cxt);
+
+			renderRadius(MARGIN_LEFT + 30 * (RADIUS+1), MARGIN_TOP, 10, cxt);
+
+			renderRadius(MARGIN_LEFT + 39 * (RADIUS+1), MARGIN_TOP, parseInt(minutes / 10), cxt);
+			renderRadius(MARGIN_LEFT + 54 * (RADIUS+1), MARGIN_TOP, parseInt(minutes % 10), cxt);
+
+			renderRadius(MARGIN_LEFT + 69 * (RADIUS+1), MARGIN_TOP, 10, cxt);
+			
+			renderRadius(MARGIN_LEFT + 78 * (RADIUS+1), MARGIN_TOP, parseInt(seconds / 10), cxt);
+			renderRadius(MARGIN_LEFT + 93 * (RADIUS+1), MARGIN_TOP, parseInt(seconds % 10), cxt);
+
+
+			// 绘制小球
+			for (var i = 0; i < balls.length; i++) {
+				cxt.fillStyle = balls[i].color;
+				cxt.beginPath();
+				cxt.arc(balls[i].x, balls[i].y, RADIUS, 0, 2*Math.PI);
+				cxt.closePath();
+				cxt.fill();
+			}
+		}
+
+		// 绘制数字
+		function renderRadius (x, y, num, cxt) {
+			cxt.fillStyle = 'rgb(0, 102, 153)';
+
+			for (var i = 0; i < digit[num].length; i++) {
+				for (var j = 0; j < digit[num][i].length; j++) {
+					if (digit[num][i][j] == 1) {
+						cxt.beginPath();
+						cxt.arc(x + j*2*(RADIUS+1) + (RADIUS+1), y + i*2*(RADIUS+1) + (RADIUS+1), RADIUS, 0, 2*Math.PI);
+						cxt.closePath();
+
+						cxt.fill();
+					}
+				}
+			}
+		}
+
+
+
+		// 添加掉落小球
+		function addBalls (x, y, num) {
+			for (var i = 0; i < digit[num].length; i++) {
+				for (var j = 0; j <digit[num][i].length; j++) {
+					if (digit[num][i][j] == 1) {
+						var aBall = {
+							x: x + j*2*(RADIUS+1) + (RADIUS+1),
+							y: y + i*2*(RADIUS+1) + (RADIUS+1),
+							g: 1.5+Math.random(),	// 加速度 1.5到2.5之间
+							vx: Math.random() < 0.5 ? -4 : 4,
+							vy: -5, // 有一个向上抛的过程
+							color: colors[parseInt(colors.length * Math.random())]
+						}
+						balls.push(aBall);
+					}
+				}
+			}
+		}
+
+
+	</script>
+</body>	
+</html>

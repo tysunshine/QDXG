@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>绘制点阵数字</title>
+</head>
+<body>
+
+	<canvas id="canvas" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	
+	<script src="./digit.js"></script>
+	<script>
+		const WINDOW_WIDTH = 1024;	// 宽度
+		const WINDOW_HEIGHT = 800;	// 高度
+		const RADIUS = 6;			// 组成点阵的园半径
+		const MARGIN_LEFT = 20;	// 数字距离左边距的距离
+		const MARGIN_TOP = 100;		// 数字距离上边距的距离
+
+
+		const ENDTIME = new Date(2019, 10, 1, 12, 0, 0); // 结束时间
+		var remainSeconds = 0;	// 当前距离结束时间剩余秒数
+
+
+		window.onload = function () {
+
+			var oCanvas = document.getElementById('canvas');
+			oCanvas.width = WINDOW_WIDTH;
+			oCanvas.height = WINDOW_HEIGHT;
+
+			var context = oCanvas.getContext('2d');
+
+			remainSeconds = getRemainSeconds(); // 获取剩余秒数
+
+			render(context);
+		}
+
+		// 获取剩余毫秒数
+		function getRemainSeconds () {
+			var nowMsec = parseInt(new Date().getTime() / 1000);
+			var endMsec = parseInt(ENDTIME.getTime() / 1000);
+
+			return endMsec - nowMsec > 0 ? endMsec - nowMsec : 0;
+		}
+
+		// 绘制剩余时间
+		function render (cxt) {
+			var hours = parseInt(remainSeconds / 3600);
+			var minutes = parseInt((remainSeconds % 3600) / 60);
+			var seconds = remainSeconds % 60;
+
+			// 一个数字占的宽度是14*(RADIUS+1)，每个数字间隔1*(RADIUS+1)
+			renderRadius(MARGIN_LEFT, MARGIN_TOP, parseInt(hours / 10), cxt);
+			renderRadius(MARGIN_LEFT + 15 * (RADIUS+1), MARGIN_TOP, parseInt(hours % 10), cxt);
+
+			renderRadius(MARGIN_LEFT + 30 * (RADIUS+1), MARGIN_TOP, 10, cxt);
+
+			renderRadius(MARGIN_LEFT + 39 * (RADIUS+1), MARGIN_TOP, parseInt(minutes / 10), cxt);
+			renderRadius(MARGIN_LEFT + 54 * (RADIUS+1), MARGIN_TOP, parseInt(minutes % 10), cxt);
+
+			renderRadius(MARGIN_LEFT + 69 * (RADIUS+1), MARGIN_TOP, 10, cxt);
+			
+			renderRadius(MARGIN_LEFT + 78 * (RADIUS+1), MARGIN_TOP, parseInt(seconds / 10), cxt);
+			renderRadius(MARGIN_LEFT + 93 * (RADIUS+1), MARGIN_TOP, parseInt(seconds % 10), cxt);
+		}
+
+		// 绘制数字
+		function renderRadius (x, y, num, cxt) {
+			cxt.fillStyle = 'rgb(0, 102, 153)';
+
+			for (var i = 0; i < digit[num].length; i++) {
+				for (var j = 0; j < digit[num][i].length; j++) {
+					if (digit[num][i][j] == 1) {
+						cxt.beginPath();
+						cxt.arc(x + j*2*(RADIUS+1) + (RADIUS+1), y + i*2*(RADIUS+1) + (RADIUS+1), RADIUS, 0, 2*Math.PI);
+						cxt.closePath();
+
+						cxt.fill();
+					}
+				}
+			}
+		}
+
+
+	</script>
+</body>	
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>绘制弧和园</title>
+</head>
+<body>
+
+	<canvas id="canvas" width="1024" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	
+	<script>
+		//绘制园
+		// arc 也是一种状态，描述我们将要绘制的内容
+		// 圆心x坐标，圆心y坐标，半径，开始弧度值，结束弧度值，顺时针或逆时针绘制（可选，默认false顺时针）
+		// context.arc(x, y, radius, startingAngle, endingAngle, anticlockwise=false)
+
+		// 弧度值
+		// 		1.5 pi
+		//
+		// 1 pi			0 pi 2 pi
+		//
+		// 		0.5 pi
+
+
+		/**
+		 * @绘制一条圆弧
+		 */
+		// var oCanvas = document.getElementById('canvas');
+		// var context = oCanvas.getContext('2d');
+
+		// // 设置状态
+		// context.arc(400, 400, 200, 0, 1.5*Math.PI); // 顺时针
+		// context.arc(400, 400, 200, 0, 0.5*Math.PI, true); // 逆时针绘制
+
+		// context.lineWidth = 5;
+		// context.strokeStyle = '#005588';
+		
+		// context.stroke();
+
+
+		/**
+		 * @绘制多条圆弧
+		 * closePath:当我们绘制的线段是不封闭的时候，closePath会用一条线段将我们的绘制首位连接起来
+		 */
+		// var oCanvas = document.getElementById('canvas');
+		// var context = oCanvas.getContext('2d');
+
+		// context.lineWidth = 5;
+		// context.strokeStyle = '#005588';
+		// for (var i = 0; i < 10; i++) {
+		// 	context.beginPath();
+		// 	context.arc(60+(i*100), 60, 40, 0, 0.2*(i+1)*Math.PI);
+		// 	context.closePath();
+
+		// 	context.stroke();
+		// }
+
+		/**
+		 * @绘制多条圆弧
+		 * 不使用closePath将线段封闭起来
+		 * begingPath与closePath不一定要成对出现，beginPath代表重新绘画路线，closePath代表要结束当前路径，如果路径没封闭，将使用线段封闭路径
+		 */
+		// var oCanvas = document.getElementById('canvas');
+		// var context = oCanvas.getContext('2d');
+
+		// context.lineWidth = 5;
+		// context.strokeStyle = '#005588';
+		// for (var i = 0; i < 10; i++) {
+		// 	context.beginPath();
+		// 	context.arc(60+(i*100), 160, 40, 0, 0.2*(i+1)*Math.PI);
+			
+		// 	context.stroke();
+		// }
+
+		/**
+		 * @绘制填充路径
+		 */
+		// var oCanvas = document.getElementById('canvas');
+		// var context = oCanvas.getContext('2d');
+
+		// context.lineWidth = 5;
+		// context.strokeStyle = '#005588';
+		// context.fillStyle = '#558800';
+		// for (var i = 0; i < 10; i++) {
+		// 	context.beginPath();
+		// 	context.arc(60+(i*100), 260, 40, 0, 0.2*(i+1)*Math.PI);
+		// 	// context.closePath();
+
+		// 	context.fill();
+		// 	context.stroke();
+		// }
+		
+
+
+	</script>
+</body>	
+</html>
