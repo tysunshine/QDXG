@@ -62,7 +62,11 @@
 			    boxSizing: 'content-box',
 			    opacity: 0,
 			    top: '40px',
-			    transition: 'all ' + data.speed + 'ms'
+			    transition: 'all ' + data.speed + 'ms',
+			    oTansform: 'translateX(-50%)',
+			    msTransform: 'translateX(-50%)',
+			    mozTransform: 'translateX(-50%)',
+			    webkitTransform: 'translateX(-50%)'
 			})
 		}
 

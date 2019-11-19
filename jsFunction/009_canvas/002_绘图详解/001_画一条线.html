@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>绘制一条线</title>
+</head>
+<body>
+
+	<canvas id="canvas" width="1024" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	
+	<script>
+		/**
+		 * @线段
+		 */
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		context.moveTo(100, 300);
+		context.lineTo(400, 300);
+		context.lineTo(400, 200);
+		context.lineTo(500, 350);
+		context.lineTo(400, 500);
+		context.lineTo(400, 400);
+		context.lineTo(100, 400);
+
+		context.lineWidth = 5;
+		context.strokeStyle = "#058";
+		context.stroke();
+
+
+	</script>
+</body>	
+</html>

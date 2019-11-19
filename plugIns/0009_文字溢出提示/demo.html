@@ -44,10 +44,28 @@
 		<span class="t1 hover-tip">加手机砥砺奋进阿喀琉斯等级分类</span>
 		<span class="t1 hover-tip">加手机砥砺奋</span>
 	</div>
+
+	<div class="group">
+		<h3>鼠标移上判断文字是否溢出</h3>
+		<span class="t1" id="cs1">加手机砥砺奋进阿喀琉斯等级分类</span>
+		<p id="cs2">123123</p>
+	</div>
 	
 	<script src="./hoverTip.js"></script>
+	<script src="./isTextOverflow.js"></script>
 	<script>
 		hoverTip('.hover-tip');
+	
+		// 判断文字是否溢出
+		document.getElementById('cs1').onmouseenter = function () {
+			var bl = isTextOverflow(this);
+			console.log(bl);
+		}
+		document.getElementById('cs2').onmouseenter = function () {
+			var bl = isTextOverflow(this);
+			console.log(bl);
+		}
+
 	</script>
 </body>	
 </html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title>Title</title>
+</head>
+<body>
+</body>
+<script>
+    var aList = [
+        {
+            name: '1',
+            children: [
+                {
+                    name: '1-1'
+                },
+                {
+                    name: '1-2'
+                },
+                {
+                    name: '1-3',
+                    children: [
+                        {
+                            name: '1-3-1'
+                        },
+                        {
+                            name: '1-3-2'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            name: '2',
+            children: [
+                {
+                    name: '2-1'
+                },
+                {
+                    name: '2-2'
+                }
+            ]
+        },
+        {
+            name: '3'
+        },
+        {
+            name: '4'
+        }
+    ]
+
+    // 获取数组的指定项
+    function getArrayItem (array, aIdx) {
+        var item = array;
+        var str = 'array';
+        for (var i = 0; i < aIdx.length; i++) {
+            str += '[' + aIdx[i] + ']';
+            if (i == 0) {
+                item = item[aIdx[i]];
+            } else {
+                if (item.children) {
+                    item = item.children[aIdx[i]];
+                } else {
+                    console.error(str  + '不存在children');
+                    item = -2;
+                    break;
+                }
+            }
+            if (!item) {
+                console.error(str  + '不存在');
+                item = -1;
+                break;
+            }
+        }
+        return item;
+    }
+
+    var item = getArrayItem(aList, [0, 2, 1]);
+    console.log(item);
+</script>
+</html>
