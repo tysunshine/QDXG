@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>引入组件</title>
+</head>
+<body>
+	
+	<script src="../../../lib/jquery-1.12.3.js"></script>
+	<script>
+		/**
+		 * @引入组件css、js、html
+		 * url->路径，name->引入组件的对象，callback->回调函数
+		 * 参数1可以是数组，[{name: '', url: '', callback: ''}]
+		 */
+		function requireUrl () {
+		    var aCmp = [];
+		    if (arguments[0] instanceof Array) {
+		        aCmp = arguments[0];
+		    } else {
+		        aCmp.push({
+		            url: arguments[0],
+		            name: arguments[1],
+		            callback: arguments[2]
+		        })
+		    }
+
+		    for (var i = 0; i < aCmp.length; i++) {
+		        loadCmp(aCmp[i].url, aCmp[i].name, aCmp[i].callback);
+		    }
+
+		    function loadCmp (url, name, callback) {
+		        // 判断是否组件对象已存在
+		        if (window[name]) {
+		            return;
+		        }
+
+		        url = url.replace(/(\.js)$/, '');
+		        var js = url + '.js';
+		        var css = url + '.css';
+
+		        var oLink = $('<link href="' + css + '" rel="stylesheet">');
+		        var oScript = $('<script src="' + js + '"><\/script>');
+
+		        // $('head').prepend(oLink);
+		        $('head').append(oLink);
+		        $('body').append(oScript);
+
+		        var timer = null;
+		        var time = 0;
+
+		        clearInterval(timer);
+		        timer = setInterval(function () {
+		            time += 30;
+		            if (time >= 10000) {
+		                clearInterval(timer);
+		            }
+		            cmpIsLoading(timer, name, callback);
+		        }, 30);
+		        cmpIsLoading(timer, name, callback);
+		    }
+
+		    // 判断组件是否已引入
+		    function cmpIsLoading(timer, name, callback) {
+		        if (window[name]) {
+		            clearInterval(timer);
+		            if (callback) {
+		                callback();
+		            }
+		        }
+		    }       
+		}
+	</script>
+	<script>
+		// 使用方法
+		requireUrl([
+			{
+				name: 'oFollowUp',
+				url: '/cmp/follow-up/follow-up.js'
+			}
+		])
+	</script>
+</body>	
+</html>
