@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>矩形、覆盖、透明色</title>
+</head>
+<body>
+
+	<canvas id="canvas" width="1024" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		/**
+		 * @绘制矩形函数
+		 */
+		// drawRect(context, 100, 100, 200, 200, 10, 'green', 'yellow');
+		// function drawRect(cxt, x, y, width, height, borderWidth, borderColor, fillColor) {
+		// 	cxt.beginPath();
+		// 	cxt.moveTo(x, y);
+		// 	cxt.lineTo(x + width, y);
+		// 	cxt.lineTo(x + width, y + height);
+		// 	cxt.lineTo(x, y + height);
+		// 	cxt.lineTo(x, y);
+		// 	cxt.closePath();
+
+		// 	cxt.lineWidth = borderWidth;
+		// 	cxt.fillStyle = fillColor;
+		// 	cxt.strokeStyle = borderColor;
+
+		// 	cxt.fill();
+		// 	cxt.stroke();
+		// }
+
+		/**
+		 * @绘制矩形函数
+		 * rect(x, y, width, height)方法
+		 */
+		// drawRect(context, 100, 100, 300, 300, 10, 'green', 'yellow');
+		// function drawRect(cxt, x, y, width, height, borderWidth, borderColor, fillColor) {
+		// 	cxt.beginPath();
+		// 	cxt.rect(x, y, width, height);
+		// 	cxt.closePath();
+
+		// 	cxt.lineWidth = borderWidth;
+		// 	cxt.fillStyle = fillColor;
+		// 	cxt.strokeStyle = borderColor;
+
+		// 	cxt.fill();
+		// 	cxt.stroke();
+		// }
+
+		/**
+		 * @绘制矩形函数
+		 * fillRect(x, y, width, height)直接绘制出填充矩形
+		 * strokeRect(x, y, width, height)直接绘制出矩形边框
+		 */
+		// drawRect2(context, 200, 200, 300, 300, 10, 'green', 'yellow');
+		// function drawRect2(cxt, x, y, width, height, borderWidth, borderColor, fillColor) {
+		// 	cxt.lineWidth = borderWidth;
+		// 	cxt.fillStyle = fillColor;
+		// 	cxt.strokeStyle = borderColor;
+
+		// 	cxt.fillRect(x, y, width, height);
+		// 	cxt.strokeRect(x, y, width, height);
+		// }
+
+		/*
+		 fillStyle, strokeStyle
+		 #ffffff
+		 #642
+		 rgb(255, 128, 0)
+		 rgba(100, 100, 100, 0.8)
+		 hsl(20, 62%, 28%)
+		 hsla(40, 82%, 33%, 0.6)
+		 red
+		*/
+	</script>
+</body>	
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>绘制一条线</title>
+</head>
+<body>
+
+	<canvas id="canvas" width="1024" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		/*
+			lineWidth
+			设置线条宽度
+			demo: lienWidth = 10;
+		*/
+
+		/*
+			lineCap
+			用于设置线条两端的形状
+			值：buff(default)，round 圆头，square 方头
+			lineCap帽子，只能用于线段的开始于结束除，不能用于中间处
+		*/
+		// context.lineWidth = 10;
+		// context.strokeStyle = "green";
+
+		// context.beginPath();
+		// context.moveTo(100, 100);
+		// context.lineTo(700, 100);
+		// context.lineCap = "buff";
+		// context.stroke();
+
+		// // 凸出一段圆形头
+		// context.beginPath();
+		// context.moveTo(100, 300);
+		// context.lineTo(700, 300);
+		// context.lineCap = "round";
+		// context.stroke();
+
+		// // 凸出一段方形头
+		// context.beginPath();
+		// context.moveTo(100, 500);
+		// context.lineTo(700, 500);
+		// context.lineCap = "square";
+		// context.stroke();
+
+		// context.beginPath();
+		// context.moveTo(100, 50);
+		// context.lineTo(100, 650);
+		// context.moveTo(700, 50);
+		// context.lineTo(700, 650);
+		// context.lineWidth = 2;
+		// context.strokeStyle = '#ccc';
+		// context.stroke();
+
+		/**
+		 * 使用'square'解决封闭图形缺一块问题，推荐使用closePath封闭图形
+		 */
+		context.moveTo(100, 100);
+		context.lineTo(300, 100);
+		context.lineTo(300, 50);
+		context.lineTo(400, 150);
+		context.lineTo(300, 250);
+		context.lineTo(300, 200);
+		context.lineTo(100, 200);
+		context.lineTo(100, 100);
+		context.lineWidth = 10;
+		context.lineCap = "square"; // 解决封闭图形缺一块问题
+		context.strokeStyle = "rgb(100, 100, 255)";
+		context.stroke();
+
+	</script>
+</body>	
+</html>

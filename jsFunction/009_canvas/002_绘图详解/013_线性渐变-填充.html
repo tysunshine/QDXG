@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>绘制一条线</title>
+</head>
+<body>
+
+	<canvas id="canvas" width="800" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		/*
+			fillStyle除了颜色之外还可以设置其它的style
+			渐变色
+				线性渐变色，
+				径向渐变色
+
+			strokeStyle也可以这样用
+		*/
+
+		/*
+			线性渐变色
+			// 定义线性渐变色
+			var grd = context.createLinearGradient(xstart, ystart, xend, yend);
+			// 添加关键色
+			grd.addColorStop(stop, color);
+
+			stop -> 0为起始位置， 1位终点位置
+
+			更改createLinearGradient的值，为改变渐变色的显示方式
+			可以通过改变fillRect的位置，控制要渐变的区域
+		*/
+
+		var width = context.canvas.width;
+		var height = context.canvas.height;
+
+		// var linearGrad = context.createLinearGradient(0, 0, width, height); // 倾斜渐变线
+		// var linearGrad = context.createLinearGradient(0, 0, width, 0); // 水平渐变线
+		// var linearGrad = context.createLinearGradient(0, 0, 0, height); // 竖直渐变线
+		// var linearGrad = context.createLinearGradient(200, 200, 600, 600); // 渐变 一部分位置
+		var linearGrad = context.createLinearGradient(-200, -200, 1000, 1000); // 超出画布
+
+		linearGrad.addColorStop(0, '#fff');
+		linearGrad.addColorStop(0.25, 'yellow');
+		linearGrad.addColorStop(0.5, 'green');
+		linearGrad.addColorStop(0.75, 'blue');
+		linearGrad.addColorStop(1, '#000');
+		context.fillStyle = linearGrad;
+		// context.fillRect(0, 0, width, height);
+		context.fillRect(200, 200, 400, 400);
+
+	</script>
+</body>	
+</html>

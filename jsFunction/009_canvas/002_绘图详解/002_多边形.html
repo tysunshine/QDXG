@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>多边形</title>
+</head>
+<body>
+
+	<canvas id="canvas" width="1024" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		/**
+		 * 问题代码
+		 * @封闭的多边形
+		 * 使用线段封闭多边形会在最后有个缺角
+		 */
+		// context.lineWidth = 10;
+		// context.moveTo(100, 100);
+		// context.lineTo(300, 100);
+		// context.lineTo(300, 50);
+		// context.lineTo(400, 150);
+		// context.lineTo(300, 250);
+		// context.lineTo(300, 200);
+		// context.lineTo(100, 200);
+		// context.lineTo(100, 100);
+		// context.strokeStyle = "rgb(100, 100, 255)";
+		// context.stroke();
+
+		/**
+		 * @封闭的多边形
+		 * 使用线段封闭多边形会在最后有个缺角
+		 * 解决方法：将线段放在beginPath与closePath之中
+		 * beginPath+lineTo有moveTo效果，将画笔落在点上
+		 */
+		// context.lineWidth = 10;
+		// context.beginPath();
+		// context.lineTo(100, 100); //也可是context.moveTo(100, 100);
+		// context.lineTo(300, 100);
+		// context.lineTo(300, 50);
+		// context.lineTo(400, 150);
+		// context.lineTo(300, 250);
+		// context.lineTo(300, 200);
+		// context.lineTo(100, 200);
+		// context.lineTo(100, 100); // 可以省略，使用closePath时canvas会自动将最后一个点到第一个点封闭起来
+		// context.closePath();
+		// context.strokeStyle = "rgb(100, 100, 255)";
+		// context.stroke();
+
+		/**
+		 * @填充
+		 * 当绘制一个封闭图形的时候可以使用fill填充图形
+		 * 当fill放在stroke之后后，lineWidth只能显示出一半
+		 * 解决方法：将fill放到stroke之前
+		 */
+		// context.lineWidth = 10;
+		// context.beginPath();
+		// context.lineTo(100, 100); //也可是context.moveTo(100, 100);
+		// context.lineTo(300, 100);
+		// context.lineTo(300, 50);
+		// context.lineTo(400, 150);
+		// context.lineTo(300, 250);
+		// context.lineTo(300, 200);
+		// context.lineTo(100, 200);
+		// context.lineTo(100, 100); // 可以省略，使用closePath时canvas会自动将最后一个点到第一个点封闭起来
+		// context.closePath();
+		// context.strokeStyle = "rgb(100, 100, 255)";
+		// context.stroke();
+
+		// context.fillStyle = 'yellow';
+		// context.fill();
+
+		/**
+		 * @填充
+		 * 当图形没封闭的时候，canvas会自动填充
+		 */
+		// context.beginPath();
+		// context.lineTo(100, 100); //也可是context.moveTo(100, 100);
+		// context.lineTo(300, 100);
+		// context.lineTo(300, 50);
+		// context.lineTo(400, 150);
+		// context.lineTo(300, 250);
+		// context.lineTo(300, 200);
+		// context.lineTo(100, 200);
+		// // context.lineTo(100, 100); // 可以省略，使用closePath时canvas会自动将最后一个点到第一个点封闭起来
+		// // context.closePath();
+
+		// context.lineWidth = 10;
+		// context.fillStyle = 'yellow';
+		// context.strokeStyle = "rgb(100, 100, 255)";
+
+		// context.fill();
+		// context.stroke();
+
+
+		/**
+		 * @绘制矩形函数
+		 */
+		drawRect(context, 100, 100, 200, 200, 10, 'green', 'yellow');
+		function drawRect(cxt, x, y, width, height, borderWidth, borderColor, fillColor) {
+			cxt.beginPath();
+			cxt.moveTo(x, y);
+			cxt.lineTo(x + width, y);
+			cxt.lineTo(x + width, y + height);
+			cxt.lineTo(x, y + height);
+			cxt.lineTo(x, y);
+			cxt.closePath();
+
+			cxt.lineWidth = borderWidth;
+			cxt.fillStyle = fillColor;
+			cxt.strokeStyle = borderColor;
+
+			cxt.fill();
+			cxt.stroke();
+		}
+
+	</script>
+</body>	
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>深入理解变换矩阵</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.clearfix::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.pull-left {
+			float: left;
+		}
+
+		.box {
+			margin: 0 auto;
+			padding: 20px;
+			width: 1202px;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="clearfix box">
+		<img class="pull-left" src="./img/变换矩阵.png" width="400">
+		<canvas class="pull-left" id="canvas" width="800" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	</div>
+	
+
+	
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		/**
+		 * 设置变换矩阵
+		 * 	transform(a, b, c, d, e, f)
+			transform(1, 0, 0, 1, 0, 0) (default)
+
+			setTransform(a, b, c, d, e, f) 只有这个transform生效，忽略以前的transform变换
+	
+			a 水平缩放 1
+			b 水平倾斜 0
+			c 垂直倾斜 0
+			d 垂直缩放 1
+			e 水平位移 0
+			f 垂直位移 0
+			a,		b,	c,		d,		e,	f
+			x缩放，x倾斜，y倾斜，y缩放，x位移，y位移
+		 */
+
+		context.fillStyle = "red";
+		context.strokeStyle = "#058";
+		context.lineWidth = 10;
+
+		context.save();
+		// context.transform(1, 0, 0, 1, 0, 0); // 不变换
+
+		// context.transform(1, 0, 0, 1, 100, 100);
+		context.transform(1, 0.2, 0.2, 1, 0, 0);
+
+		context.setTransform(1, 0, 0, 1, 100, 100); // 忽略以前的transform，让以前的transform都失效
+
+		context.fillRect(100, 100, 400, 400);
+		context.strokeRect(100, 100, 400, 400);
+		context.restore();
+
+	</script>
+</body>	
+</html>

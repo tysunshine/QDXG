@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>图形变换</title>
+</head>
+<body>
+
+	<canvas class="pull-left" id="canvas" width="800" height="800" style="margin: 0 atuo; border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	
+
+	
+	
+	<script>
+		/*
+			在图形学领域，倾向于任何图形都先绘制基本轮廓，然后通过图形变换绘制成需求的大小
+			
+			位移 translate(x, y)
+			旋转 rotate(deg)
+			缩放 scale(sx, sy)
+
+			scale有副作用，不仅仅是放大图像的大小，对于图像的其它属性（左上角坐标，边框宽度）都会放大
+
+		*/
+
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+			
+		// drawStar(context, 400, 400, 300, 0);
+
+		// // 画五角星
+		// function drawStar (cxt, x, y, r, rot) {
+		// 	starPath(cxt);
+
+		// 	cxt.lineWidth = 3;
+		// 	cxt.lineJoin = "round";
+		// 	cxt.fillStyle = "#fb3"
+		// 	cxt.strokeStyle = "#fd5";
+		// 	cxt.fill();
+		// 	cxt.stroke();
+		// }
+
+		// // 星星的基本轮廓
+		// function starPath (cxt) {
+		// 	cxt.beginPath();
+		// 	for (var i = 0; i < 5; i++) {
+		// 		// 第一个点事18度，每次加72度，使用Math.cos需要将度数转为弧度
+		// 		cxt.lineTo( Math.cos((18 + 72 * i) / 180 * Math.PI),
+		// 					-Math.sin((18 + 72 * i) / 180 * Math.PI)
+		// 				);
+		// 		cxt.lineTo( Math.cos((54 + 72 * i) / 180 * Math.PI) * 0.5,
+		// 					-Math.sin((54 + 72 * i) / 180 * Math.PI) * 0.5
+		// 				);
+		// 	}
+		// 	cxt.closePath();
+		// }
+
+		// --------------------------------------
+		/**
+		 * translate
+		 * 问题：在canvas中translate是叠加的，现在绿色的正方形圆点相当于100, 100，而不是0, 0
+		 */
+		// context.fillStyle = "red";
+		// context.translate(100, 100);
+		// context.fillRect(0, 0, 400, 400);
+
+		// context.fillStyle = "green";
+		// context.translate(300, 300);
+		// context.fillRect(0, 0, 400, 400);
+
+		/**
+		 * 解决
+		 * 方法一：在绘制之后，使用负的translate还原位置
+		 */
+		// context.fillStyle = "red";
+		// context.translate(100, 100);
+		// context.fillRect(0, 0, 400, 400);
+		// context.translate(-100, -100);
+
+		// context.fillStyle = "green";
+		// context.translate(300, 300);
+		// context.fillRect(0, 0, 400, 400);
+		// context.translate(-300, -300);
+
+		/**
+		 * 解决
+		 * 方法二：使用save()与restore()保存与还原状态
+		 * save()与restore()应该是成对出现的
+		 */
+		// context.save();
+		// context.fillStyle = "red";
+		// context.translate(100, 100);
+		// context.fillRect(0, 0, 400, 400);
+		// context.restore();
+
+		// context.save();
+		// context.fillStyle = "green";
+		// context.translate(300, 300);
+		// context.fillRect(0, 0, 400, 400);
+		// context.restore();
+
+	</script>
+</body>	
+</html>

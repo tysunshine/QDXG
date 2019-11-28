@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>五角星</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.clearfix::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.pull-left {
+			float: left;
+		}
+
+		.box {
+			margin: 0 auto;
+			padding: 20px;
+			width: 1202px;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="clearfix box">
+		<img class="pull-left" src="./img/miterLimit.png" width="400">
+		<canvas class="pull-left" id="canvas" width="800" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	</div>
+	
+
+	
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		drawStar1(context, 15, 100, 150, 200, 0);
+		drawStar1_1(context, 15, 100, 150, 400, 0);
+
+		drawStar2(context, 30, 100, 400, 200, 0);
+		
+		drawStar3(context, 30, 100, 650, 200, 0);
+
+		
+		/*
+		 lineJoin 线条转交/相交时的样式
+		 miter(default) 默认尖角
+		 bevel 平角 斜接
+		 round 圆角
+		*/
+
+		// miter
+		// miter有一个miterLimit限制，如果超出了回使用bevel显示，默认值为10
+		function drawStar1 (cxt, r, R, x, y, rot) {
+			cxt.beginPath();
+			for (var i = 0; i < 5; i++) {
+				// 第一个点事18度，每次加72度，使用Math.cos需要将度数转为弧度
+				cxt.lineTo( Math.cos((18 + 72 * i - rot) / 180 * Math.PI) * R + x,
+							-Math.sin((18 + 72 * i - rot) / 180 * Math.PI) * R + y);
+				cxt.lineTo( Math.cos((54 + 72 * i - rot) / 180 * Math.PI) * r + x,
+							-Math.sin((54 + 72 * i - rot) / 180 * Math.PI) * r + y);
+			}
+			cxt.closePath();
+			cxt.lineWidth = 10;
+			cxt.lineJoin = 'miter';
+			cxt.stroke();
+		}
+		function drawStar1_1 (cxt, r, R, x, y, rot) {
+			cxt.beginPath();
+			for (var i = 0; i < 5; i++) {
+				// 第一个点事18度，每次加72度，使用Math.cos需要将度数转为弧度
+				cxt.lineTo( Math.cos((18 + 72 * i - rot) / 180 * Math.PI) * R + x,
+							-Math.sin((18 + 72 * i - rot) / 180 * Math.PI) * R + y);
+				cxt.lineTo( Math.cos((54 + 72 * i - rot) / 180 * Math.PI) * r + x,
+							-Math.sin((54 + 72 * i - rot) / 180 * Math.PI) * r + y);
+			}
+			cxt.closePath();
+			cxt.lineWidth = 10;
+			cxt.lineJoin = 'miter';
+			cxt.miterLimit = 20;
+			cxt.stroke();
+		}
+
+		// bevel
+		function drawStar2 (cxt, r, R, x, y, rot) {
+			cxt.beginPath();
+			for (var i = 0; i < 5; i++) {
+				// 第一个点事18度，每次加72度，使用Math.cos需要将度数转为弧度
+				cxt.lineTo( Math.cos((18 + 72 * i - rot) / 180 * Math.PI) * R + x,
+							-Math.sin((18 + 72 * i - rot) / 180 * Math.PI) * R + y);
+				cxt.lineTo( Math.cos((54 + 72 * i - rot) / 180 * Math.PI) * r + x,
+							-Math.sin((54 + 72 * i - rot) / 180 * Math.PI) * r + y);
+			}
+			cxt.closePath();
+			cxt.lineWidth = 10;
+			cxt.lineJoin = 'bevel';
+			cxt.stroke();
+		}
+
+		// round
+		function drawStar3 (cxt, r, R, x, y, rot) {
+			cxt.beginPath();
+			for (var i = 0; i < 5; i++) {
+				// 第一个点事18度，每次加72度，使用Math.cos需要将度数转为弧度
+				cxt.lineTo( Math.cos((18 + 72 * i - rot) / 180 * Math.PI) * R + x,
+							-Math.sin((18 + 72 * i - rot) / 180 * Math.PI) * R + y);
+				cxt.lineTo( Math.cos((54 + 72 * i - rot) / 180 * Math.PI) * r + x,
+							-Math.sin((54 + 72 * i - rot) / 180 * Math.PI) * r + y);
+			}
+			cxt.closePath();
+			cxt.lineWidth = 10;
+			cxt.lineJoin = 'round';
+			cxt.stroke();
+		}
+
+	</script>
+</body>	
+</html>

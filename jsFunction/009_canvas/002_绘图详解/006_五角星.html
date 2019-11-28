@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>五角星</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.clearfix::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.pull-left {
+			float: left;
+		}
+
+		.box {
+			margin: 0 auto;
+			padding: 20px;
+			width: 1202px;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="clearfix box">
+		<img class="pull-left" src="./img/star.png" width="400">
+		<canvas class="pull-left" id="canvas" width="800" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	</div>
+	
+
+	
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		drawStar(context, 150, 300, 400, 400, 30);
+
+		
+		/**
+		 * 画五角星
+		 * cxt -> 绘图上下文，
+		 * r 小圆半径，
+		 * R 大圆半径，
+		 * x/y 五角星中心点
+		 * rot 旋转度数，30表示逆时针旋转30度，所有为-30
+		 */
+		function drawStar (cxt, r, R, x, y, rot) {
+			cxt.beginPath();
+			for (var i = 0; i < 5; i++) {
+				// 第一个点事18度，每次加72度，使用Math.cos需要将度数转为弧度
+				cxt.lineTo( Math.cos((18 + 72 * i - rot) / 180 * Math.PI) * R + x,
+							-Math.sin((18 + 72 * i - rot) / 180 * Math.PI) * R + y);
+				cxt.lineTo( Math.cos((54 + 72 * i - rot) / 180 * Math.PI) * r + x,
+							-Math.sin((54 + 72 * i - rot) / 180 * Math.PI) * r + y);
+			}
+			cxt.closePath();
+			cxt.lineWidth = 10;
+			cxt.stroke();
+		}
+
+	</script>
+</body>	
+</html>

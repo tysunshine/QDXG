@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>径向渐变</title>
+</head>
+<body>
+
+	<canvas id="canvas" width="800" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		/*
+			径向渐变色
+			// 定义线性渐变色，x0,y0,r0定义第一个圆的圆点坐标以及半径；x1,y1,r1定义第二个圆的圆点坐标以及半径
+			var grd = context.createRadialGradient(x0, y0, r0, x1, y1, r1);
+			// 添加关键色
+			grd.addColorStop(stop, color);
+
+			stop -> 0为起始位置， 1位终点位置
+
+			更改createradialGradient的值，为改变渐变色的显示方式
+			可以通过改变fillRect的位置，控制要渐变的区域
+		*/
+
+		var width = context.canvas.width;
+		var height = context.canvas.height;
+
+		// var radialGrad = context.createRadialGradient(400, 400, 0, 400, 400, 500); // 径向渐变 从400,400中心点开始
+
+		var radialGrad = context.createRadialGradient(400, 400, 100, 400, 400, 500); // 径向渐变，中心也是圆
+
+		radialGrad.addColorStop(0, '#fff');
+		radialGrad.addColorStop(0.25, 'yellow');
+		radialGrad.addColorStop(0.5, 'green');
+		radialGrad.addColorStop(0.75, 'blue');
+		radialGrad.addColorStop(1, '#000');
+		context.fillStyle = radialGrad;
+		context.fillRect(0, 0, width, height);
+
+	</script>
+</body>	
+</html>

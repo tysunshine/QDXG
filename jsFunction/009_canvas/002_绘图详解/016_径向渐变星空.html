@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>径向渐变星空</title>
+</head>
+<body>
+
+	<canvas class="pull-left" id="canvas" width="1200" height="800" style="margin: 0 atuo; border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		context.width = 1200;
+		context.height = 800;
+
+		drawStarrySky(context);
+		
+
+		// 画一片星空
+		function drawStarrySky (cxt) {
+			var skyStyle = cxt.createRadialGradient(
+				cxt.width / 2, cxt.height, 0,
+				cxt.width / 2, cxt.height / 2, canvas.height
+			);
+
+			skyStyle.addColorStop(0, '#035');
+			skyStyle.addColorStop(1, '#000');
+
+			cxt.fillStyle = skyStyle;
+			cxt.fillRect(0, 0, cxt.width, cxt.height);
+
+			for (var i = 0; i < 200; i ++) {
+				var x = Math.random() * cxt.width;
+				var y = Math.random() * cxt.height * 0.65;
+				var r = Math.random() * 5 + 5;
+				var rot = Math.random() * 360;
+
+				drawStar(context, x, y, r, rot);
+			}
+		}
+
+
+		function drawStar (cxt, x, y, R, rot) {
+			cxt.save(); // 保存状态
+
+			// 图形变换
+			cxt.translate(x, y); // 左上角坐标是0,0，所以不会被影响
+			cxt.rotate(rot / 180 * Math.PI);
+			cxt.scale(R, R);
+
+			// 绘制路径
+			starPath(cxt);
+
+			// 设置状态
+			cxt.fillStyle = "#fb3";
+
+			// 绘制
+			cxt.fill();
+
+			cxt.restore(); // 还原状态
+		}
+
+		function starPath (cxt) {
+			cxt.beginPath();
+			for (var i = 0; i < 5; i++) {
+				// 第一个点事18度，每次加72度，使用Math.cos需要将度数转为弧度
+				cxt.lineTo( Math.cos((18 + 72 * i) / 180 * Math.PI),
+							-Math.sin((18 + 72 * i) / 180 * Math.PI)
+						);
+				cxt.lineTo( Math.cos((54 + 72 * i) / 180 * Math.PI) * 0.5,
+							-Math.sin((54 + 72 * i) / 180 * Math.PI) * 0.5
+						);
+			}
+			cxt.closePath();
+		}
+
+	</script>
+</body>	
+</html>

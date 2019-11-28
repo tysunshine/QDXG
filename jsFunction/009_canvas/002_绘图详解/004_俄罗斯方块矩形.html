@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>俄罗斯方块矩形</title>
+</head>
+<body>
+
+	<canvas id="canvas" width="1024" height="800" style="border: 1px solid #999;margin: 0 auto;display: block; background: rgba(200, 200, 200, .8);"></canvas>
+	
+	<script src="./js/Tetris.js"></script>
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		// 绘制正方形
+		function drawRect(cxt, x, y, width, height, borderWidth, borderColor, fillColor) {
+			cxt.lineWidth = borderWidth;
+			cxt.fillStyle = fillColor;
+			cxt.strokeStyle = borderColor;
+
+			cxt.fillRect(x, y, width, height);
+			cxt.strokeRect(x, y, width, height);
+		}
+
+		// 绘制俄罗斯方块
+		function drawTetris (cxt, data, x, y) {
+			var width = height = 20, borderWidth = 2, borderColor = '#fff', fillColor = 'green';
+			for (var i = 0; i < data.length; i++) {
+				for (var j = 0; j < data[i].length; j++) {
+					if (data[i][j] == 1) {
+						drawRect(cxt, x + j * width, y + i * height, width, height, borderWidth, borderColor, fillColor);
+					}
+				}
+			}
+		}
+
+		drawTetris(context, Tetris[0], 100, 100);
+		drawTetris(context, Tetris[1], 200, 100);
+		drawTetris(context, Tetris[2], 300, 100);
+		drawTetris(context, Tetris[3], 400, 100);
+		drawTetris(context, Tetris[4], 500, 100);
+	</script>
+</body>	
+</html>

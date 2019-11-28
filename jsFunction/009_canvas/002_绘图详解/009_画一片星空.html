@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>画一片星空</title>
+</head>
+<body>
+
+	<canvas class="pull-left" id="canvas" width="800" height="800" style="margin: 0 atuo; border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	
+
+	
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+			
+		drawStarrySky(context);
+		
+
+		// 画一片星空
+		function drawStarrySky (cxt) {
+			const WINDOW_WIDTH = cxt.canvas.width;
+			const WINDOW_HEIGHT = cxt.canvas.height;
+
+			cxt.fillStyle = "black";
+			cxt.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+			for (var i = 0; i < 100; i ++) {
+				var x = Math.random() * WINDOW_WIDTH;
+				var y = Math.random() * WINDOW_HEIGHT;
+				var r = Math.random() * 10 + 10;
+				var rot = Math.random() * 360;
+
+				drawStar(context, x, y, r, r / 2, rot);
+			}
+		}
+
+		// 画五角星
+		function drawStar (cxt, x, y, r, R, rot) {
+			cxt.beginPath();
+			for (var i = 0; i < 5; i++) {
+				// 第一个点事18度，每次加72度，使用Math.cos需要将度数转为弧度
+				cxt.lineTo( Math.cos((18 + 72 * i - rot) / 180 * Math.PI) * R + x,
+							-Math.sin((18 + 72 * i - rot) / 180 * Math.PI) * R + y);
+				cxt.lineTo( Math.cos((54 + 72 * i - rot) / 180 * Math.PI) * r + x,
+							-Math.sin((54 + 72 * i - rot) / 180 * Math.PI) * r + y);
+			}
+			cxt.closePath();
+			cxt.lineWidth = 3;
+			cxt.lineJoin = "round";
+			cxt.fillStyle = "#fb3"
+			cxt.strokeStyle = "#fd5";
+			cxt.fill();
+			cxt.stroke();
+		}
+
+	</script>
+</body>	
+</html>

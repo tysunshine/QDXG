@@ -9,24 +9,52 @@
 	<canvas id="canvas" width="1024" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
 	
 	<script>
-		/**
-		 * @线段
-		 */
 		var oCanvas = document.getElementById('canvas');
 		var context = oCanvas.getContext('2d');
 
-		context.moveTo(100, 300);
-		context.lineTo(400, 300);
-		context.lineTo(400, 200);
-		context.lineTo(500, 350);
-		context.lineTo(400, 500);
-		context.lineTo(400, 400);
-		context.lineTo(100, 400);
+		/**
+		 * @线段
+		 */
+		// context.moveTo(100, 300);
+		// context.lineTo(400, 300);
+		// context.lineTo(400, 200);
+		// context.lineTo(500, 350);
+		// context.lineTo(400, 500);
+		// context.lineTo(400, 400);
+		// context.lineTo(100, 400);
 
-		context.lineWidth = 5;
-		context.strokeStyle = "#058";
-		context.stroke();
+		// context.lineWidth = 5;
+		// context.strokeStyle = "#058";
+		// context.stroke();
 
+		/**
+		 * @绘制多条线段
+		 * beginPath + lineTo有moveTo的作用
+		 * 使用beginPath会重新绘制一个状态
+		 */
+
+		// context.lineWidth = 10;
+
+		// context.beginPath();
+		// context.lineTo(100, 200);
+		// context.lineTo(300, 400);
+		// context.lineTo(100, 600);
+		// context.strokeStyle = "red";
+		// context.stroke();
+
+		// context.beginPath();
+		// context.lineTo(300, 200);
+		// context.lineTo(500, 400);
+		// context.lineTo(300, 600);
+		// context.strokeStyle = "green";
+		// context.stroke();
+
+		// context.beginPath();
+		// context.lineTo(500, 200);
+		// context.lineTo(700, 400);
+		// context.lineTo(500, 600);
+		// context.strokeStyle = "blue";
+		// context.stroke();
 
 	</script>
 </body>	

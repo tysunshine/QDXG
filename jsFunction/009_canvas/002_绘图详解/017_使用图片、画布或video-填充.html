@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>使用图片、画布或video</title>
+</head>
+<body>
+
+	<canvas id="canvas" width="800" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		/*
+			径向渐变色
+			// 定义线性渐变色，x0,y0,r0定义第一个圆的圆点坐标以及半径；x1,y1,r1定义第二个圆的圆点坐标以及半径
+			var grd = context.createPattern(img, repeat-style);
+
+			img对象，
+			repeat-style图片以什么方式重复
+				no-repeat	不重复
+				repeat-x	x轴重复
+				repeat-y 	y轴重复
+				repeat 		x/y都重复
+		*/
+
+		/**
+		 * 1、使用图片做背景
+		 */
+		// var bgImage = new Image();
+		// // bgImage.src = "./img/brick-s.png";
+		// bgImage.src = "./img/green-s.png";
+		// bgImage.onload = function () {
+		// 	var pattern = context.createPattern(bgImage, 'repeat');
+		// 	context.fillStyle = pattern;
+		// 	context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+		// }
+
+
+		/**
+		 * 2、使用canvas做背景
+		 */
+
+		var bgCanvas = createBgCanvas();
+		var pattern = context.createPattern(bgCanvas, 'repeat');
+		context.fillStyle = pattern;
+		context.fillRect(0, 0, 800, 800);
+
+		// 创建canvas背景
+		function createBgCanvas () {
+			var canvas = document.createElement('canvas');
+			canvas.width = 100;
+			canvas.height = 100;
+
+			var context = canvas.getContext('2d');
+			drawStar(context, 50, 50, 50);
+
+			return canvas;
+		}
+
+		// 画星星
+		function drawStar (cxt, x, y, r) {
+			cxt.beginPath();
+			for (var i = 0; i < 5; i++) {
+				// 第一个点事18度，每次加72度，使用Math.cos需要将度数转为弧度
+				cxt.lineTo( Math.cos((18 + 72 * i) / 180 * Math.PI) * r + x,
+							-Math.sin((18 + 72 * i) / 180 * Math.PI) * r + y);
+				cxt.lineTo( Math.cos((54 + 72 * i) / 180 * Math.PI) * r / 2 + x,
+							-Math.sin((54 + 72 * i) / 180 * Math.PI) * r / 2 + y);
+			}
+			cxt.closePath();
+			cxt.fillStyle = "#fb3";
+			cxt.fill();
+		}
+
+		/**
+		 * 3、使用video做背景
+		 */
+
+	</script>
+</body>	
+</html>
