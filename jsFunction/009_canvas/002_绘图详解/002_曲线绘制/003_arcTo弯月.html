@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>弯月</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.clearfix::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.pull-left {
+			float: left;
+		}
+
+		.box {
+			margin: 0 auto;
+			padding: 20px;
+			width: 1202px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="clearfix box">
+		<div class="pull-left" style="width: 400px;">
+			<img class="pull-left" src="../img/弯月.png" width="400">
+		</div>
+		<canvas class="pull-left" id="canvas" width="800" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	</div>
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		/*
+			context.arc(x, y, r, startingAngle, endingAngle, antilockwise = false)
+
+			context.arcTo(x1, y1, x2, y2, radius);
+
+			在[moveTo(), (x1, y1)]线与[(x1, y1), (x2, y2)]线中先用半径为radius画四分之一圆弧，然后在补齐moveTo()到 (x1, y1)点之间的直线
+		*/
+
+		/**
+		 * @绘制弯月
+		 */
+		// context.arc(400, 400, 300, 0.5*Math.PI, 1.5*Math.PI, true);
+		// context.moveTo(400, 100);
+		// context.arcTo(1200, 400, 400, 700, (400 - 100) * dis(400, 100, 1200, 400) / (1200 - 400));
+		// context.stroke();
+
+		// // 计算斜线的长度
+		// function dis(x1, y1, x2, y2) {
+		// 	return Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
+		// }
+
+
+		/**
+		 * @绘制弯月
+		 * (d,0)控制点坐标，(x,y)圆心坐标, rot旋转度数, R放大倍数, fillColor填充颜色
+		 * 注意：画的path轨迹要连贯
+		 */
+		fillMoon(context, 2, 400, 400, 300, 0);
+		function fillMoon (cxt, d, x, y, R, rot, fillColor) {
+			cxt.save();
+
+			cxt.translate(x, y);
+			cxt.rotate(rot / 180 * Math.PI);
+			cxt.scale(R, R);
+
+			pathMoon(cxt, d);
+
+			cxt.fillStyle = fillColor || '#fb5';
+			cxt.fill();
+
+			cxt.restore();
+		}
+		function pathMoon (cxt, d) {
+			cxt.beginPath();
+			cxt.arc(0, 0, 1, 0.5*Math.PI, 1.5*Math.PI, true);
+			cxt.moveTo(0, -1);
+			cxt.arcTo(d, 0, 0, 1, dis(0, -1, d, 0) / d);
+			cxt.closePath();
+		}
+		function dis(x1, y1, x2, y2) {
+			return Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
+		}
+
+	</script>
+</body>	
+</html>

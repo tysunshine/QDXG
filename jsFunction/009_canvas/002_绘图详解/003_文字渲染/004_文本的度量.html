@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>文本的度量</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.clearfix::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.pull-left {
+			float: left;
+		}
+
+		.box {
+			margin: 0 auto;
+			padding: 20px;
+			width: 1202px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="clearfix box">
+		<div class="pull-left" style="width: 400px;">
+		</div>
+		<canvas class="pull-left" id="canvas" width="800" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	</div>
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		/*	
+			文本的度量
+			context.measureText(string).width;
+
+			measureText传入一个字符串，会返回一个对象，这个对象的width属性是，该字符串在canvas上渲染时候的宽度
+		*/
+
+		context.fillStyle = "#058";
+
+		context.font = "bold 40px 宋体";
+		context.fillText("欢迎大家学习《Canvas》绘图接口详解！", 40, 100)
+
+		var textWidth = context.measureText("欢迎大家学习《Canvas》绘图接口详解！").width;
+		context.fillText("以上文本宽度为：" + textWidth + "px", 40, 200);
+
+	</script>
+</body>	
+</html>

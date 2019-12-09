@@ -12,23 +12,26 @@
 		var oCanvas = document.getElementById('canvas');
 		var context = oCanvas.getContext('2d');
 
-		context.width = 1200;
-		context.height = 800;
+		oCanvas.width = 1200;
+		oCanvas.height = 800;
+
+		var cxtWidth = context.canvas.width;
+		var cxtHeight = context.canvas.height;
 
 		drawStarrySky(context);
 		
 
 		// 画一片星空
 		function drawStarrySky (cxt) {
-			var skyStyle = cxt.createLinearGradient(0, 0, 0, cxt.height);
+			var skyStyle = cxt.createLinearGradient(0, 0, 0, cxtHeight);
 			skyStyle.addColorStop(0, '#000');
 			skyStyle.addColorStop(1, '#035');
 			cxt.fillStyle = skyStyle;
-			cxt.fillRect(0, 0, cxt.width, cxt.height);
+			cxt.fillRect(0, 0, cxtWidth, cxtHeight);
 
 			for (var i = 0; i < 200; i ++) {
-				var x = Math.random() * cxt.width;
-				var y = Math.random() * cxt.height * 0.65;
+				var x = Math.random() * cxtWidth;
+				var y = Math.random() * cxtHeight * 0.65;
 				var r = Math.random() * 5 + 5;
 				var rot = Math.random() * 360;
 

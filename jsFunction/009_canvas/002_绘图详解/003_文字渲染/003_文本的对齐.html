@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>文本对齐</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.clearfix::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.pull-left {
+			float: left;
+		}
+
+		.box {
+			margin: 0 auto;
+			padding: 20px;
+			width: 1202px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="clearfix box">
+		<div class="pull-left" style="width: 400px;">
+		</div>
+		<canvas class="pull-left" id="canvas" width="800" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	</div>
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		/*
+			水平对齐
+			以坐标点为左，中，右
+			context.textAlign = left/center/right
+
+			垂直对齐
+			context.textBaseline = top/middle/bottom
+									alphabetic(default)/ideographic/hanging
+
+		*/
+
+		/**
+		 * @水平对齐
+		 */
+		// context.fillStyle = "#058";
+		// context.font = "40px 宋体";
+		// context.textAlign = "left";
+		// context.fillText("水平对齐", 400, 100);
+
+		// context.textAlign = "center";
+		// context.fillText("水平对齐", 400, 200);
+
+		// context.textAlign = "right";
+		// context.fillText("水平对齐", 400, 300);
+
+		// context.moveTo(400, 0);
+		// context.lineTo(400, 400);
+		// context.stroke();
+
+		/**
+		 * @垂直对齐
+		 */
+		context.fillStyle = "#058";
+		context.font = "40px 宋体";
+		context.textBaseline = "top";
+		context.fillText("垂直对齐", 0, 100);
+		drawBaseline(context, 100);
+
+		context.textBaseline = "middle";
+		context.fillText("垂直对齐", 0, 200);
+		drawBaseline(context, 200);
+
+		context.textBaseline = "bottom";
+		context.fillText("垂直对齐", 0, 300);
+		drawBaseline(context, 300);
+
+		function drawBaseline (cxt, y) {
+			cxt.beginPath();
+			cxt.moveTo(0, y);
+			cxt.lineTo(800, y);
+			cxt.stroke();
+			cxt.closePath();
+		}
+
+
+	</script>
+</body>	
+</html>

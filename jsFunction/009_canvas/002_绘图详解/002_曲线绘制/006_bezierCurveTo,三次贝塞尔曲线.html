@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>三次贝塞尔曲线</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.clearfix::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.pull-left {
+			float: left;
+		}
+
+		.box {
+			margin: 0 auto;
+			padding: 20px;
+			width: 1202px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="clearfix box">
+		<canvas class="pull-left" id="canvas" width="1200" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	</div>
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		/*	倍热儿 课儿无 土
+			context.moveTo(x0, y0);
+			context.bezierCurveTo(x1, y1, x2, y2, x3, y3);
+		
+			(x0, y0)曲线的起始点
+			(x1, y1)曲线的控制点1
+			(x2, y2)曲线的控制点2
+			(x3, y3)曲线的终止点
+
+			贝塞尔曲线效果显示网站：http://tinyurl.com/html5bezier
+		*/
+
+		/**
+		 * @使用贝塞尔三次曲线绘制星空
+		 */
+
+		oCanvas.width = 1200;
+		oCanvas.height = 800;
+
+		var cxtWidth = context.canvas.width;
+		var cxtHeight = context.canvas.height;
+
+		drawStarrySky(context);
+		fillMoon(context, 2, 900, 200, 100, 30);
+		drawLand(context);
+		
+
+		// 画一片星空
+		function drawStarrySky (cxt) {
+			var skyStyle = cxt.createLinearGradient(0, 0, 0, cxtHeight);
+			skyStyle.addColorStop(0, '#000');
+			skyStyle.addColorStop(1, '#035');
+			cxt.fillStyle = skyStyle;
+			cxt.fillRect(0, 0, cxtWidth, cxtHeight);
+
+			for (var i = 0; i < 200; i ++) {
+				var x = Math.random() * cxtWidth;
+				var y = Math.random() * cxtHeight * 0.65;
+				var r = Math.random() * 5 + 5;
+				var rot = Math.random() * 360;
+
+				drawStar(context, x, y, r, rot);
+			}
+		}
+		function drawStar (cxt, x, y, R, rot) {
+			cxt.save(); // 保存状态
+
+			// 图形变换
+			cxt.translate(x, y); // 左上角坐标是0,0，所以不会被影响
+			cxt.rotate(rot / 180 * Math.PI);
+			cxt.scale(R, R);
+
+			// 绘制路径
+			starPath(cxt);
+
+			// 设置状态
+			cxt.fillStyle = "#fb3";
+
+			// 绘制
+			cxt.fill();
+
+			cxt.restore(); // 还原状态
+		}
+
+		function starPath (cxt) {
+			cxt.beginPath();
+			for (var i = 0; i < 5; i++) {
+				// 第一个点事18度，每次加72度，使用Math.cos需要将度数转为弧度
+				cxt.lineTo( Math.cos((18 + 72 * i) / 180 * Math.PI),
+							-Math.sin((18 + 72 * i) / 180 * Math.PI)
+						);
+				cxt.lineTo( Math.cos((54 + 72 * i) / 180 * Math.PI) * 0.5,
+							-Math.sin((54 + 72 * i) / 180 * Math.PI) * 0.5
+						);
+			}
+			cxt.closePath();
+		}
+
+		// 画弯月
+		function fillMoon (cxt, d, x, y, R, rot, fillColor) {
+			cxt.save();
+
+			cxt.translate(x, y);
+			cxt.rotate(rot / 180 * Math.PI);
+			cxt.scale(R, R);
+
+			pathMoon(cxt, d);
+
+			cxt.fillStyle = fillColor || '#fb5';
+			cxt.fill();
+
+			cxt.restore();
+		}
+		function pathMoon (cxt, d) {
+			cxt.beginPath();
+			cxt.arc(0, 0, 1, 0.5*Math.PI, 1.5*Math.PI, true);
+			cxt.moveTo(0, -1);
+			cxt.arcTo(d, 0, 0, 1, dis(0, -1, d, 0) / d);
+			cxt.closePath();
+		}
+		function dis(x1, y1, x2, y2) {
+			return Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
+		}
+
+
+		// 画草原
+		function drawLand (cxt) {
+			cxt.save();
+
+			cxt.beginPath();
+			cxt.moveTo(0, 600);
+			cxt.bezierCurveTo(540, 400, 660, 800, 1200, 600);
+			cxt.lineTo(1200, 800);
+			cxt.lineTo(0, 800);
+			cxt.closePath();
+
+			var landStyle = cxt.createLinearGradient(0, 800, 0, 0);
+			landStyle.addColorStop(0, '#030');
+			landStyle.addColorStop(1, '#580');
+
+			cxt.fillStyle = landStyle;
+			cxt.fill();
+
+			cxt.restore();
+		}
+
+
+	</script>
+</body>	
+</html>

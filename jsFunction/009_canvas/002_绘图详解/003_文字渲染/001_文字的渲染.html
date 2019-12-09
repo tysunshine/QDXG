@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>圆弧和圆角矩形</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.clearfix::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.pull-left {
+			float: left;
+		}
+
+		.box {
+			margin: 0 auto;
+			padding: 20px;
+			width: 1202px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="clearfix box">
+		<!-- <div class="pull-left" style="width: 400px;">
+			<img class="pull-left" src="../img/arcTo.png" width="400">
+		</div> -->
+		<canvas class="pull-left" id="canvas" width="800" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	</div>
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		/*
+			context.font = "bold 40px Arial";
+			context.fillText(string, x, y, [maxlen]);
+
+			context.strokeText(string, x, y, [maxlen]);
+
+			string 字符串
+			(x, y) 左上角开始坐标
+			maxlen 绘制文字最大宽度，单位是像素
+
+			fillStyle的状态对font也有用
+		*/
+
+		
+		context.font = "bold 40px Arial";
+		context.fillStyle = "#058";
+		context.lineWidth = 1;
+		context.strokeStyle = "#085";
+
+		// 基础
+		context.fillText('欢迎大家学习文字的渲染', 40, 100);
+		context.strokeText('欢迎大家学习文字的渲染', 40, 200);
+
+		// 设置最大宽度
+		context.fillText('欢迎大家学习文字的渲染', 40, 300, 300);
+		context.strokeText('欢迎大家学习文字的渲染', 40, 400, 300);
+
+		// 线性渐变
+		var textStyle = context.createLinearGradient(0, 0, 800, 0);
+		textStyle.addColorStop(0, 'red');
+		textStyle.addColorStop(0.25, 'orange');
+		textStyle.addColorStop(0.5, 'yellow');
+		textStyle.addColorStop(0.75, 'green');
+		textStyle.addColorStop(1, 'purple');
+		context.fillStyle = textStyle;
+		context.fillText('欢迎大家学习文字的渲染', 40, 500);
+
+		// 使用图片做背景
+		var backgroundImage = new Image();
+		backgroundImage.src = "../img/brick-s.png";
+		backgroundImage.onload = function () {
+			var pattern = context.createPattern(backgroundImage, 'repeat');
+			context.fillStyle = pattern;
+			context.fillText('欢迎大家学习文字的渲染', 40, 600);
+			context.strokeText('欢迎大家学习文字的渲染', 40, 600);
+		}
+
+	</script>
+</body>	
+</html>

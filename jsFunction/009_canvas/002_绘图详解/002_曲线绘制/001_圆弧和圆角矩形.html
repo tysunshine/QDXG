@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>圆弧和圆角矩形</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.clearfix::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.pull-left {
+			float: left;
+		}
+
+		.box {
+			margin: 0 auto;
+			padding: 20px;
+			width: 1202px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="clearfix box">
+		<div class="pull-left" style="width: 400px;">
+			<img class="pull-left" src="../img/arc.png" width="400">
+			<img class="pull-left" src="../img/圆角矩形.png" width="400">
+		</div>
+		<canvas class="pull-left" id="canvas" width="800" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	</div>
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		/*
+			context.arc(
+				centerx, centery, radius,
+				startingAngle, endingAngle,
+				antilockwise = false
+			)
+			context.arc(圆心x坐标, 圆心y坐标, 半径, 开始角度, 结束角度, 是否逆时针(default false))
+
+			例：context.arc(400, 400, 200, 0, 1.5*Math.PI); // 顺时针
+		*/
+
+		/**
+		 * @简单圆
+		 */
+		// context.beginPath();
+		// context.arc(400, 400, 200, 0, 2*Math.PI);
+		// context.closePath();
+		// context.lineWidth = 10;
+		// context.strokeStyle = "green";
+		// context.stroke();
+
+
+		/**
+		 * @绘制圆角矩形
+		 */
+		// drawRoundRect(context, 100, 100, 600, 600, 100);
+		// function drawRoundRect (cxt, x, y, width, height, radius) {
+		// 	cxt.save();
+		// 	cxt.translate(x, y);
+		// 	pathRoundRect(cxt, width, height, radius);
+		// 	cxt.strokeStyle = "block";
+		// 	cxt.stroke();
+		// 	cxt.restore();
+		// }
+		// function pathRoundRect (cxt, width, height, radius) {
+		// 	cxt.beginPath();
+		// 	cxt.arc(radius, radius, radius, 1*Math.PI, 1.5*Math.PI);
+		// 	cxt.lineTo(width - radius, 0);
+		// 	cxt.arc(width - radius, radius, radius, 1.5*Math.PI, 2*Math.PI);
+		// 	cxt.lineTo(width, height - radius);
+		// 	cxt.arc(width - radius, height - radius, radius, 0, 0.5*Math.PI);
+		// 	cxt.lineTo(radius, height);
+		// 	cxt.arc(radius, height - radius, radius, 0.5*Math.PI, 1*Math.PI);
+		// 	// cxt.lineTo(0, radius);
+		// 	cxt.closePath();
+		// }
+
+		/**
+		 * @绘制圆角矩形 2048棋盘
+		 */
+		fillRoundRect(context, 150, 150, 500, 500, 10, '#bbada0');
+		for (var i = 0; i < 4; i++) {
+			for (var j = 0; j < 4; j++) {
+				fillRoundRect(context, j * 120 + 170, i * 120 + 170, 100, 100, 6, '#ccc0b3')
+			}
+		}
+		
+		function fillRoundRect (cxt, x, y, width, height, radius, fillColor) {
+			if (2 * radius > width || 2 * radius > height)
+				return;
+
+			cxt.save();
+			cxt.translate(x, y);
+			pathRoundRect(cxt, width, height, radius);
+			cxt.fillStyle = fillColor || "block";
+			cxt.fill();
+			cxt.restore();
+		}
+		function strokeRoundRect (cxt, x, y, width, height, radius, lineWidth, strokeColor) {
+			if (2 * radius > width || 2 * radius > height)
+				return;
+
+			cxt.save();
+			cxt.translate(x, y);
+			pathRoundRect(cxt, width, height, radius);
+			cxt.lineWidth = lineWidth || 1;
+			cxt.strokeStyle = strokeColor || "block";
+			cxt.stroke();
+			cxt.restore();
+		}
+		function pathRoundRect (cxt, width, height, radius) {
+			cxt.beginPath();
+			cxt.arc(radius, radius, radius, 1*Math.PI, 1.5*Math.PI);
+			cxt.lineTo(width - radius, 0);
+			cxt.arc(width - radius, radius, radius, 1.5*Math.PI, 2*Math.PI);
+			cxt.lineTo(width, height - radius);
+			cxt.arc(width - radius, height - radius, radius, 0, 0.5*Math.PI);
+			cxt.lineTo(radius, height);
+			cxt.arc(radius, height - radius, radius, 0.5*Math.PI, 1*Math.PI);
+			// cxt.lineTo(0, radius);
+			cxt.closePath();
+		}
+
+
+	</script>
+</body>	
+</html>

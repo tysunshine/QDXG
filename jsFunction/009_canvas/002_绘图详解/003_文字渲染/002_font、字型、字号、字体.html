@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>圆弧和圆角矩形</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.clearfix::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.pull-left {
+			float: left;
+		}
+
+		.box {
+			margin: 0 auto;
+			padding: 20px;
+			width: 1202px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="clearfix box">
+		<div class="pull-left" style="width: 400px;">
+		</div>
+		<canvas class="pull-left" id="canvas" width="800" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	</div>
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		/*
+			context.font = "20px sans-serif"; 默认值
+			最少设置两个属性，字号大小，字体
+
+			context.font =  font-style,		字体样式
+							font-variant,
+							font-weight,
+							font-size,
+							font-family
+
+			font-style 		normal 	(default)正常
+							italic 	(斜体字)
+							oblique	(倾斜字体)
+
+			font-variant	normal	(default)
+							small-caps	(在小写英文字母时才有区别)
+
+			font-weight		lighter (更细)
+							normal 	(default)
+							bold 	(粗)
+							bolder	(更粗)
+							100, 200, 300, 400(noraml), 500, 600, 700(bold), 800, 900
+
+			font-size 		20px (default)
+							2em
+							150%
+
+			font-family		设置多种字体备选
+							支持@font-face
+							web安全字体
+		*/
+
+	</script>
+</body>	
+</html>

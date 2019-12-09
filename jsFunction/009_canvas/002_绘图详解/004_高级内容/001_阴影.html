@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>圆弧和圆角矩形</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.clearfix::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.pull-left {
+			float: left;
+		}
+
+		.box {
+			margin: 0 auto;
+			padding: 20px;
+			width: 1202px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="clearfix box">
+		<div class="pull-left" style="width: 400px;">
+		</div>
+		<canvas class="pull-left" id="canvas" width="800" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	</div>
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		/*
+			context.shadowColor		阴影的颜色
+
+			context.shadowOffsetX	阴影的位移值
+			context.shadowOffsetY
+
+			context.shadowBlur		阴影的模糊值，0位不模糊，越大越模糊
+
+			通常设置了shadowColor在设置剩下三个的中一个属性就可以有阴影
+		*/
+
+		context.fillStyle = "#058";
+
+		context.shadowColor = "gray";
+		context.shadowOffsetX = 20;
+		context.shadowOffsetY = 20;
+		context.shadowBlur = 5;
+
+		context.fillRect(200, 200, 400, 400);
+
+	</script>
+</body>	
+</html>

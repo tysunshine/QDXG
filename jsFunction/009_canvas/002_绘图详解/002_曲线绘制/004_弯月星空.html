@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8"/>
-	<title>径向渐变星空</title>
+	<title>弯月星空</title>
 </head>
 <body>
 
@@ -12,36 +12,33 @@
 		var oCanvas = document.getElementById('canvas');
 		var context = oCanvas.getContext('2d');
 
-		context.width = 1200;
-		context.height = 800;
+		oCanvas.width = 1200;
+		oCanvas.height = 800;
+
+		var cxtWidth = context.canvas.width;
+		var cxtHeight = context.canvas.height;
 
 		drawStarrySky(context);
+		fillMoon(context, 2, 900, 200, 100, 30);
 		
 
 		// 画一片星空
 		function drawStarrySky (cxt) {
-			var skyStyle = cxt.createRadialGradient(
-				cxt.width / 2, cxt.height, 0,
-				cxt.width / 2, cxt.height / 2, canvas.height
-			);
-
-			skyStyle.addColorStop(0, '#035');
-			skyStyle.addColorStop(1, '#000');
-
+			var skyStyle = cxt.createLinearGradient(0, 0, 0, cxtHeight);
+			skyStyle.addColorStop(0, '#000');
+			skyStyle.addColorStop(1, '#035');
 			cxt.fillStyle = skyStyle;
-			cxt.fillRect(0, 0, cxt.width, cxt.height);
+			cxt.fillRect(0, 0, cxtWidth, cxtHeight);
 
 			for (var i = 0; i < 200; i ++) {
-				var x = Math.random() * cxt.width;
-				var y = Math.random() * cxt.height * 0.65;
+				var x = Math.random() * cxtWidth;
+				var y = Math.random() * cxtHeight * 0.65;
 				var r = Math.random() * 5 + 5;
 				var rot = Math.random() * 360;
 
 				drawStar(context, x, y, r, rot);
 			}
 		}
-
-
 		function drawStar (cxt, x, y, R, rot) {
 			cxt.save(); // 保存状态
 
@@ -74,6 +71,32 @@
 						);
 			}
 			cxt.closePath();
+		}
+
+		// 画弯月
+		function fillMoon (cxt, d, x, y, R, rot, fillColor) {
+			cxt.save();
+
+			cxt.translate(x, y);
+			cxt.rotate(rot / 180 * Math.PI);
+			cxt.scale(R, R);
+
+			pathMoon(cxt, d);
+
+			cxt.fillStyle = fillColor || '#fb5';
+			cxt.fill();
+
+			cxt.restore();
+		}
+		function pathMoon (cxt, d) {
+			cxt.beginPath();
+			cxt.arc(0, 0, 1, 0.5*Math.PI, 1.5*Math.PI, true);
+			cxt.moveTo(0, -1);
+			cxt.arcTo(d, 0, 0, 1, dis(0, -1, d, 0) / d);
+			cxt.closePath();
+		}
+		function dis(x1, y1, x2, y2) {
+			return Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
 		}
 
 	</script>

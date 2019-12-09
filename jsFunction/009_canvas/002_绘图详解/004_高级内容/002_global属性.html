@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>global属性</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.clearfix::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.pull-left {
+			float: left;
+		}
+
+		.box {
+			margin: 0 auto;
+			padding: 20px;
+			width: 1202px;
+		}
+
+		.anniu-list {
+			margin-bottom: 20px;
+		}
+		.anniu-list a {
+			float: left;
+			margin-right: 20px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="clearfix box">
+		<div class="anniu-list pull-left">
+			<a href="#">source-over</a>
+			<a href="#">source-atop</a>
+			<a href="#">source-in</a>
+			<a href="#">source-out</a>
+			<a href="#">destination-over</a>
+			<a href="#">destination-atop</a>
+			<a href="#">destination-in</a>
+			<a href="#">destination-out</a>
+			<a href="#">lighter</a>
+			<a href="#">copy</a>
+			<a href="#">xor</a>
+		</div>
+		<canvas class="pull-left" id="canvas" width="800" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	</div>
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		context.canvas.width = 1200;
+		context.canvas.hegiht = 800;
+
+		/*
+			全局透明效果
+			globalAlpha = 1(default) 使全局具有透明度，1为不透明
+
+
+			全局覆盖效果
+			globalCompositeOperation = "source-over"(default)
+			注：先绘制图形一，在设置覆盖效果，在绘制图形二
+
+			source-over （default） 后绘制的图形与前绘制图形重叠时，显示后绘制的图形
+			source-atop 
+			source-in 
+			source-out 
+
+			destination-over 显示前绘制的图形
+			destination-atop 
+			destination-in 
+			destination-out 
+
+			lighter 
+			copy 
+			xor 
+		*/
+
+
+		/**
+		 * @globalAlpha 全局透明效果
+		 */
+		// context.globalAlpha = 0.7;
+		// for (var i = 0; i < 100; i++) {
+		// 	context.beginPath();
+		// 	var r = Math.random() * 255;
+		// 	var g = Math.random() * 255;
+		// 	var b = Math.random() * 255;
+		// 	context.fillStyle = "rgb(" + r + ", " + g + ", " + b + ")";
+		// 	context.arc(Math.random() * context.canvas.width, Math.random() * context.canvas.height, Math.random() * 100, 0, 2 * Math.PI);
+		// 	context.closePath();
+		// 	context.fill();
+		// }
+
+		/**
+		 * @globalCompositeOperation 全局覆盖效果
+		 */
+		// context.fillStyle = "#058";
+		// context.fillRect(450, 250, 300, 300);
+
+		// // context.globalCompositeOperation = "source-over";
+		// context.globalCompositeOperation = "destination-over";
+		// context.fillStyle = "red";
+		// context.beginPath();
+		// context.moveTo(600, 400);
+		// context.lineTo(950, 400);
+		// context.lineTo(600, 750);
+		// context.closePath();
+		// context.fill();
+
+		/**
+		 * @globalCompositeOperation 全局覆盖不同值得效果
+		 */
+		window.onload = function () {
+			var oA = document.getElementsByTagName('a');
+
+			for (var i = 0; i < oA.length; i++) {
+				oA[i].onclick = function () {
+					draw(this.innerText);
+				}
+			}
+		}
+		function draw (text) {
+			context.clearRect(0, 0, context.canvas.width, context.canvas.hegiht);
+			context.save();
+			context.fillStyle = "#058";
+			context.font = "40px 微软雅黑";
+			context.fillText("globalCompositeOperation = " + text, 40, 100);
+			context.restore();
+
+			context.save();
+			context.fillStyle = "#058";
+			// 图形一
+			context.fillRect(450, 250, 300, 300);
+			// 覆盖效果
+			context.globalCompositeOperation = text;
+			// 图形二
+			context.beginPath();
+			context.moveTo(600, 400);
+			context.lineTo(950, 400);
+			context.lineTo(600, 750);
+			context.closePath();
+			context.fillStyle = "red";
+			context.fill();
+			context.restore();
+		}
+
+	</script>
+</body>	
+</html>
