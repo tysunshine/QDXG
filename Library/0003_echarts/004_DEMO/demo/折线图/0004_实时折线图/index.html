@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>实时折线图</title>
+</head>
+<body style="background: gray;">
+
+	<div id="chart" style="width: 500px; height: 500px; margin: 50px auto 0; background: #fff;"></div>
+	
+	<script src="../../../../lib/echarts/echarts.min.js"></script>
+	<script>
+
+		var oChart = document.getElementById('chart');
+		var myChart = null;
+		var aTime = [], aData = [];
+		
+		function initChart (data) {
+			if (data instanceof Array) {
+				for (var i = 0; i < data.length; i++) {
+					aTime.push(data[i].time);
+					aData.push(data[i].data);
+				}
+
+			} else {
+				aTime.push(data.time);
+				aData.push(data.data);
+			}
+
+			if (aTime.length > 20) {
+				aTime = aTime.slice(aTime.length - 20);
+				aData = aData.slice(aData.length - 20);
+			}
+
+			var option = {
+				// 移上每个节点显示的提示
+				tooltip: {
+                    trigger: 'axis',
+                },
+
+				xAxis: {
+					// name: '医院',
+					type: 'category',
+					data: aTime,
+					boundaryGap: false, // 原点开始
+				},
+				yAxis: {
+					type: 'value'
+				},
+				series: [
+					{
+						data: aData,
+						type: 'line',
+						smooth: true, // 使用曲线，不使用直线
+						itemStyle: {
+							normal: {
+		                        color: '#EDA251', // 线条颜色，区域颜色
+		                        borderColor: '#EDA251', // 交叉圆点颜色
+		                        // 区域显示颜色
+		                        areaStyle: {
+		                            type: 'default',
+		                            opacity: 0.4
+		                        }
+		                    }
+						}
+					}
+				]
+			}
+
+			if (!myChart) {
+				myChart = echarts.init(oChart);
+				window.addEventListener('resize', function () {
+					myChart.resize();
+				})
+			}
+
+			myChart.setOption(option);
+		}
+
+		function getData (num) {
+			num = num || 1;
+
+			var date = new Date();
+
+			var res = [];
+
+			for (var i = 0; i < num; i++) {
+
+				var date = new Date(new Date().getTime() - 10 * i * 1000);
+				var minutes = date.getMinutes(),
+					seconds = date.getSeconds();
+
+				minutes = minutes < 10 ? '0' + minutes : minutes;
+				seconds = seconds < 10 ? '0' + seconds : seconds;
+
+				var obj = {
+					time: minutes + ':' + seconds,
+					data: parseInt(300 + Math.random() * 200)
+				}
+
+				if (num.length == 1) {
+					res = obj;
+				} else {
+					res.push(obj);
+				}
+			}
+
+			return res;
+		}
+
+		window.onload = function () {
+			initChart(getData(20));
+			setInterval(function () {
+				initChart(getData());
+			}, 10 * 1000);
+		}
+
+	</script>
+</body>	
+</html>

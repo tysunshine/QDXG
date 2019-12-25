@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>路径方向和剪纸效果</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.clearfix::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.pull-left {
+			float: left;
+		}
+
+		.box {
+			margin: 0 auto;
+			padding: 20px;
+			width: 1202px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="clearfix box">
+		<div class="pull-left" style="width: 400px;">
+			<img class="pull-left" src="../img/非零环绕原则.png" width="400">
+			<img class="pull-left" src="../img/非零环绕原则2.png" width="400">
+			<div class="pull-left" width="400">从图形引一个射线出来，根据画路径时的方向，如果相交时是顺时针+1，逆时针-1，如果为0，则为图形外面</div>
+		</div>
+		<canvas class="pull-left" id="canvas" width="800" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	</div>
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		/*
+			注意：方向很重要
+		*/
+
+		/**
+		 * 图形一
+		 */
+		// context.beginPath();
+		// context.arc(400, 400, 150, 0, 2*Math.PI, false);
+		// context.arc(400, 400, 300, 0, 2*Math.PI, true);
+		// context.closePath();
+
+		// context.shadowColor = "gray";
+		// context.shadowOffsetX = 10;
+		// context.shadowOffsetY = 10;
+		// context.shadowBlur = 10;
+		// context.fillStyle = "#058";
+		// context.fill();
+
+		/**
+		 * 图形二
+		 */
+		context.beginPath();
+		context.rect(100, 100, 600, 600); // 顺时针方向
+		pathRect(context, 200, 200, 400, 200); // 逆时针方向画正方形
+		pathTriggle(context, 300, 450, 150, 650, 450, 650); // 逆时针画三角
+		context.arc(550, 550, 100, 0, 2*Math.PI, true); // 逆时针画园
+		context.closePath();
+
+		context.shadowColor = "gray";
+		context.shadowOffsetX = 10;
+		context.shadowOffsetY = 10;
+		context.shadowBlur = 10;
+		context.fillStyle = "#058";
+		context.fill();
+
+		// 逆时针方向画正方形
+		function pathRect (cxt, x, y, width, height) {
+			cxt.moveTo(x, y);
+			cxt.lineTo(x, y + height);
+			cxt.lineTo(x + width, y + height);
+			cxt.lineTo(x + width, y);
+		}
+
+		// 逆时针画三角
+		function pathTriggle (cxt, x1, y1, x2, y2, x3, y3) {
+			cxt.moveTo(x1, y1);
+			cxt.lineTo(x2, y2);
+			cxt.lineTo(x3, y3);
+			cxt.lineTo(x1, y1);
+		}
+
+	</script>
+</body>	
+</html>

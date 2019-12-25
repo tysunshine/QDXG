@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>X轴label倾斜</title>
+</head>
+<body style="background: gray;">
+
+	<div id="chart" style="width: 500px; height: 500px; margin: 50px auto 0; background: #fff;"></div>
+	
+	<script src="../../../../lib/echarts/echarts.min.js"></script>
+	<script>
+
+		var oChart = document.getElementById('chart');
+		var myChart = null;
+		
+		function initChart () {
+			var option = {
+				// 移上每个节点显示的提示
+				tooltip: {
+                    trigger: 'axis',
+                },
+				xAxis: {
+					name: '月份',
+					type: 'category',
+					data: ['一月','二月','三月','四月','五月'],
+					boundaryGap: false, // 原点开始
+					axisLabel: {
+						textStyle: {
+							color: 'red'
+						},
+						rotate: 30, //倾斜
+					}
+				},
+				yAxis: {
+					type: 'value'
+				},
+				series: [
+					{
+						data: [820, 932, 901, 673, 1239],
+						type: 'line'
+					}
+				]
+			}
+
+			if (!myChart) {
+				myChart = echarts.init(oChart);
+				window.addEventListener('resize', function () {
+					myChart.resize();
+				})
+			}
+
+			myChart.setOption(option);
+		}
+
+		window.onload = function () {
+			initChart();
+		}
+
+	</script>
+</body>	
+</html>

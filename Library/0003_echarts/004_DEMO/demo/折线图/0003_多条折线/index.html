@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>多条折线</title>
+</head>
+<body style="background: gray;">
+
+	<div id="chart" style="width: 500px; height: 500px; margin: 50px auto 0; background: #fff;"></div>
+	
+	<script src="../../../../lib/echarts/echarts.min.js"></script>
+	<script>
+
+		var oChart = document.getElementById('chart');
+		var myChart = null;
+		
+		function initChart () {
+			var option = {
+				// 移上每个节点显示的提示
+				tooltip: {
+                    trigger: 'axis',
+                },
+
+                // 绘画内容距离边界距离
+                grid: {
+                    left: 100,
+                    top: 100,
+                    right: 100,
+                    bottom: 100
+                },
+
+                // 图例组件，数据项的名称
+                legend: {
+                    data: ['2019', '2018'],
+                    top: 40
+                },
+
+				xAxis: {
+					name: '医院',
+					type: 'category',
+					data: ['一院','二院','三院','四院','五院'],
+					// boundaryGap: false, // 原点开始
+				},
+				yAxis: {
+					type: 'value'
+				},
+				series: [
+					{
+						name: '2019',
+						data: [820, 932, 901, 673, 1239],
+						type: 'line',
+						color: '#2867ce'
+					},
+					{
+						name: '2018',
+						data: [760, 930, 1100, 878, 999],
+						type: 'line',
+						color: '#ac8cf6'
+					}
+				]
+			}
+
+			if (!myChart) {
+				myChart = echarts.init(oChart);
+				window.addEventListener('resize', function () {
+					myChart.resize();
+				})
+			}
+
+			myChart.setOption(option);
+		}
+
+		window.onload = function () {
+			initChart();
+		}
+
+	</script>
+</body>	
+</html>

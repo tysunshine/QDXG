@@ -3,6 +3,18 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>使用图片、画布或video</title>
+	<style>
+		.bg {
+			width: 50px;
+			height: 50px;
+			background: rgba(0, 255, 0, .3);
+			line-height: 50px;
+			text-align: center;
+			color: red;
+			font-size: 30px;
+		}
+
+	</style>
 </head>
 <body>
 
@@ -40,7 +52,6 @@
 		/**
 		 * 2、使用canvas做背景
 		 */
-
 		var bgCanvas = createBgCanvas();
 		var pattern = context.createPattern(bgCanvas, 'repeat');
 		context.fillStyle = pattern;
@@ -76,7 +87,6 @@
 		/**
 		 * 3、使用video做背景
 		 */
-
 	</script>
 </body>	
 </html>

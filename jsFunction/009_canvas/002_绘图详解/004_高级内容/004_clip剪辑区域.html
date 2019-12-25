@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>剪辑区域</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.clearfix::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.pull-left {
+			float: left;
+		}
+
+		.box {
+			margin: 0 auto;
+			padding: 20px;
+			width: 1202px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="clearfix box">
+		<!-- <div class="pull-left" style="width: 400px;">
+			<img class="pull-left" src="../img/arcTo.png" width="400">
+		</div> -->
+		<canvas class="pull-left" id="canvas" width="800" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	</div>
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		const width = context.canvas.width;
+		const height = context.canvas.height; 
+
+		/*
+			剪辑区域，指定一块特定的绘制区域
+			clip
+
+			同moveTo、lineTo、arc等路径规划函数一起使用
+		*/
+
+		context.beginPath();
+		context.fillStyle = "#000";
+		context.fillRect(0, 0, width, height);
+
+		context.beginPath();
+		context.arc(400, 400, 150, 0, 2*Math.PI);
+		context.fillStyle = "#fff";
+		context.fill();
+		context.clip();
+
+		context.fillStyle = "#058";
+		context.font = "150px Arial";
+		context.textAlign = "center";
+		context.textBaseline = "middle";
+		context.fillText("CANVAS", width / 2, height / 2);
+
+	</script>
+</body>	
+</html>

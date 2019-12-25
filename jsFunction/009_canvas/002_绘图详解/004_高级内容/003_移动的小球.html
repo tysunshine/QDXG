@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>圆弧和圆角矩形</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.clearfix::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.pull-left {
+			float: left;
+		}
+
+		.box {
+			margin: 0 auto;
+			padding: 20px;
+			width: 1202px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="clearfix box">
+		<canvas class="pull-left" id="canvas" width="1200" height="800" style="border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	</div>
+	
+	<script>
+		var oCanvas = document.getElementById('canvas');
+		var context = oCanvas.getContext('2d');
+
+		const WIDTH = context.canvas.width;
+		const HEIGHT = context.canvas.height;
+
+		var balls = []; // 保存球的状态
+		var ballNum = 100; // 小球的个数
+
+		window.onload = function () {
+			balls = createBalls(); // 生成小球
+			drawBalls(context, balls); // 画小球
+
+			setInterval(function () {
+				for (var i = 0; i < balls.length; i++) {
+					var ball = JSON.parse(JSON.stringify(balls[i]));
+
+					ball.x += ball.speed[0];
+					ball.y += ball.speed[1];
+
+					balls[i] = collision(ball, WIDTH, HEIGHT);
+				}
+
+				drawBalls(context, balls);
+			}, 20);
+		}
+
+		/**
+		 *画小球
+		 */
+		function drawBalls (cxt, balls) {
+			// 清除画布
+			cxt.clearRect(0, 0, cxt.canvas.width, cxt.canvas.height);
+			// oCanvas.width = oCanvas.width;
+			
+			// cxt.globalAlpha = 0.5;
+			cxt.globalCompositeOperation = 'lighter';
+
+			for (var i = 0; i < balls.length; i++) {
+				fillBall(cxt, balls[i].x, balls[i].y, balls[i].R, balls[i].color);
+			}
+		}
+
+		/**
+		 *生成球的状态
+		 */
+		function createBalls () {
+			var res = [];
+
+			for (var i = 0; i < ballNum; i++) {
+				var x = Math.round(Math.random() * WIDTH);
+				var y = Math.round(Math.random() * HEIGHT);
+				var R = Math.round(Math.random() * 45 + 5);
+				var r = Math.round(Math.random() * 255);
+				var g = Math.round(Math.random() * 255);
+				var b = Math.round(Math.random() * 255);
+				var fillColor = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+
+				// 添加进行碰撞检测后的小球
+				var ball = {
+					x: x,
+					y: y,
+					R: R,
+					color: fillColor,
+					speed: [Math.random() * 3 + 1, Math.random() * 3 + 1],
+				}
+				res.push(collision(ball, WIDTH, HEIGHT));
+			}
+
+			return res;
+		}
+
+		/**
+		 *填充球
+		 *@param {Object} cxt [canvas对象]
+		 *@param {Number} x [相对于0, 0向右移动的距离]
+		 *@param {Number} y [相对于0, 0向下移动的距离]
+		 *@param {Number} R [放大的倍数]
+		 *@param {String} color [填充颜色]
+		 */
+		function fillBall (cxt, x, y, R, color) {
+			cxt.save();
+
+			cxt.translate(x, y);
+			cxt.scale(R, R);
+
+			cxt.beginPath();
+			cxt.arc(0, 0, 1, 0, 2*Math.PI);
+			cxt.closePath();
+			
+			cxt.fillStyle = color;
+			cxt.fill();
+			cxt.restore();
+		}
+
+		/**
+		 *设置临界条件，碰撞检测
+		 *@param {Object} ball [单个小球对象]
+		 *@param {Number} width [画布宽度]
+		 *@param {Number} height [画布高度]
+		 */
+		function collision (ball, width, height) {
+			if (ball.x <= ball.R) {
+				ball.x = ball.R + (ball.R - ball.x);
+				ball.speed[0] *= -1; 
+			} else if ((ball.x + ball.R) >= width) {
+				ball.x = width - (ball.R + (ball.x - (width - ball.R)));
+				ball.speed[0] *= -1;
+			}
+
+			if (ball.y <= ball.R) {
+				ball.y = ball.R + (ball.R - ball.y);
+				ball.speed[1] *= -1; 
+			} else if ((ball.y + ball.R) >= height) {
+				ball.y = height - (ball.R + (ball.y - (height - ball.R)));
+				ball.speed[1] *= -1;
+			}
+			return ball;
+		}
+
+	</script>
+</body>	
+</html>

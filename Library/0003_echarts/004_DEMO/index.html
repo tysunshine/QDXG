@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>echarts示例</title>
+	<style>
+		* {margin: 0;padding: 0;box-sizing: border-box;}
+
+		.clearfix::after {content: '';display: block;clear: both;}
+		.pull-left {float: left !important;}
+		.pull-right {float: right !important;}
+
+		html, body {height: 100%;}
+		body {color: #333;font-size: 16px;}
+		a {color: #333; text-decoration: none;}
+		a:active {color: #333;}
+		.main {height: 100%;}
+
+		/*左侧选择*/
+		.sidebar {
+			width: 200px;
+			height: 100%;
+			overflow: auto;
+			background: #293C55;
+		}
+		.sidebar li {
+			padding: 9px 20px;
+			height: 50px;
+			line-height: 32px;
+			color: #fff;
+			cursor: pointer;
+		}
+		.sidebar li:hover {
+			background-color: #19293D;
+		}
+		.sidebar li.active {
+			background-color: #E43C59;
+		}
+		.sidebar li::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.sidebar li > span {
+			float: left;
+		}
+		.sidebar li > i {
+			float: left;
+			margin-right: 10px;
+			width: 32px;
+			height: 32px;
+			background: url(./img/chart-icon.png) no-repeat -1px 0;
+			background-size: 32px;
+			border: 1px solid #ccc;
+			border-radius: 50%;
+		}
+		.sidebar li > i.line {
+			background-position-y: -1px;
+		}
+		.sidebar li > i.bar {
+			background-position-y: -33px;
+		}
+		.sidebar li > i.pie {
+			background-position-y: -129px;
+		}
+		.sidebar li > i.map {
+			background-position-y: -257px;
+		}
+		
+		
+
+		/*右侧内容*/
+		.content {
+			padding: 30px 0 0 30px;
+			width: calc(100% - 200px);
+			height: 100%;
+			overflow: auto;
+			background: #F3F3F3;
+		}
+		.content .ct-title {
+			margin-bottom: 20px;
+			font-size: 26px;
+			line-height: 40px;
+		}
+		.content .ct-item {
+			display: none;
+		}
+		.content .ct-item.active {
+			display: block;
+		}
+		.content .chart-list .item {
+			float: left;
+			margin-right: 30px;
+			margin-bottom: 30px;
+			padding: 0 10px;
+			width: 250px;
+			height: 220px;
+			background: rgba(255, 255, 255, 0.8);
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+		.content .chart-list .item .title {
+			margin-bottom: 10px;
+			width: 100%;
+			height: 40px;
+			line-height: 40px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.content .chart-list .item img {
+			display: block;
+			width: 100%;
+			height: 160px;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="main clearfix">
+		<ul class="sidebar pull-left">
+			<li class="active" data-target="lineChart"><i class="line"></i><span>折线图</span></li>
+			<li data-target="barChart"><i class="bar"></i><span>柱形图</span></li>
+			<li data-target="pieChart"><i class="pie"></i><span>饼图</span></li>
+			<li data-target="mapChart"><i class="map"></i><span>地理坐标/地图</span></li>
+		</ul>
+
+		<div class="content pull-left">
+
+			<div class="ct-item active" id="lineChart">
+				<div class="ct-title">折线图</div>
+				<div class="chart-list clearfix">
+					<a class="item" href="./demo/折线图/0001_普通折线图/index.html">
+						<div class="title">普通折线图</div>
+						<img src="./demo/折线图/0001_普通折线图/effect.png">
+					</a>
+					<a class="item" href="./demo/折线图/0002_X轴label倾斜/index.html">
+						<div class="title">X轴label倾斜</div>
+						<img src="./demo/折线图/0002_X轴label倾斜/effect.png">
+					</a>
+					<a class="item" href="./demo/折线图/0003_多条折线/index.html">
+						<div class="title">多条折线</div>
+						<img src="./demo/折线图/0003_多条折线/effect.png">
+					</a>
+					<a class="item" href="./demo/折线图/0004_实时折线图/index.html">
+						<div class="title">实时折线图</div>
+						<img src="./demo/折线图/0004_实时折线图/effect.png">
+					</a>
+					<a class="item" href="./demo/折线图/0005_格子背景/index.html">
+						<div class="title">格子背景</div>
+						<img src="./demo/折线图/0005_格子背景/effect.png">
+					</a>
+				</div>
+			</div>
+
+			<div class="ct-item" id="barChart">
+				<div class="ct-title">柱形图</div>
+				<div class="chart-list clearfix"></div>
+			</div>
+
+			<div class="ct-item" id="pieChart">
+				<div class="ct-title">饼图</div>
+				<div class="chart-list clearfix"></div>
+			</div>
+
+			<div class="ct-item" id="mapChart">
+				<div class="ct-title">地理坐标/地图</div>
+				<div class="chart-list clearfix"></div>
+			</div>
+
+		</div>
+	</div>
+	
+	<script>
+		var oLi = document.querySelectorAll('li');
+		var oContentItem = document.querySelectorAll('.content .ct-item');
+
+		for (var i = 0; i < oLi.length; i++) {
+			oLi[i].onclick = function () {
+				var id = this.getAttribute('data-target');
+
+				if (this.classList.contains('active')) {
+					return;
+				}
+
+				// 移除与添加sidebar的active
+				for (var j = 0; j < oLi.length; j++) {
+					if (oLi[j].classList.contains('active')) {
+						oLi[j].classList.remove('active');
+						break;
+					}
+				}
+				this.classList.add('active');
+
+				// 移除与添加content的active
+				for (var j = 0; j < oContentItem.length; j++) {
+					if (oContentItem[j].classList.contains('active')) {
+						oContentItem[j].classList.remove('active');
+						break;
+					}
+				}
+				document.getElementById(id).classList.add('active');
+			}
+		}
+	</script>
+</body>	
+</html>
