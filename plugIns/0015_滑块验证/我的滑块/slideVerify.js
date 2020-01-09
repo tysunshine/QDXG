@@ -3,13 +3,14 @@
 	var oDefault = {
 		id: '',
 		images: [],
-		imgIdx: 0, // 当前图片的下标
 		width: 300, // 图片宽度
 		height: 150, // 图片高度
 		isAbs: false, // 图片是否绝对定位
 		success: null, // 成功回调
 		error: null, // 失败回调
 	}
+
+	var iImgIdx = -1; // 当前图片的下标
 
 	// 缺失块参数
 	var mb = {
@@ -22,8 +23,7 @@
 		id: '',				// id
 		width: 0,			// 图片宽度
 		height: 0,			// 图片高度
-		images: [],			// 图片列表
-		imgIdx: 0,			// 当前图片的下标 
+		images: [],			// 图片列表 
 		isAbs: false,		// 图片是否绝对定位
 		pos: {x: 0, y: 0},  // 缺失块定位
 
@@ -162,6 +162,12 @@
 
 			this.mb = oMb;
 			this.oBox = document.querySelector('#' + this.id);
+
+			// 设置图片下标
+			iImgIdx++;
+			if (iImgIdx >= this.images.length) {
+				iImgIdx = 0;
+			}
 		},
 
 		// @设置html
@@ -243,7 +249,7 @@
 			this.pos = this.getMissingBlockPosition(this.width, this.height, this.mb.width, this.mb.height);
 
 			var oImg = new Image();
-			oImg.src = this.images[this.imgIdx];
+			oImg.src = this.images[iImgIdx];
 			oImg.onload = function () {
 				var ctx1 = _this.oCanvas1.getContext('2d');
 				var ctx2 = _this.oCanvas2.getContext('2d');
