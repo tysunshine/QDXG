@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>我的滑块</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			padding-top: 200px;
+			background: #ccc;
+		}
+		.box1 {
+			margin: 0 auto;
+			padding: 20px;
+			width: 500px;
+			min-height: 500px;
+			/*border: 1px solid #999;*/
+			background: #fff;
+		}
+
+		._slide-vertify-box {
+			position: relative;
+			width: 100%;
+		}
+		._drag-btn-box {
+			position: relative;
+			margin: 0 auto;
+			width: 300px;
+			height: 34px;
+			line-height: 38px;
+			text-align: center;
+		}
+		._drag-btn-box ._bg {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1;
+			width: 100%;
+			height: 100%;
+			border: 1px solid #DDDDDD;
+			box-sizing: border-box;
+		}
+		._drag-btn {
+			position: absolute;
+			z-index: 2;
+			width: 34px;
+			height: 100%;
+			cursor: pointer;
+		}
+		._drag-btn .icon {
+			position: relative;
+			display: inline-block;
+			width: 100%;
+			height: 100%;
+			font-size: 18px;
+			font-family: '宋体';
+			font-weight: bold;
+			border: 1px solid #DDDDDD;
+			box-sizing: border-box;
+		}
+		._drag-btn .icon.hide {
+			display: none;
+		}
+
+		._drag-btn .icon2 {
+			background: #ff3333;
+			border-color: #ff3333;
+		}
+		._drag-btn .icon2 span {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 18px;
+			height: 18px;
+		}
+		._drag-btn .icon2 span::before, ._drag-btn .icon2 span::after {
+			content: '';
+			position: absolute;
+			top: 8px;
+			left: 0;
+			width: 18px;
+			height: 2px;
+			background: #fff;
+			transform-origin: center;
+		}
+		._drag-btn .icon2 span::before {
+			transform: rotate(45deg);
+		}
+		._drag-btn .icon2 span::after {
+			transform: rotate(-45deg);
+		}
+
+		._drag-btn .icon3 {
+			background: #7AC23C;
+			border-color: #7AC23C;
+		}
+		._drag-btn .icon3 span {
+			position: absolute;
+			width: 18px;
+			height: 18px;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+		._drag-btn .icon3 span::before, ._drag-btn .icon3 span::after {
+			content: '';
+			position: absolute;
+			background: #fff;
+		}
+		._drag-btn .icon3 span::before {
+			top: 14px;
+			left: -2px;
+			width: 9px;
+			height: 2px;
+			transform-origin: right;
+			transform: rotate(45deg);
+		}
+		._drag-btn .icon3 span::after {
+			top: 3px;
+			right: -2px;
+			width: 2px;
+			height: 18px;
+			transform-origin: top;
+			transform: rotate(45deg);
+		}
+
+		._img-box {
+			margin: 0 auto 20px;
+			padding: 10px 10px 10px 10px;
+			width: 300px;
+			height: 200px;
+			background: #ccc;
+		}
+		._img-box .ct {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+		._img-box .ct .cv1 {
+			position: relative;
+			z-index: 9;
+		}
+		._img-box .ct .cv2 {
+			position: absolute;
+			top: 0;
+			left: -100px;
+			z-index: 10;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="box1" id="box1">
+		
+		<div class="_slide-vertify-box">
+			<div class="_img-box">
+				<div class="ct">
+					<canvas class="cv1" id="cv1" width="300" height="200"></canvas>
+					<canvas class="cv2" id="cv2" width="300" height="200"></canvas>
+				</div>
+			</div>
+			<div class="_drag-btn-box">
+				<div class="_bg"></div>
+				<div class="_drag-btn">
+					<div class="icon icon1 hide">&gt;</div>
+					<div class="icon icon2 hide"><span></span></div>
+					<div class="icon icon3"><span></span></div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	
+	<script>
+		
+		var oCv1 = document.getElementById('cv1');
+		var ctx1 = oCv1.getContext('2d');
+		var W1 = ctx1.canvas.width, H1 = ctx1.canvas.height;
+
+		var oCv2 = document.getElementById('cv2');
+		var ctx2 = oCv2.getContext('2d');
+		var W2 = ctx2.canvas.width, H2 = ctx2.canvas.height;
+
+		// 缺失块
+		var mb = {
+			width: 46,
+			height: 50,
+			radius: 10
+		}
+
+		var pos = getMissingBlockPosition(W1, H1, mb.width, mb.height);
+
+		var oImg = new Image();
+		oImg.src = "./verify01.jpg";
+		oImg.onload = function () {
+			// 绘制图1
+			drawCanvas1(ctx1, oImg)
+		
+
+			// 绘制图2
+			drawCanvas2(ctx2, oImg);
+		}
+
+		/**
+		 *绘制图1
+		 */
+		function drawCanvas1 (ctx, oImg) {
+			ctx.drawImage(oImg, 0, 0, W1, H1);
+
+			
+			drawMissingBlock(ctx, pos.x, pos.y, mb);
+		}
+
+		/**
+		 *绘制图2
+		 */
+		function drawCanvas2 (ctx, oImg) {
+			ctx.beginPath();
+			ctx.fillStyle = "rgba(255, 255, 255, 0)";
+			ctx.fillRect(0, 0, W2, H2);
+
+			drawMissingBlock(ctx, pos.x, pos.y, mb, '#000');
+			ctx.clip();
+
+			ctx.drawImage(oImg, 0, 0, W2, H2);
+		}
+
+
+		/**
+		 *获取确实块位置
+		 *@param {Number} width [canvas的宽度]
+		 *@param {Number} height [canvas的宽度]
+		 *@param {Number} blockW [缺失块的宽度]
+		 *@param {Number} blockH [缺失块的高度]
+		 */
+		function getMissingBlockPosition (width, height, blockW, blockH) {
+			var res = {
+				x: parseInt(Math.random() * (width - 2*(blockW+20)) + (blockW+20)),
+				y: parseInt(Math.random() * (height - 2*(blockH+20)) + (blockH+20))
+			}
+
+			return res;
+		}
+
+		/**
+		 *画缺失块
+		 *@param [Object] ctx [canvas对象]
+		 *@param [Number] x [缺失块的x坐标]
+		 *@param [Number] y [缺失块的y坐标]
+		 *@param [Object] mb [缺失块参数]
+		 */
+		function drawMissingBlock (ctx, x, y, mb, color) {
+			var lineW = (mb.width - mb.radius*2) / 2,
+				lineH = (mb.height - mb.radius*2) / 2;
+
+			ctx.beginPath();
+			ctx.lineTo(x, y + mb.radius);
+			ctx.lineTo(x + lineW, y + mb.radius);
+			ctx.arc(x + lineW + mb.radius, y + mb.radius, mb.radius, Math.PI, 2*Math.PI);
+			ctx.lineTo(x + (lineW + mb.radius)*2, y + mb.radius);
+			ctx.lineTo(x + (lineW + mb.radius)*2, y + lineH + mb.radius);
+			ctx.arc(x + (lineW + mb.radius)*2, y + lineH + mb.radius*2, mb.radius, 1.5*Math.PI, 0.5*Math.PI);
+			ctx.lineTo(x + (lineW + mb.radius)*2, y + lineH*2 + mb.radius*3);
+			ctx.lineTo(x, y + lineH*2 + mb.radius*3);
+			ctx.lineTo(x, y + mb.radius);
+			ctx.closePath();
+			ctx.fillStyle = 'rgba(255, 255, 225, 0.5)';
+
+			if (color) {
+				ctx.shadowColor = color;
+				ctx.shadowBlur = 10;
+			}
+
+			ctx.fill();
+		}
+
+	</script>
+</body>
+</html>

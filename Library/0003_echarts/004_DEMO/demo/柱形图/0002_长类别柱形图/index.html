@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>普通柱形图</title>
+</head>
+<body style="background: gray;">
+
+	<div id="chart" style="width: 500px; height: 500px; margin: 50px auto 0; background: #fff;"></div>
+	
+	<script src="../../../../lib/echarts/echarts.min.js"></script>
+	<script>
+
+		var oChart = document.getElementById('chart');
+		var myChart = null;
+		
+		// 使用一个bar时，不能让bar往下移动
+		function initChart1 () {
+			var titleList = ['贵州省第一人民医院','铜仁市第二人民医院','遵义医科大学附属医院','贵州省骨科医院','息烽县人民医院'];
+			var numList = [820, 932, 901, 673, 1239];
+
+			var option = {
+				// 移上每个节点显示的提示
+				tooltip: {
+                    trigger: 'axis',
+                },
+				xAxis:{
+					show: true
+				},
+				yAxis: {
+					type: 'category',
+					show: false,
+					inverse: true, // 是否是反向坐标轴，即y轴数据倒序
+				},
+				series: [
+					{
+						data: numList,
+						type: 'bar',
+                        barWidth: '25%', // 相对于每一项总宽度的25%
+                        label: {
+                            normal: {
+                                show: true,
+                                position: [0, '-15'],
+                                textStyle: {
+                                    fontSize: 13,
+                                    color: '#333',
+                                },
+                                formatter: function(data) {
+                                    return titleList[data.dataIndex];
+                                }
+                            }
+                        }
+					},
+				]
+			}
+
+			if (!myChart) {
+				myChart = echarts.init(oChart);
+				window.addEventListener('resize', function () {
+					myChart.resize();
+				})
+			}
+
+			myChart.setOption(option);
+		}
+
+		function initChart2 () {
+			var titleList = ['贵州省第一人民医院','铜仁市第二人民医院','遵义医科大学附属医院','贵州省骨科医院','息烽县人民医院'];
+			var numList = [820, 932, 901, 673, 1239];
+
+			var option = {
+				// 移上每个节点显示的提示
+                tooltip: {
+                    formatter: function(params) {
+                        return titleList[params.dataIndex]+': '+numList[params.dataIndex];
+                    }
+                },
+
+				xAxis: [
+					{
+						show: true
+					},
+					{
+						show: false
+					}
+				],
+				yAxis: {
+					type: 'category',
+					show: false,
+				},
+				series: [
+					// 用于显示bar
+					{
+						data: numList,
+						type: 'bar',
+                        barWidth: '25%', // 相对于每一项总宽度的25%
+					},
+					// 用来显示label与将bar往下移动
+                    {
+                        show: true,
+                        type: 'bar',
+                        xAxisIndex: 1, //代表使用第二个X轴刻度
+                        barGap: '-120%',
+                        barWidth: '10%',
+                        // 将该bar设置为透明
+                        itemStyle: {
+                            normal: {
+                                color: 'transparent'
+                            }
+                        },
+                        // 显示bar的提示文字
+                        label: {
+                            normal: {
+                                show: true,
+                                position: [0, '-15'],
+                                textStyle: {
+                                    fontSize: 13,
+                                    color: '#333',
+                                },
+                                formatter: function(data) {
+                                    return titleList[data.dataIndex];
+                                }
+                            }
+                        },
+                        data: numList
+                    }
+				]
+			}
+
+			if (!myChart) {
+				myChart = echarts.init(oChart);
+				window.addEventListener('resize', function () {
+					myChart.resize();
+				})
+			}
+
+			myChart.setOption(option);
+		}
+
+		window.onload = function () {
+			initChart2();
+		}
+
+	</script>
+</body>	
+</html>

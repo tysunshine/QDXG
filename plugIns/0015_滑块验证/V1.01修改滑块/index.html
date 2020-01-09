@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>修改滑块</title>
+	<link rel="stylesheet" type="text/css" href="./style.css">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			padding-top: 200px;
+			background: gray;
+		}
+
+		.form-box {
+			margin: 0 auto;
+			padding: 200px 30px 30px;
+			width: 400px;
+			background: #fff;
+		}
+
+		#imgVer {
+			position: relative;
+			/*padding: 0 16px;*/
+		}
+
+	</style>
+</head>
+<body>
+	
+	<div class="form-box">
+		<div class="verBox">
+            <div id="imgVer" style="display:inline-block;"></div>
+        </div>
+	</div>
+
+	<script src="./jquery.min.js"></script>
+	<script src="./img_ver.js"></script>
+	<script>
+		$(function () {
+
+			imgVer({
+	            el:'$("#imgVer")',
+	            width:'400',
+	            height:'116',
+	            img:[
+	                '../images/ver.png',
+	                '../images/ver-1.png',
+	                '../images/ver-2.png',
+	                '../images/ver-3.png'
+	            ],
+	            success:function () {
+	                console.log('成功');
+	            },
+	            error:function () {
+	                console.log('失败');
+	            }
+	        });
+
+
+		})
+	</script>
+</body>	
+</html>

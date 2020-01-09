@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8"/>
-	<title>普通折线图</title>
+	<title>普通柱形图</title>
 </head>
 <body style="background: gray;">
 
@@ -16,22 +16,34 @@
 		
 		function initChart () {
 			var option = {
+				title: {
+			        text: '前5月销售数量',
+			        subtext: '销售数量'
+			    },
+			    
 				// 移上每个节点显示的提示
 				tooltip: {
                     trigger: 'axis',
                 },
+
+                // 直角坐标系内绘图网格 图表内容的位置
+                grid: {
+                	top: 100
+                },
+
 				xAxis: {
-					type: 'category', // category 类别
-					data: ['一月','二月','三月','四月','五月'],
-					// boundaryGap: false, // 原点开始
+					type: 'value'
 				},
 				yAxis: {
-					type: 'value'
+					name: '月份',
+					type: 'category',
+					data: ['一月','二月','三月','四月','五月'],
 				},
 				series: [
 					{
 						data: [820, 932, 901, 673, 1239],
-						type: 'line'
+						type: 'bar',
+						barWidth: 20, // 设置柱形的宽度
 					}
 				]
 			}

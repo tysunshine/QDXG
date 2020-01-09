@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>滑块验证</title>
+	<link rel="stylesheet" type="text/css" href="./slideVerify.css">
+	<style>
+		
+		body {
+			padding: 100px 0;
+			background: #eee;
+		}
+
+		.box {
+			margin: 0 auto;
+			padding-top: 200px;
+			width: 400px;
+			min-height: 500px;
+			background: #fff;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="box" id="box"></div>
+	
+	<script src="./slideVerify.js"></script>
+	<script>
+		slideVerify.init({
+			id: 'box',
+			images: ['./verify01.jpg'],
+			isAbs: true
+		})
+	</script>
+</body>	
+</html>

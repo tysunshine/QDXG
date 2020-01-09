@@ -14,6 +14,7 @@
 		var iPl = parseInt(getComputedStyle(dom, null)['paddingLeft']);
 		var iPr = parseInt(getComputedStyle(dom, null)['paddingRight']);
 		var iSize =  getComputedStyle(dom, null)['fontSize'];
+		var sFamily = getComputedStyle(dom, null)['fontFamily'];
 		var strText = dom.innerText;
 		iTw = iTw - iPl - iPr;
 
@@ -43,6 +44,7 @@
 		}
 			
 		oCalc.style.fontSize = iSize;
+		oCalc.style.fontFamily = sFamily;
 		oCalc.innerText = strText;
 		
 		var iCw = oCalc.clientWidth;

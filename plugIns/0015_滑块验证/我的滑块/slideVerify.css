@@ -1,0 +1,166 @@
+._slide-vertify-box {
+	position: relative;
+	width: 100%;
+}
+
+/*图片样式*/
+._slide-vertify-box  ._img-box {
+	margin: 0 auto 20px;
+	padding: 10px 10px 10px 10px;
+	width: 300px;
+	height: 200px;
+	background: #eee;
+}
+._slide-vertify-box  ._img-box.absolute {
+	display: none;
+	position: absolute;
+	bottom: 54px;
+	left: 50%;
+	transform: translateX(-50%);
+	transition: opacity .3s;
+	opacity: 0;
+}
+._slide-vertify-box ._img-box .ct {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+._slide-vertify-box ._img-box .ct .cv1 {
+	position: relative;
+	z-index: 9;
+}
+._slide-vertify-box ._img-box .ct .cv2 {
+	position: absolute;
+	top: 0;
+	left: -100px;
+	z-index: 10;
+}
+
+/*拖拽按钮样式*/
+._slide-vertify-box ._drag-btn-box {
+	position: relative;
+	margin: 0 auto;
+	width: 300px;
+	height: 34px;
+	line-height: 32px;
+	text-align: center;
+	overflow: hidden;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+}
+._slide-vertify-box ._drag-btn-box ._bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	border: 1px solid #DDDDDD;
+	box-sizing: border-box;
+	text-align: center;
+	font-size: 12px;
+	color: #999;
+}
+._slide-vertify-box ._drag-btn {
+	position: absolute;
+	z-index: 2;
+	left: calc(34px - 100%);
+	width: 100%;
+	height: 100%;
+	text-align: right;
+}
+._slide-vertify-box ._drag-btn.error {
+	background: rgba(255, 51, 51, 0.5);
+}
+._slide-vertify-box ._drag-btn.success {
+	background: rgba(122, 194, 60, 0.5);
+}
+
+._slide-vertify-box ._drag-btn.info .icon1,
+._slide-vertify-box ._drag-btn.error .icon2,
+._slide-vertify-box ._drag-btn.success .icon3 {
+	display: inline-block;
+}
+._slide-vertify-box ._drag-btn .icon {
+	display: none;
+	position: relative;
+	width: 34px;
+	height: 100%;
+	font-size: 18px;
+	font-family: '宋体';
+	font-weight: bold;
+	border: 1px solid #DDDDDD;
+	box-sizing: border-box;
+	background: #fff;
+	cursor: pointer;
+	text-align: center;
+}
+._slide-vertify-box ._drag-btn .icon1:hover {
+	border-color: #409EFF;
+	background: #409EFF;
+	color: #fff;
+}
+._slide-vertify-box  ._drag-btn .icon2 {
+	background: #ff3333;
+	border-color: #ff3333;
+}
+._slide-vertify-box ._drag-btn .icon2 > div {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 18px;
+	height: 18px;
+}
+._slide-vertify-box ._drag-btn .icon2 .line1, ._drag-btn .icon2 .line2 {
+	position: absolute;
+	top: 8px;
+	left: 0;
+	width: 18px;
+	height: 2px;
+	background: #fff;
+	transform-origin: center;
+}
+._slide-vertify-box ._drag-btn .icon2 .line1 {
+	transform: rotate(45deg);
+}
+._slide-vertify-box ._drag-btn .icon2 .line2 {
+	transform: rotate(-45deg);
+}
+
+._slide-vertify-box ._drag-btn .icon3 {
+	background: #7AC23C;
+	border-color: #7AC23C;
+}
+._slide-vertify-box ._drag-btn .icon3 > div {
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+._slide-vertify-box ._drag-btn .icon3 .line1, ._drag-btn .icon3 .line2 {
+	content: '';
+	position: absolute;
+	background: #fff;
+}
+._slide-vertify-box ._drag-btn .icon3 .line1 {
+	top: 14px;
+	left: -2px;
+	width: 9px;
+	height: 2px;
+	transform-origin: right;
+	transform: rotate(45deg);
+}
+._slide-vertify-box ._drag-btn .icon3 .line2 {
+	top: 3px;
+	right: -2px;
+	width: 2px;
+	height: 18px;
+	transform-origin: top;
+	transform: rotate(45deg);
+}
