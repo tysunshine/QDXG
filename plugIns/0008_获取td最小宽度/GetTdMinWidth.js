@@ -48,7 +48,7 @@
 		    // padding-right
 		    this.config.pr = (config.pr > 0 || (typeof config.pr == 'number' && !config.pr)) ? config.pr : this.config.pr;
 
-		    // 固定属性的最小宽度
+		    // 获取每个key的具体配置
 		    this.key = this.getKey(config.key || {});
 
 		    this.aMinWidth = [];
