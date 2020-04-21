@@ -8,21 +8,27 @@
 
 	<script type="text/javascript">
 		
-		//console.log(isNull(null));    	//true
-		//console.log(isNull(''));      	//true
-		//console.log(isNull());       		//true
+		//console.log(isEmpty(null));    	//true
+		//console.log(isEmpty(''));      	//true
+		//console.log(isEmpty());       		//true
 		//var aa={};          
-		//console.log(isNull(aa.a));   		//true
-		// console.log(isNull(0));        	//false
-		// console.log(isNull('0'));    		//false
-		//console.log(isNull(true));   		//false
-		//console.log(isNull("undefined")); //false
-		//console.log(isNull(undefined));   //true
-		//console.log(isNull([]));       	//false
-		//console.log(isNull({}));       	//false
+		//console.log(isEmpty(aa.a));   		//true
+		// console.log(isEmpty(0));        	//false
+		// console.log(isEmpty('0'));    		//false
+		//console.log(isEmpty(true));   		//false
+		//console.log(isEmpty("undefined")); //false
+		//console.log(isEmpty(undefined));   //true
+		//console.log(isEmpty([]));       	//false
+		//console.log(isEmpty({}));       	//false
 
-		function isNull (val) {
+		// 判断空
+		function isEmpty (val) {
 			return !val && val!==0 && typeof val!=="boolean"?true:false;
+		}
+
+		// 判断Null
+		function isNull (val) {
+			return !val && typeof(val)!="undefined" && val!=0 ? true : false;
 		}
 	</script>
 </body>

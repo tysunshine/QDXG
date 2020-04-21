@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>尺寸小结</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			padding-top: 30px;
+			box-sizing: border-box;
+			background: #efefef;
+			font-size: 14px;
+			line-height: 25px;
+		}
+		.group {
+			margin: 0 auto 30px;
+			padding: 10px 0 20px;
+			width: 800px;
+			min-height: 300px;
+			box-sizing: border-box;
+			background: #fff;
+			border-radius: 10px;
+		}
+		.g-title {
+			padding: 0 20px;
+			line-height: 40px;
+			font-size: 16px;
+		}
+		.g-content {
+			padding: 0 20px;
+		}
+		ol {
+			padding-left: 20px;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="group">
+		<div class="g-title">尺寸分类</div>
+		<div class=g-content>
+			<ol>
+				<li><a href="#pageSize">页面尺寸</a></li>
+				<li><a href="#elementSize">元素尺寸</a></li>
+				<li><a href="#elementPosition">元素位置</a></li>
+				<li><a href="#mousePosition">鼠标位置</a></li>
+			</ol>
+		</div>
+	</div>
+
+
+	<div class="group" id="pageSize">
+		<div class="g-title">页面尺寸</div>
+		<div class="g-content">
+			
+		</div>
+	</div>
+
+	<div class="group" id="elementSize">
+		<div class="g-title">元素尺寸</div>
+		<div class="g-content">
+			
+		</div>
+	</div>
+
+	<div class="group" id="elementPosition">
+		<div class="g-title">元素位置</div>
+		<div class="g-content">
+			
+		</div>
+	</div>
+
+	<div class="group" id="mousePosition">
+		<div class="g-title">鼠标位置</div>
+		<div class="g-content">
+			
+		</div>
+	</div>
+
+	
+	<script>
+		var oPage = {
+			init: function () {
+				this.initPageSize();
+				this.initElementSize();
+				this.initElementPosition();
+				this.initMousePosition();
+			},
+
+			// 初始化页面尺寸
+			initPageSize: function () {
+
+			},
+
+			// 初始化元素尺寸
+			initElementSize: function () {
+
+			},
+
+			// 初始化元素位置
+			initElementPosition: function () {
+
+			},
+
+			// 初始化鼠标位置
+			initMousePosition: function () {
+
+			}
+		}
+
+
+		var tools = {
+			
+		}
+
+
+		window.onload = function () {
+			oPage.init();
+		}
+	</script>
+</body>	
+</html>
