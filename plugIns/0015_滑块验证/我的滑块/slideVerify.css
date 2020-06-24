@@ -11,9 +11,10 @@
 	height: 200px;
 	background: #eee;
 }
-._slide-vertify-box  ._img-box.absolute {
+._slide-vertify-box ._img-box.absolute {
 	display: none;
 	position: absolute;
+	z-index: 1000;
 	bottom: 54px;
 	left: 50%;
 	transform: translateX(-50%);

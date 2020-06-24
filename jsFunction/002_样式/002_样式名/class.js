@@ -8,7 +8,7 @@ function getByClass (className) {
 			arr.push(aElm[i]);
 		}
 	} else {
-		var aElm = doc.getElementsByTagName("*");
+		var aElm = document.getElementsByTagName("*");
 		
 		for(var i=0; i<aElm.length; i++) {
 			if(hasClass(aElm[i], className)) {

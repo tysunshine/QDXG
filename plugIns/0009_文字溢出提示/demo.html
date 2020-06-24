@@ -53,6 +53,7 @@
 	
 	<script src="./hoverTip.js"></script>
 	<script src="./isTextOverflow.js"></script>
+	<script src="./calcTextWidth.js"></script>
 	<script>
 		hoverTip('.hover-tip');
 	
@@ -65,6 +66,30 @@
 			var bl = isTextOverflow(this);
 			console.log(bl);
 		}
+
+		var res1 = calcTextWidth({
+			text: '空间'
+		})
+		console.log(res1);
+		var res2 = calcTextWidth({
+			text: ['健康卡', '健康稳健额', '玩家科技', '就']
+		})
+		console.log(res2);
+		var res3 = calcTextWidth({
+			text: ['健康卡', '健康稳健额', '玩家科技', '就'],
+			style: {
+				fontSize: '20px'
+			}
+		})
+		console.log(res3);
+		var res4 = calcTextWidth({
+			text: ['健康卡', '健康稳健额', '玩家科技', '就'],
+			type: 'min',
+			style: {
+				fontSize: '20px'
+			}
+		})
+		console.log(res4);
 
 	</script>
 </body>	

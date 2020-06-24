@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>float+BFC布局</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		html, body {
+			height: 100%;
+		}
+		.container {
+			height: 100%;
+		}
+		.left {
+			float: left;
+			width: 200px;
+			height: 100%;
+			background: yellow;
+		}
+		.right {
+			height: 100%;
+			overflow: hidden;
+			background: green;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="left"></div>
+		<div class="right">
+			<p>float+BFC布局</p>
+			<p>利用overflow:hidden形成BFC，因为BFC不会与float box重叠。</p>
+		</div>
+	</div>
+
+	<script></script>
+</body>	
+</html>
