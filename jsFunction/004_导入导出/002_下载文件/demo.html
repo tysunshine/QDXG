@@ -8,11 +8,17 @@
 
 	<button onclick="downClick()">下载文件</button>
 
+	<button onclick="downClick()">下载文件2</button>
+
 	<script>
 		
 		function downClick () {
-			var src = "./a.txt";
+			var src = "./timg1.jpg";
 			download(src);
+		}
+
+		function downClick2 () {
+			window.open('./timg1.jpg');
 		}
 
 		function download(src) {

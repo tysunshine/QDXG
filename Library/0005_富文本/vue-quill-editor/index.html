@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>vue-quill-editor</title>
+</head>
+<body>
+
+	1.安装
+	npm install vue-quill-editor -S
+	npm install quill -S
+
+	npm install quill-image-resize-module --save // 改变图片大小
+
+
+	2.vue.config.js配置 vue-cli3和vue-cli2不一样
+	const webpack = require('webpack')
+	module.exports = {
+	    chainWebpack: config => {
+	        config.plugin('provide').use(webpack.ProvidePlugin, [{
+	            'window.Quill': 'quill'
+	        }]);
+	    },
+	}
+
+
+	3.引入
+	import { quillEditor } from 'vue-quill-editor' // 调用富文本编辑器
+	import 'quill/dist/quill.snow.css' // 富文本编辑器外部引用样式  三种样式三选一引入即可
+	//import 'quill/dist/quill.core.css'
+	//import 'quill/dist/quill.bubble.css'
+	import * as Quill from 'quill'; // 富文本基于quill
+
+	// 改变图片大小
+	import ImageResize from 'quill-image-resize-module';
+	Quill.register('modules/imageResize',ImageResize);
+
+
+	export default {
+        name: 'editor',
+        data: function(){
+            return {
+                editorOption: {
+                    placeholder: 'Hello World',
+                    modules:{
+                         toolbar: {
+                            container:[
+                                [{ 'size': ['small', false, 'large'] }],
+                                [{ 'color': [] }, { 'background': [] }], 
+                                [{ 'font': [] }],
+                                [{ 'align': [] }],
+                                ['bold', 'italic'],
+                                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                                ['link', 'image'],
+                                [{ 'direction': 'rtl' }],
+                            ],
+                        },
+                       imageResize:{
+                            displayStyles:{
+                                backgroundColor:'black',
+                                border:'none',
+                                color:'white'
+                            },
+                            modules:['Resize','DisplaySize','Toolbar']
+                        }
+                    }
+                },
+            }
+        },
+        components: {
+        	quillEditor,
+    	}
+	}
+
+	
+	<script></script>
+</body>	
+</html>

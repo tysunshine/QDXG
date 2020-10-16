@@ -12,6 +12,7 @@
 			for (var i = 0; i < this.oTip.length; i++) {
 				var oThis = this.oTip[i];
 
+				// 判断该节点是否已经绑定验证事件
 				if (oThis.bindTip) {
 					continue;
 				}

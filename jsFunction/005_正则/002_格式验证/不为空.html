@@ -23,6 +23,9 @@
 
 		// 判断空
 		function isEmpty (val) {
+			if (typeof val == 'string') {
+				val = val.trim();
+			}
 			return !val && val!==0 && typeof val!=="boolean"?true:false;
 		}
 
