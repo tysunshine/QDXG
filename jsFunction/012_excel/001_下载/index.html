@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>html 表格导出道</title>
+
+</head>
+<body>
+
+    <div id="myDiv">
+        <table id="tableExcel" width="100%" border="1" cellspacing="0" cellpadding="0">
+            <tr>
+                <td colspan="5" align="center">导出表格</td>
+            </tr>
+            <tr style='background-color: #FFC000;text-align: center;'>
+                <td>列标题1</td>
+                <td>列标题2</td>
+                <td>类标题3</td>
+                <td>列标题4</td>
+                <td>列标题5</td>
+            </tr>
+            <tr style='text-align: center;'>
+                <td>C#</td>
+                <td>C#</td>
+                <td>C#</td>
+                <td>C#</td>
+                <td style="width:90px;height:90px"><img src="https://ss0.bdstatic.com/6Ox1bjeh1BF3odCf/it/u=2119104196,3415431123&fm=74&app=80&f=JPEG&size=f121,121?sec=1880279984&t=9f812168261acabfeb2c18c47e3f7163" alt="Alternate Text" width="90" height="90" /></td>
+            </tr>
+            <tr style='text-align: center;'>
+                <td>JAVA</td>
+                <td>JAVA</td>
+                <td>JAVA</td>
+                <td>JAVA</td>
+                <td style="width:90px;height:90px"><img src="https://ss0.bdstatic.com/6Ox1bjeh1BF3odCf/it/u=950913148,2126038573&fm=74&app=80&f=JPEG&size=f121,90?sec=1880279984&t=fb1a5132e277ce583ff63d4adbea41ff" alt="Alternate Text" width="90" height="90" /></td>
+            </tr>
+            <tr style='text-align: center;'>
+                <td>Python</td>
+                <td>Python</td>
+                <td>Python</td>
+                <td>Python</td>
+                <td style="width:90px;height:90px"><img src="https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1412542259,3348084760&fm=202&mola=new&crop=v1" alt="Alternate Text" width="90" height="90" /></td>
+            </tr>
+        </table>
+        <a id="downloadExl" name="btnSubmit" text="生成报价单" onclick="method()" class="btn" style="border:0;background: #58B5E1;color: #fff;padding: 7px 30px;margin-top: 3px;float: left;cursor:pointer;margin-right: 12px;">生成表格</a>
+    </div>
+</body>
+<script language="JavaScript" type="text/javascript">
+
+    //判断是否IE浏览器
+    function isIE() {
+        if (!!window.ActiveXObject || "ActiveXObject" in window) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function method() {
+
+        if (isIE()) {
+            var lHtml = document.getElementById("tableExcel").innerHTML;
+            var tableHtml = '<html><head><meta charset="UTF-8"></head><body><table id="tableExcel" width="60%" border="1" cellspacing="0" cellpadding="0">';
+            tableHtml += lHtml;
+            tableHtml += '</table></body></html>';
+            var excelBlob = new Blob([tableHtml], { type: 'application/vnd.ms-excel' });
+            var fileName = "表格.xls";
+            window.navigator.msSaveOrOpenBlob(excelBlob,fileName);
+        } else {
+            //var oa = document.createElement('a');
+            //oa.href = URL.createObjectURL(excelBlob);
+            //oa.download = fileName;
+            //document.body.appendChild(oa);
+            //oa.click();
+            exec();//带背景json
+        }
+
+    }
+
+    var idTmr;
+    function exec() {
+        var tHeader = ['列标题1', '列标题2', '列标题3', '列标题4', '列标题5'];
+        var tbody = [
+            {
+                "列标题1": "C#",
+                "列标题2": "C#",
+                "列标题3": "C#",
+                "列标题4": "C#",
+                "列标题5": "https://ss0.bdstatic.com/6Ox1bjeh1BF3odCf/it/u=2119104196,3415431123&fm=74&app=80&f=JPEG&size=f121,121?sec=1880279984&t=9f812168261acabfeb2c18c47e3f7163",
+            },
+            {
+                "列标题1": "JAVA",
+                "列标题2": "JAVA",
+                "列标题3": "JAVA",
+                "列标题4": "JAVA",
+                "列标题5": "https://ss0.bdstatic.com/6Ox1bjeh1BF3odCf/it/u=950913148,2126038573&fm=74&app=80&f=JPEG&size=f121,90?sec=1880279984&t=fb1a5132e277ce583ff63d4adbea41ff",
+            },
+            {
+                "列标题1": "Python",
+                "列标题2": "Python",
+                "列标题3": "Python",
+                "列标题4": "Python",
+                "列标题5": "https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1412542259,3348084760&fm=202&mola=new&crop=v1",
+            },
+        ];
+        export2Excel(tHeader, tbody, '表格');
+    }
+
+    function getExplorer() {
+
+        var explorer = window.navigator.userAgent;
+        //ie
+        if (explorer.indexOf("MSIE") >= 0) {
+            return 'ie';
+        }
+            //firefox
+        else if (explorer.indexOf("Firefox") >= 0) {
+            return 'Firefox';
+        }
+            //Chrome
+        else if (explorer.indexOf("Chrome") >= 0) {
+            return 'Chrome';
+        }
+            //Opera
+        else if (explorer.indexOf("Opera") >= 0) {
+            return 'Opera';
+        }
+            //Safari
+        else if (explorer.indexOf("Safari") >= 0) {
+            return 'Safari';
+        }
+    }
+
+    function Cleanup() {
+        window.clearInterval(idTmr);
+    }
+    // 非ie浏览器下执行
+    const tableToNotIE = (function () {
+        // 编码要用utf-8不然默认gbk会出现中文乱码
+        let uri = 'data:application/vnd.ms-excel;base64,',
+          template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table width="60%" border="1">{table}</table></body></html>',
+          base64 = function (s) {
+              return window.btoa(unescape(encodeURIComponent(s)));
+
+          },
+
+          format = (s, c) => {
+              return s.replace(/{(\w+)}/g,
+                (m, p) => {
+                    return c[p];
+                })
+          }
+        return (table, name) => {
+            let ctx = {
+                worksheet: name,
+                table
+                }
+
+              if (navigator.userAgent.indexOf("Firefox") > -1) {
+                window.location.href = uri + base64(format(template, ctx))
+              } else {
+                  //创建下载
+                  let link = document.createElement('a');
+                  link.setAttribute('href', uri + base64(format(template, ctx)));
+
+                  link.setAttribute('download', name);
+
+
+                  // window.location.href = uri + base64(format(template, ctx))
+                  link.click();
+              }
+        }
+    })()
+
+    // 导出函数
+    const export2Excel = (theadData, tbodyData, dataname) => {
+
+        let re = /http/ // 字符串中包含http,则默认为图片地址
+        let th_len = theadData.length // 表头的长度
+        let tb_len = tbodyData.length // 记录条数
+        let width = 90 // 设置图片大小
+        let height = 90
+
+        // 添加表头信息
+        let thead = '<thead><tr>'
+        for (let i = 0; i < th_len; i++) {
+            thead += '<th>' + theadData[i] + '</th>'
+        }
+        thead += '</tr></thead>'
+
+        // 添加每一行数据
+        let tbody = '<tbody>'
+        for (let i = 0; i < tb_len; i++) {
+            tbody += '<tr>'
+            let row = tbodyData[i] // 获取每一行数据
+
+            for (let key in row) {
+                if (re.test(row[key])) { // 如果为图片，则需要加div包住图片
+                    //
+                    tbody += '<td style="width:' + width + 'px; height:' + height + 'px; text-align: center; vertical-align: middle"><div style="display:inline"><img src=\'' + row[key] + '\' ' + ' ' + 'width=' + '\"' + width + '\"' + ' ' + 'height=' + '\"' + height + '\"' + '></div></td>'
+                } else {
+                    tbody += '<td style="text-align:center">' + row[key] + '</td>'
+                }
+            }
+            tbody += '</tr>'
+        }
+        tbody += '</tbody>'
+
+        let table = thead + tbody
+
+        // 导出表格
+        tableToNotIE(table, dataname)
+    }
+</script>
+</html>
