@@ -9,12 +9,31 @@
 			padding: 0;
 		}
 		body {
-			padding-top: 30px;
+			padding: 30px 0;
+			border: 5px solid #f90;
 			box-sizing: border-box;
 			background: #efefef;
 			font-size: 14px;
 			line-height: 25px;
 		}
+		ol {
+			padding-left: 15px;
+		}
+		ol > li + li {
+			margin-top: 20px;
+		}
+
+		.nav-group {
+			position: fixed;
+			top: 30px;
+			left: 50%;
+			margin-left: 420px;
+			background: #fff;
+			padding: 20px;
+
+		}
+		
+
 		.group {
 			margin: 0 auto 30px;
 			padding: 10px 0 20px;
@@ -32,17 +51,20 @@
 		.g-content {
 			padding: 0 20px;
 		}
-		ol {
-			padding-left: 20px;
+
+		/*页面尺寸*/
+		.page-size-group {
+
 		}
+		
 
 	</style>
 </head>
 <body>
-
-	<div class="group">
-		<div class="g-title">尺寸分类</div>
-		<div class=g-content>
+	<div>
+	<div class="nav-group">
+		<div class="title">尺寸分类</div>
+		<div class="content">
 			<ol>
 				<li><a href="#pageSize">页面尺寸</a></li>
 				<li><a href="#elementSize">元素尺寸</a></li>
@@ -53,63 +75,251 @@
 	</div>
 
 
-	<div class="group" id="pageSize">
+	<div class="group page-size-group" id="pageSize">
 		<div class="g-title">页面尺寸</div>
 		<div class="g-content">
-			
+				
+			<ol>
+				<li>
+					<div>
+						<p>document对象是HTML文档的根节点</p>
+						<p>document.documentElement返回html，dom中的root节点，即&lt;html&gt;</p>
+						<p>document.body返回body，dom中的body节点，即&lt;body&gt;</p>
+						<p>网上很多说document.documentElement.clientHeight或者document.body.clientHeight为可见高度，在body的height(css设定)一开始就和scrollHeight相等时，即html,body不设置高度时，document.body.clientHeight是不能作为可见高度的。</p>
+						<p>当html,body设置高度100%，document.documentElement.clientHeight == document.body.offsetHeight，都是可见高度</p>
+						<p>document.body.clientHeight，是padding+内容高度</p>
+						<p>document.body.offsetHeight，是border+padding+内容高度</p>
+						<p>所有主要浏览器都支持 documentElement 属性</p>
+					</div>
+					<p>
+						页面可见区域高度：浏览器窗口页面的可是区域
+						<br>
+						document.documentElement.clientHeight
+					</p>
+					<button class="btn1">获取</button>
+					<span class="val1">0</span>
+				</li>
+				<li>
+					<p>页面正文全文高，
+						<br>
+						document.body.scrollHeight，不包括body的border
+						<br>
+						document.body.clientHeight，html,body不设置高度时
+						<br>
+						document.body.offsetHeight，加上body的border
+						<br>
+						<a href="https://www.baidu.com/link?url=8mLooLaW3_Wrw59sUEFVBWuGVhs_IceMgy-XlOOZ_y7RPpZDtMc6lyOGPvahXcCAj5_PduRsZBcxSLiGKc2NEa&wd=&eqid=ad2c3813000bc7fd000000065fcca3a4">参考资料</a>
+						<br>
+						文档类型已申明，document.documentElement.scrollHeight为文本高度
+						<br>
+						文档类型未申明，document.body.scrollHeight为文本高度
+					</p>
+					<button class="btn2">获取</button>
+					<span class="val2">0</span>
+				</li>
+				<li>
+					<p>页面滚动高度
+						<br>
+						document.documentElement ? document.documentElement.scrollTop : document.body.scrollTop
+						<br>
+						document.documentElement.scrollTop和document.body.scrollTop始终有一个为0，所以可以用这两个的和来求scrollTop
+						<br>
+						参考:<a href="https://www.baidu.com/link?url=8mLooLaW3_Wrw59sUEFVBWuGVhs_IceMgy-XlOOZ_y7RPpZDtMc6lyOGPvahXcCAj5_PduRsZBcxSLiGKc2NEa&wd=&eqid=ad2c3813000bc7fd000000065fcca3a4">参考资料</a>
+					</p>
+					<button class="btn3">获取</button>
+					<span class="val3">0</span>
+				</li>
+				<li>
+					<p>屏幕分辨率的宽高
+						<br>
+						window.screen.width * window.screen.height
+					</p>
+					<span class="val4">0</span>
+				</li>
+				<li>
+					<p>浏览器距离屏幕右上角的距离，浏览器位置
+						<br>
+						window.scrollLeft，window.screenTop
+					</p>
+					<button class="btn5">获取</button>
+					<span class="val5">0</span>
+				</li>
+				<li>
+					<p>屏幕可用工作区尺寸，就是排除了开始菜单栏的尺寸
+						<br>
+						window.screen.availWidth，window.screen.availHeight
+					</p>
+					<span class="val6">0</span>
+				</li>
+			</ol>
 		</div>
 	</div>
 
-	<div class="group" id="elementSize">
+	<div class="group dom-size-group" id="elementSize">
 		<div class="g-title">元素尺寸</div>
 		<div class="g-content">
 			
 		</div>
 	</div>
 
-	<div class="group" id="elementPosition">
+	<div class="group dom-position-group" id="elementPosition">
 		<div class="g-title">元素位置</div>
 		<div class="g-content">
 			
 		</div>
 	</div>
 
-	<div class="group" id="mousePosition">
+	<div class="group mouse-position-group" id="mousePosition">
 		<div class="g-title">鼠标位置</div>
 		<div class="g-content">
 			
 		</div>
 	</div>
+</div>
 
-	
+	<script src="https://cdn.staticfile.org/jquery/1.10.0/jquery.min.js"></script>
 	<script>
-		var oPage = {
+		// 页面尺寸
+		var oPageSize = {
+			oGroup: null,
 			init: function () {
-				this.initPageSize();
-				this.initElementSize();
-				this.initElementPosition();
-				this.initMousePosition();
+				this.initState();
+				this.initEvent();
+			},
+			initState: function () {
+				this.oGroup = document.querySelector('.page-size-group');
+
+				// clientHeight
+				this.oBtn1 = this.oGroup.querySelector('.btn1');
+				this.oVal1 = this.oGroup.querySelector('.val1');
+				this.getClientHeight(); // 获取可见高度
+
+				//scrollHeight
+				this.oBtn2 = this.oGroup.querySelector('.btn2');
+				this.oVal2 = this.oGroup.querySelector('.val2');
+				this.getScrollHeight(); // 获取可见高度
+
+				//scrollTop
+				this.oBtn3 = this.oGroup.querySelector('.btn3');
+				this.oVal3 = this.oGroup.querySelector('.val3');
+				this.getScrollTop(); // 获取滚动高度
+
+				// screen.width screen.height
+				this.oVal4 = this.oGroup.querySelector('.val4');
+				this.getScreenSize(); // 屏幕分辨率的宽高
+
+				//浏览器位置
+				this.oBtn5 = this.oGroup.querySelector('.btn5');
+				this.oVal5 = this.oGroup.querySelector('.val5');
+				this.getScreenPosition(); // 获取浏览器位置
+
+				// 屏幕工作区尺寸
+				this.oVal6 = this.oGroup.querySelector('.val6');
+				this.getScreenAvailSize(); // 屏幕分辨率的宽高
+
+			},
+			initEvent: function () {
+				var _this = this;
+
+				// 获取可见高度
+				this.oBtn1.onclick = function () {
+					_this.getClientHeight();
+				}
+
+				// 获取正文高度
+				this.oBtn2.onclick = function () {
+					_this.getScrollHeight();
+				}
+
+				// 获取滚动高度
+				this.oBtn3.onclick = function () {
+					_this.getScrollTop();
+				}
+
+				// 浏览器位置
+				this.oBtn5.onclick = function () {
+					_this.getScreenPosition();
+				}
+
+			},
+			// 获取可见高度
+			getClientHeight: function () {
+				this.oVal1.innerHTML = document.documentElement.clientHeight;
 			},
 
-			// 初始化页面尺寸
-			initPageSize: function () {
+			// 获取正文高度
+			getScrollHeight: function () {
+				this.oVal2.innerHTML = document.documentElement.scrollHeight;
+			},
+
+			// 获取滚动高度
+			getScrollTop: function () {
+				this.oVal3.innerHTML = document.documentElement ? document.documentElement.scrollTop : document.body.scrollTop;
+			},
+
+			// 屏幕分辨率的宽高
+			getScreenSize: function () {
+				this.oVal4.innerHTML = window.screen.width + ' * ' + window.screen.height;
+			},
+
+			// 浏览器位置
+			getScreenPosition: function () {
+				this.oVal5.innerHTML = window.screenLeft + ' --- ' + window.screenTop;
+			},
+
+			// 屏幕工作区尺寸
+			getScreenAvailSize: function () {
+				this.oVal6.innerHTML = window.screen.availWidth + ' * ' + window.screen.availHeight;
+			},
+
+		}
+
+		// 元素尺寸
+		var oDomSize = {
+			oGroup: null,
+			init: function () {
+				this.initState();
+				this.initEvent();
+			},
+			initState: function () {
+				this.oGroup = document.querySelector('.dom-size-group');
+			},
+			initEvent: function () {
 
 			},
 
-			// 初始化元素尺寸
-			initElementSize: function () {
+		}
+
+		// 元素位置
+		var oDomPosition = {
+			oGroup: null,
+			init: function () {
+				this.initState();
+				this.initEvent();
+			},
+			initState: function () {
+				this.oGroup = document.querySelector('.dom-position-group');
+			},
+			initEvent: function () {
 
 			},
 
-			// 初始化元素位置
-			initElementPosition: function () {
+		}
+
+		// 鼠标位置
+		var oMousePosition = {
+			oGroup: null,
+			init: function () {
+				this.initState();
+				this.initEvent();
+			},
+			initState: function () {
+				this.oGroup = document.querySelector('.mouse-position-group');
+			},
+			initEvent: function () {
 
 			},
 
-			// 初始化鼠标位置
-			initMousePosition: function () {
-
-			}
 		}
 
 
@@ -119,7 +329,10 @@
 
 
 		window.onload = function () {
-			oPage.init();
+			oPageSize.init();
+			oDomSize.init();
+			oDomPosition.init();
+			oMousePosition.init();
 		}
 	</script>
 </body>	
