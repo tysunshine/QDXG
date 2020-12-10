@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>获取时间范围</title>
+</head>
+<body>
+	
+	<script src="./switchTime.js"></script>
+	<script src="./getDateByBeforeDays.js"></script>
+	<script src="./getRangeDate.js"></script>
+	<script>
+		var timeList = [
+			{label: '不限', value: '1'},
+	        {label: '一周内', value: '2'},
+	        {label: '一月内', value: '3'},
+	        {label: '一年内', value: '4'},
+		]
+
+		console.log(new Date().toLocaleString()); // 2020/12/2 下午3:35:05
+
+		console.log(
+			getRangeDate(1)
+		); // ["", ""]
+
+		// 一周内
+		console.log(
+			getRangeDate(2)
+		); // ["2020-11-30", "2020-12-02"]
+
+		// 一月内
+		console.log(
+			getRangeDate(3)
+		); // ["2020-12-01", "2020-12-02"]
+
+		// 一年内
+		console.log(
+			getRangeDate(4)
+		); // ["2020-01-01", "2020-12-02"]
+
+
+	</script>
+</body>	
+</html>

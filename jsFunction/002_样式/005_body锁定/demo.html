@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>body锁定</title>
+	<style>
+		.box {
+			margin: 0 auto;
+			width: 400px;
+			height: 1500px;
+			border: 1px solid #ccc;
+			background: linear-gradient(#f90, #09f);
+		}
+		.btn-box {
+			position: fixed;
+			top: 100px;
+			right: 100px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box"></div>
+	<div class="btn-box">
+		<button onclick="lockBody()">锁定</button>
+		<br><br>
+		<button onclick="lockBody(false)">解锁</button>
+	</div>
+	<script src="lockBody.js"></script>
+</body>	
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>二次贝塞尔曲线</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			background: #ccc;
+		}
+		.canvas-box {
+			display: inline-block;
+			position: relative;
+			margin-top: 20px;
+			margin-left: 20px;
+			padding-right: 320px;
+		}
+		.this-form {
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 20px;
+			width: 300px;
+			min-height: 300px;
+			background: #fff;
+			box-sizing: border-box;
+		}
+		.this-form .item {
+			margin-bottom: 15px;
+		}
+		.this-form .item:after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.this-form .item .label, .this-form .item .value {
+			float: left;
+		}
+		.this-form .item .label {
+			line-height: 30px;
+			width: 104px;
+		}
+		.this-form .item input {
+			border: 1px solid #999;
+			height: 30px;
+			outline: medium;
+			border-radius: 4px;
+		}
+		.this-form .item input[type=text] {
+			padding: 0 10px;
+			width: 150px;
+			box-sizing: border-box;
+		}
+		.this-form button {
+			padding: 0 15px;
+			height: 34px;
+			background: #1572B5;
+			border: none;
+			border-radius: 4px;
+			color: #fff;
+			cursor: pointer;
+			min-width: 100px;
+			outline: medium;
+		}
+		.this-form button+button {
+			margin-left: 10px;
+		}
+
+
+		canvas {
+			background: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div class="canvas-box">
+		<div class="this-form">
+			<div class="item">
+				<div class="label">lineWidth：</div>
+				<div class="value">
+					<input id="lineWidth" type="text">
+				</div>
+			</div>
+			<div class="item">
+				<div class="label">strokeStyle：</div>
+				<div class="value">
+					<input id="strokeStyle" type="color">
+				</div>
+			</div>
+			<div class="item">
+				<div class="label">start：</div>
+				<div class="value">
+					<input id="start" type="text">
+				</div>
+			</div>
+			<div class="item">
+				<div class="label">end：</div>
+				<div class="value">
+					<input id="end" type="text">
+				</div>
+			</div>
+			<div class="item">
+				<div class="label">cp：</div>
+				<div class="value">
+					<input id="cp" type="text">
+				</div>
+			</div>
+			<div class="btn-box">
+				<button id="setBtn">设置</button>
+			</div>
+		</div>
+		<canvas id="myCanvas" width="1000px" height="580px">
+			您的浏览器不支持 HTML5 canvas 标签。
+		</canvas>
+	</div>
+	<script>
+
+		var oBse = {
+			init: function () {
+				var oLineWidth = document.getElementById('lineWidth');
+				var oColor = document.getElementById('strokeStyle');
+				var oStart = document.getElementById('start');
+				var oEnd = document.getElementById('end');
+				var oCp = document.getElementById('cp');
+				var oCanvas = document.getElementById("myCanvas");
+				var oSetBtn = document.getElementById("setBtn");
+
+				// 默认值
+				var option = {
+					lineWidth: 2,
+					color: '#1572b5',
+					start: [150,250],
+					end: [450,250],
+					cp: [300,100],
+				}
+				oLineWidth.value = option.lineWidth;
+				oColor.value = option.color;
+				oStart.value = option.start.join(',');
+				oEnd.value = option.end.join(',');
+				oCp.value = option.cp.join(',');
+
+				// 鼠标点下状态
+				var mouse = {
+					is: false, // 是否点下
+					start: [0, 0], // 开始位置
+					down: [0, 0], // 鼠标点下位置
+					type: '', // start开始，end结束，cp控制点
+					move: [0, 0], // 移动距离
+				}
+
+				// 初始化贝塞尔曲线
+				drawCnavas();
+
+				// 设置按钮点击
+				oSetBtn.onclick = function () {
+					drawCnavas();
+				}
+				
+				// 鼠标按下
+				oCanvas.onmousedown = function (event) {
+					mouse.is = true;
+					mouse.down = [
+						event.pageX - oCanvas.getBoundingClientRect().left,
+						event.pageY - oCanvas.getBoundingClientRect().top
+					];
+					drawCnavas('down');
+				}
+				// 鼠标拖动
+				window.onmousemove = function (event) {
+					if (mouse.is) {
+						mouse.move = [
+							event.pageX - oCanvas.getBoundingClientRect().left - mouse.down[0],
+							event.pageY - oCanvas.getBoundingClientRect().top - mouse.down[1]
+						];
+						drawCnavas('move');
+					}
+				}
+				// 鼠标抬起
+				window.onmouseup = function (event) {
+					if (mouse.is) {
+						mouse.is = false;
+					}
+				}
+
+				// 画贝塞尔曲线
+				function drawCnavas (type) {
+					var ctx = oCanvas.getContext("2d");
+
+					var start = oStart.value.split(',');
+					var end = oEnd.value.split(',');
+					var cp = oCp.value.split(',');
+
+					// 如果是移动
+					if (type == 'move') {
+						if (mouse.type == 'start') {
+							start = [parseInt(mouse.start[0]) + mouse.move[0], parseInt(mouse.start[1]) + mouse.move[1]];
+							oStart.value = start.join(',');
+						} else if (mouse.type == 'end') {
+							end = [parseInt(mouse.start[0]) + mouse.move[0], parseInt(mouse.start[1]) + mouse.move[1]];
+							oEnd.value = end.join(',');
+						} else if (mouse.type == 'cp') {
+							cp = [parseInt(mouse.start[0]) + mouse.move[0], parseInt(mouse.start[1]) + mouse.move[1]];
+							oCp.value = cp.join(',');
+						}
+					}
+
+					// 清空画布
+					oCanvas.width = oCanvas.width;
+					
+					// 画贝塞尔曲线
+					ctx.strokeStyle = oColor.value;
+					ctx.lineWidth = oLineWidth.value;
+					ctx.beginPath();
+					ctx.moveTo(start[0], start[1]);
+					ctx.quadraticCurveTo(cp[0], cp[1], end[0], end[1]);
+					ctx.stroke();
+					ctx.closePath();
+
+					// 画线开始-控制点
+					ctx.beginPath();
+					ctx.moveTo(start[0], start[1]);
+					ctx.lineTo(cp[0], cp[1]);
+					ctx.strokeStyle = '#E7A28F';
+					ctx.lineWidth = 1;
+					ctx.stroke();
+					ctx.closePath();
+					// 画线结束-控制点
+					ctx.beginPath();
+					ctx.moveTo(end[0], end[1]);
+					ctx.lineTo(cp[0], cp[1]);
+					ctx.strokeStyle = '#E7A28F';
+					ctx.lineWidth = 1;
+					ctx.stroke();
+					ctx.closePath();
+
+					if (type == 'down') {
+						mouse.type = ''; // 重置鼠标点中状态
+					}
+					// 画点-开始点
+					ctx.beginPath();
+					ctx.arc(start[0], start[1], 8, 0, 2*Math.PI);
+					ctx.strokeStyle = "rgba(3,160,160,0.8)";
+					ctx.stroke();
+					ctx.fillStyle = "rgba(3,160,160,0.5)";
+					ctx.fill();
+					ctx.closePath();
+					if (type == 'down' && ctx.isPointInPath(mouse.down[0], mouse.down[1])) {
+						mouse.type = 'start';
+						mouse.start = oStart.value.split(',');
+					}
+					// 画点-结束点
+					ctx.beginPath();
+					ctx.arc(end[0], end[1], 8, 0, 2*Math.PI);
+					ctx.strokeStyle = "rgba(3,160,160,0.8)";
+					ctx.stroke();
+					ctx.fillStyle = "rgba(3,160,160,0.5)";
+					ctx.fill();
+					ctx.closePath();
+					if (type == 'down' && ctx.isPointInPath(mouse.down[0], mouse.down[1])) {
+						mouse.type = 'end';
+						mouse.start = oEnd.value.split(',');
+					}
+					// 画点-控制点
+					ctx.beginPath();
+					ctx.arc(cp[0], cp[1], 8, 0, 2*Math.PI);
+					ctx.strokeStyle = "rgba(3,160,160,0.8)";
+					ctx.stroke();
+					ctx.fillStyle = "rgba(3,160,160,0.5)";
+					ctx.fill();
+					ctx.closePath();
+					if (type == 'down' && ctx.isPointInPath(mouse.down[0], mouse.down[1])) {
+						mouse.type = 'cp';
+						mouse.start = oCp.value.split(',');
+					}
+				}
+			}
+		}
+
+		window.onload = function () {
+			oBse.init();
+		}
+	</script>
+</body>	
+</html>
