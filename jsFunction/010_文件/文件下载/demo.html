@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Hello</title>
+</head>
+<body>
+	
+	<script>
+		
+	function formdownload (url, param) {
+	let form = document.createElement("form");
+	form.setAttribute("style", "display:none");
+	form.setAttribute("target", "");
+	form.setAttribute("method", 'get');
+	form.setAttribute("action", url);
+	if (param) {
+	for (var key in param) {
+	let ipt = document.createElement("input");
+	ipt.setAttribute("name", key);
+	ipt.setAttribute("value", param[key]);
+	form.appendChild(ipt);
+	}
+	}
+	document.body.appendChild(form);
+	form.submit();
+	document.body.removeChild(form);
+	}
+
+
+	function adownload (title, url) {
+	let link = document.createElement('a');
+	link.style.display = 'none';
+	link.download = title;
+	link.href = url;
+	// 触发点击
+	document.body.appendChild(link);
+	link.click();
+	// 然后移除
+	document.body.removeChild(link);
+	}
+
+	// 下载附件
+	const downFile_old = (param) => {
+	// 下载文件的url或者blob二进制文件
+	if (typeof param == 'string') {
+	param = {
+	data: param
+	}
+	}
+	// param.data的类型，url链接、blob二进制
+	if (!param.type) {
+	param.type = 'url';
+	}
+	// 附件标题
+	if (!param.name) {
+	param.name = '附件';
+	}
+
+	const ie = navigator.userAgent.match(/MSIE\s([\d.]+)/),
+	ie11 = navigator.userAgent.match(/Trident\/7.0/) && navigator.userAgent.match(/rv:11/),
+	ieEDGE = navigator.userAgent.match(/Edge/g),
+	ieVer = (ie ? ie[1] : (ie11 ? 11 : (ieEDGE ? 12 : -1)));
+
+	// ie11以下
+	if (ie && ieVer < 11) {
+	Tips.show('请更换ie11及以上版本浏览器下载');
+	} else {
+	if (param.type == 'url') {
+	urldownload(param.name, portAddress.port + param.data);
+	} else if (param.type == 'blob') {
+	if (ie11) {
+	window.navigator.msSaveOrOpenBlob(param.data, param.name);
+	} else {
+	const reader = new FileReader();
+	reader.readAsDataURL(param.data); // 转换为base64，可以直接放入a标签href
+	reader.onload = e => {
+	urldownload(param.name, e.target.result);
+	};
+	}
+	}
+	// 添加下载记录
+	if (param.history) {
+	addDownload(param.history);
+	}
+	}
+
+	// 根据url创建a标签下载
+	function urldownload (title, url) {
+	let link = document.createElement('a');
+	link.style.display = 'none';
+	link.download = title;
+	link.href = url;
+	// 触发点击
+	document.body.appendChild(link);
+	link.click();
+	// 然后移除
+	document.body.removeChild(link);
+	}
+	}
+
+	</script>
+</body>	
+</html>
