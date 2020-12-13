@@ -78,7 +78,6 @@
 	<div class="group page-size-group" id="pageSize">
 		<div class="g-title">页面尺寸</div>
 		<div class="g-content">
-				
 			<ol>
 				<li>
 					<div>
@@ -158,21 +157,101 @@
 	<div class="group dom-size-group" id="elementSize">
 		<div class="g-title">元素尺寸</div>
 		<div class="g-content">
-			
+			<ol>
+				<li>
+					<p>clientHeight
+						<br>
+						获取元素可视部分高度，即width + padding
+					</p>
+				</li>
+				<li>
+					offsetHeight
+					<br>
+					获取元素在页面中占据的高度总和，即width + padding + border 以及滚动条的高度
+				</li>
+				<li>
+					scrollHeight
+					<br>
+					所有内容的高度，在元素不设置高度时，与clientHeight相等
+				</li>
+			</ol>
 		</div>
 	</div>
 
 	<div class="group dom-position-group" id="elementPosition">
 		<div class="g-title">元素位置</div>
 		<div class="g-content">
-			
+			<ol>
+				<li>
+					<p>offsetTop
+						<br>
+						表示该元素的左上角与父容器（offsetParent对象）左上角的距离
+						<br>
+						获取该元素到页面左上角的距离，即将offsetTop累加，就可以得到该元素的绝对位置。
+					</p>
+<pre><code>function getElementTop(element){
+	var actualTop = element.offsetTop;
+	var current = element.offsetParent;
+	while (current !== null){
+		actualTop += current.offsetTop;
+		current = current.offsetParent;
+	}
+	return actualTop;
+}</code></pre>
+				
+					<br>
+					由于在表格和iframe中，offsetParent对象未必等于父容器，所以上面的函数对于表格和iframe中的元素不适用。
+				</li>
+				<li>
+					<p>获取网页元素相对位置
+						<br>
+						网页元素的相对位置，指该元素左上角相对于浏览器窗口左上角的坐标。
+					</p>
+				</li>
+				<li>
+					<p>获取元素位置快速方法
+						<br>
+						getBoundingClientRect();
+						<br>
+						目前，IE、Firefox 3.0+、Opera 9.5+都支持该方法，而Firefox 2.x、Safari、Chrome、Konqueror不支持。
+					</p>
+				</li>
+				<li>
+					<a href="http://www.ruanyifeng.com/blog/2009/09/find_element_s_position_using_javascript.html" target="_blank">参考资料：阮一峰-用Javascript获取页面元素位置</a>
+				</li>
+			</ol>
 		</div>
 	</div>
 
 	<div class="group mouse-position-group" id="mousePosition">
 		<div class="g-title">鼠标位置</div>
 		<div class="g-content">
-			
+			<ol>
+				<li>
+					<p>clientY
+						<br>
+						距离游览器窗口左上角距离，所有浏览器，不兼容
+					</p>
+				</li>
+				<li>
+					<p>offsetY
+						<br>
+						距离事件源左上角距离，所有浏览器，不兼容
+					</p>
+				</li>
+				<li>
+					<p>pageY
+						<br>
+						距离document对象(即文档窗口)左上角距离，所有浏览器
+					</p>
+				</li>
+				<li>
+					<p>screenY
+						<br>
+						距离计算机屏幕左上角距离
+					</p>
+				</li>
+			</ol>
 		</div>
 	</div>
 </div>
