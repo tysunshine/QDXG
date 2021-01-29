@@ -5,35 +5,87 @@
 	<title>圆环渐变</title>
 </head>
 <body>
-	<canvas class="pull-left" id="canvas" width="800" height="800" style="margin: 0 atuo; border: 1px solid #999;margin: 0 auto;display: block;"></canvas>
+	<canvas id="canvas" width="300" height="300" style="border: 1px solid #999;"></canvas>
+	<canvas id="canvas2" width="300" height="300" style="border: 1px solid #999;"></canvas>
 	<script>
 		
-		var canvas = document.getElementById('canvas');
-		var ctx = canvas.getContext('2d');
-
-		var img = new Image();
-		img.src = "../img/bg.png";
-
-		var newFill = null;
-		img.onload = function () {
-			drawNew(ctx, 0);
+		window.onload = function () {
+			setCanvas1();
+			setCanvas2();
 		}
 
-		function drawNew (ctx, x) {
-			ctx.clearRect(0, 0, 800, 800);
-	    ctx.beginPath();
-	    var x = 100, y = 100; // 中心点
-	    ctx.strokeStyle = getNewFill(ctx, img, x, y);
-	    ctx.arc(x, y, 46, 0, 2*Math.PI, false);
-	    ctx.lineWidth = 8;
-	    ctx.stroke();
-	    // ctx.fillStyle = 'rgba(0,0,0,0.1)';
-	    // ctx.fill();
+		function setCanvas1 () {
+			var canvas = document.getElementById('canvas');
+			var ctx = canvas.getContext('2d');
+
+			var img = new Image();
+			img.src = "../img/bg.png";
+
+			img.onload = function () {
+				drawNew(ctx, 0);
+			}
+
+			function drawNew (ctx, x) {
+				ctx.clearRect(0, 0, 800, 800);
+			    ctx.beginPath();
+			    var x = 100, y = 100; // 中心点
+			    
+			    ctx.arc(x, y, 46, 0, 2*Math.PI, false);
+			    ctx.lineWidth = 8;
+			    ctx.strokeStyle = getNewFill(ctx, img, x, y);
+			    ctx.stroke();
+			}
 		}
+
+		function setCanvas2 () {
+			var canvas = document.getElementById('canvas2');
+			var ctx = canvas.getContext('2d');
+
+			var img = new Image();
+			img.src = "../img/bg.png";
+
+			img.onload = function () {
+				drawNew(ctx, 0);
+			}
+
+			function drawNew (ctx, x) {
+				ctx.clearRect(0, 0, 800, 800);
+			    ctx.beginPath();
+			    var x = 100, y = 100; // 中心点
+			    ctx.arc(x, y, 50, 0, 1.5*Math.PI, false);
+			    ctx.arc(x, y, 34, 1.5*Math.PI, 1.47*Math.PI, true);
+			    ctx.arc(x, y, 42, 1.465*Math.PI, 0, true);
+			    ctx.fillStyle = getNewFill(ctx, img, x, y);
+			    ctx.fill();
+			    ctx.closePath();
+
+			    // 阴影圆环
+			    ctx.save();
+			    ctx.beginPath();
+			    ctx.arc(x, y, 34, 0, 2*Math.PI, false);
+			    ctx.clip();
+			    ctx.beginPath();
+			    ctx.strokeStyle = '#458E9D';
+			    ctx.shadowColor = '#0DECEA';
+			    ctx.shadowBlur = 5;
+			    ctx.arc(x, y, 34, 0, 2*Math.PI, false);
+			    ctx.stroke();
+			    ctx.shadowBlur = 0;
+			    ctx.restore();
+
+			    // 文字
+			    ctx.fontSize = '16px';
+			    ctx.textAlign = 'center';
+			    ctx.textBaseline = 'middle';
+			    ctx.strokeText('81次', x, y);
+
+			}
+		}
+
+			
 
 		// 根据canvas对象及原点坐标获取图片
 		function getNewFill (ctx, img, x, y) {
-			console.log(img.width, img.height);
 			var tCanvas = document.createElement('canvas');
 			tCanvas.width = ctx.canvas.width;
 			tCanvas.height = ctx.canvas.height;
