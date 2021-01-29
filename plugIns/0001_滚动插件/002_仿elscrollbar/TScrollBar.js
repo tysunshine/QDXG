@@ -49,6 +49,7 @@ TScrollBar.prototype = {
 
 		this._initStructure(); // 初始化结构
 		this._initState(); // 初始化状态
+		this._initEvent(); // 初始化事件
 	},
 
 	// 初始化状态
@@ -64,8 +65,9 @@ TScrollBar.prototype = {
 		// 设置包裹层样式
 		var imaxh = getStyle(this.oScrollBar, 'max-height'),
 			ih = getStyle(this.oScrollBar, 'height');
-		
-
+		setStyle(this.oWrap, {
+			maxHeight: imaxh == 'none' ? ih : imaxh
+		})
 
 		// 设置滚动轴样式
 		if (this.option.YExist) {
@@ -106,7 +108,10 @@ TScrollBar.prototype = {
 
 	// 初始化事件
 	_initEvent: function () {
-
+		var _this = this;
+		this.oWrap.addEventListener('mouseenter', function () {
+			
+		})
 	},
 
 	// 初始化结构
@@ -128,25 +133,25 @@ TScrollBar.prototype = {
 	// 获取尺寸
 	_getSize: function () {
 		return {
-			ww: this.oWrap.scrollWidth,
-			wh: this.oWrap.scrollHeight,
-			vw: this.oView.scrollWidth,
-			vh: this.oView.scrollHeight
+			ww: this.oWrap.clientWidth, // 包裹层
+			wh: this.oWrap.clientHeight,
+			vw: this.oView.clientWidth, // 滚动层
+			vh: this.oView.clientHeight,
+			xw: this.oXAxis.clientWidth, // x横轴
+			yh: this.oYAxis.clientHeight // y纵轴
 		}
 	},
 
 	// 获取滚动条的宽度
 	_getBarSize: function (direction) {
 		var oSize = this._getSize();
-		console.log(oSize);
 		// 纵向
 		if (!direction || direction == 'vertical') {
-			return oSize.vh > oSize.wh ? oSize.wh * oSize.wh / oSize.vh : oSize.wh;
+			return oSize.vh > oSize.wh ? oSize.yh * oSize.wh / oSize.vh : oSize.yh;
 		} else if (direction == 'horizontal') {
-			return oSize.vw > oSize.ww ? oSize.ww * oSize.ww / oSize.vw : oSize.ww;
+			return oSize.vw > oSize.ww ? oSize.xw * oSize.ww / oSize.vw : oSize.xw;
 		}
-	}
-
+	},
 }
 
 // 获取样式
