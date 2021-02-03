@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>横轴滚动</title>
+	<link rel="stylesheet" type="text/css" href="./tscrollbar.css">
+	<!--[if lte IE 8]>
+        <style>
+            .t-scrollbar > .t-scrollbar__bar .t-scrollbar__thumb {
+				background: #e1e1e1;
+            }
+            .t-scrollbar > .t-scrollbar__bar .t-scrollbar__thumb:hover {
+				background: #ccc;
+			}
+        </style>
+    <![endif]-->
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		#scrollbox {
+			height:60px;
+			width: 500px;
+			overflow: hidden;
+		}
+
+		.list:after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.list .item {
+			float: left;
+			width: 60px;
+			height: 60px;
+			background: #9f9;
+			text-align: center;
+			line-height: 60px;
+		}
+		.list .item:nth-child(2n) {
+			background: #f99;
+		}
+		.tip {
+			margin-top: 15px;
+			color: #f33;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div id="scrollbox"><div><div>
+		<div class="list">
+			<div class="item">1</div>
+			<div class="item">2</div>
+			<div class="item">3</div>
+			<div class="item">4</div>
+			<div class="item">5</div>
+			<div class="item">6</div>
+			<div class="item">7</div>
+			<div class="item">8</div>
+			<div class="item">9</div>
+			<div class="item">10</div>
+			<div class="item">1</div>
+			<div class="item">2</div>
+			<div class="item">3</div>
+			<div class="item">4</div>
+			<div class="item">5</div>
+			<div class="item">6</div>
+			<div class="item">7</div>
+			<div class="item">8</div>
+			<div class="item">9</div>
+			<div class="item">10</div>
+		</div>
+	</div></div></div>
+
+	<button id="btn">添加内容，调整滚动宽度</button>
+
+
+	<p class="tip">功能1：scrollbar不设置宽度，滚动轴长度将随页面宽度变化变化，将width:500px去掉，滚动层宽度将随页面宽度变化</p>
+	<p class="tip">功能2：鼠标滚动可以控制x滚动轴</p>
+	<p class="tip">功能3：可以拖动滚动轴</p>
+	<p class="tip">功能4：点击x滚动轴盒子，可以快速跳转位置</p>
+	
+	<script src="./TScrollBar.js"></script>
+	<script>
+
+		var width = 1200;
+
+		var oScrollbar = new TScrollBar('scrollbox', {
+			direction: 'horizontal',
+			width: width
+		})
+
+		document.getElementById('btn').onclick = function () {
+			width+=60*10;
+			document.getElementsByClassName('list')[0].innerHTML += '<div class="item">1</div><div class="item">2</div><div class="item">3</div><div class="item">4</div><div class="item">5</div><div class="item">6</div><div class="item">7</div><div class="item">8</div><div class="item">9</div><div class="item">10</div>';
+			oScrollbar.setWidth(width);
+		}
+
+	</script>
+</body>	
+</html>

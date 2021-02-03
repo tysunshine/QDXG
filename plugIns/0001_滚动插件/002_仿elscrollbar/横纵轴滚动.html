@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>纵轴滚动</title>
+	<link rel="stylesheet" type="text/css" href="./tscrollbar.css">
+	<!--[if lte IE 8]>
+        <style>
+            .t-scrollbar > .t-scrollbar__bar .t-scrollbar__thumb {
+				background: #e1e1e1;
+            }
+            .t-scrollbar > .t-scrollbar__bar .t-scrollbar__thumb:hover {
+				background: #ccc;
+			}
+        </style>
+    <![endif]-->
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.item {
+			background: #3f3;
+			padding-left: 20px;
+			line-height: 30px;
+			width: 1000px;
+		}
+		.item:nth-child(2n) {
+			background: #f99;
+		}
+
+		.tip {
+			margin-top: 20px;
+			color: red;
+		}
+
+		#scrollbox {
+			width: 400px;
+			height: 400px;
+			overflow: hidden;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div id="scrollbox"><div><div>
+		<div class="list">
+			<div class="item">1</div>
+			<div class="item">2</div>
+			<div class="item">3</div>
+			<div class="item">4</div>
+			<div class="item">5</div>
+			<div class="item">6</div>
+			<div class="item">7</div>
+			<div class="item">8</div>
+			<div class="item">9</div>
+			<div class="item">10</div>
+			<div class="item">1</div>
+			<div class="item">2</div>
+			<div class="item">3</div>
+			<div class="item">4</div>
+			<div class="item">5</div>
+			<div class="item">6</div>
+			<div class="item">7</div>
+			<div class="item">8</div>
+			<div class="item">9</div>
+			<div class="item">10</div>
+		</div>
+	</div></div></div>
+
+	<p class="tip">横纵轴都存在时，鼠标滚动控制y纵轴滚动条</p>
+
+	<script src="./TScrollBar.js"></script>
+	<script>
+		var oScrollbar = new TScrollBar('scrollbox', {
+			direction: 'auto',
+			width: 1000
+		});
+	</script>
+</body>	
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>判断</title>
+</head>
+<body>
+	
+	<script>
+		// 判断是否window对象
+		// 资料-司徒正美-https://www.cnblogs.com/rubylouvre/archive/2010/02/20/1669886.html
+
+		console.log('是否为window对象：' + isWindow(window)); // true
+		console.log('是否为window对象：' + isWindow(document)); // true
+		function isWindow (obj) {
+			if( !obj || typeof obj !== "object")//必须是一个对象
+				return false;
+			if (obj.window && (obj.window === obj.window.window)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+
+	</script>
+</body>	
+</html>

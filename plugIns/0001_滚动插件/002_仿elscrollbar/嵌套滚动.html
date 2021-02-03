@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>纵轴滚动</title>
+	<link rel="stylesheet" type="text/css" href="./tscrollbar.css">
+	<!--[if lte IE 8]>
+        <style>
+            .t-scrollbar > .t-scrollbar__bar .t-scrollbar__thumb {
+				background: #e1e1e1;
+            }
+            .t-scrollbar > .t-scrollbar__bar .t-scrollbar__thumb:hover {
+				background: #ccc;
+			}
+        </style>
+    <![endif]-->
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.b1 {
+			margin: 0 auto;
+			width: 100px;
+			height: 100px;
+			background: #cfc;
+		}
+		.b1:nth-child(2n) {
+			margin: 0 auto;
+			width: 100px;
+			background: #fcf;
+		}
+		.item {
+			background: #3f3;
+			padding-left: 20px;
+			line-height: 30px;
+			width: 1000px;
+		}
+		.item:nth-child(2n) {
+			background: #f99;
+		}
+
+		.tip {
+			margin-top: 20px;
+			color: red;
+		}
+
+		#scrollbox {
+			width: 400px;
+			height: 800px;
+			overflow: hidden;
+		}
+
+		#scrollbox2 {
+			margin: 0 auto;
+			width: 90%;
+			height: 300px;
+			overflow: hidden;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div id="scrollbox"><div><div>
+		<div class="box">
+			<div class="b1"></div>
+			<div class="b1"></div>
+			<div class="b1"></div>
+			<div id="scrollbox2"><div><div>
+				<div class="list">
+					<div class="item">123123</div>
+					<div class="item">322</div>
+					<div class="item">33</div>
+					<div class="item">123</div>
+					<div class="item">123123</div>
+					<div class="item">123fds123</div>
+					<div class="item">sdf</div>
+					<div class="item">123123</div>
+					<div class="item">wer</div>
+					<div class="item">rrer</div>
+					<div class="item">dfgh</div>
+					<div class="item">123123</div>
+					<div class="item">322</div>
+					<div class="item">33</div>
+					<div class="item">123</div>
+					<div class="item">123123</div>
+					<div class="item">123fds123</div>
+					<div class="item">sdf</div>
+					<div class="item">123123</div>
+					<div class="item">wer</div>
+					<div class="item">rrer</div>
+					<div class="item">dfgh</div>
+				</div>
+			</div></div></div>
+			<div class="b1"></div>
+			<div class="b1"></div>
+			<div class="b1"></div>
+			<div class="b1"></div>
+		</div>
+	</div></div></div>
+
+	<p class="tip">嵌套滚动时，注意里面的滚动盒子要比外面的小一点，不然滚动轴会重叠到一起</p>
+
+	<script src="./TScrollBar.js"></script>
+	<script>
+		var oScrollbar = new TScrollBar('scrollbox');
+
+		var oScrollbar1 = new TScrollBar('scrollbox2');
+	</script>
+</body>	
+</html>

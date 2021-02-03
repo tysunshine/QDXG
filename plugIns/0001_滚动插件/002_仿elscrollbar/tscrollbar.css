@@ -1,0 +1,51 @@
+/*滚动总盒子*/
+.t-scrollbar {}
+
+/*滚动层包裹层*/
+.t-scrollbar > .t-scrollbar__wrap {
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
+/*滚动轴*/
+.t-scrollbar:hover > .t-scrollbar__bar {
+	opacity: 1;
+}
+.t-scrollbar > .t-scrollbar__bar {
+	position: absolute;
+	z-index: 1;
+	right: 2px;
+	bottom: 2px;
+	border-radius: 4px;
+	opacity: 0;
+}
+.t-scrollbar > .t-scrollbar__bar.is-horizontal {
+	height: 6px;
+	left: 2px;
+}
+.t-scrollbar > .t-scrollbar__bar.is-vertical {
+	width: 6px;
+	top: 2px;
+}
+.t-scrollbar > .t-scrollbar__bar .t-scrollbar__thumb {
+	position: absolute;
+	cursor: pointer;
+	border-radius: inherit;
+	background-color: rgba(144,147,153,.3);
+	transition: .3s background-color;
+}
+.t-scrollbar > .t-scrollbar__bar .t-scrollbar__thumb:hover {
+	background: rgba(144,147,153,.5);
+}
+.t-scrollbar > .t-scrollbar__bar.is-horizontal .t-scrollbar__thumb {
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+}
+.t-scrollbar > .t-scrollbar__bar.is-vertical .t-scrollbar__thumb {
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 100%;
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>纵轴滚动</title>
+	<link rel="stylesheet" type="text/css" href="./tscrollbar.css">
+	<!--[if lte IE 8]>
+        <style>
+            .t-scrollbar > .t-scrollbar__bar .t-scrollbar__thumb {
+				background: #e1e1e1;
+            }
+            .t-scrollbar > .t-scrollbar__bar .t-scrollbar__thumb:hover {
+				background: #ccc;
+			}
+        </style>
+    <![endif]-->
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.item {
+			background: #3f3;
+			padding-left: 20px;
+			line-height: 30px;
+		}
+		.item:nth-child(2n) {
+			background: #f99;
+		}
+
+		.tip {
+			margin-top: 20px;
+			color: red;
+		}
+
+		#scrollbox {
+			height: 400px;
+			overflow: hidden;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div id="scrollbox"><div><div>
+		<div class="list">
+			<div class="item">1</div>
+			<div class="item">2</div>
+			<div class="item">3</div>
+			<div class="item">4</div>
+			<div class="item">5</div>
+			<div class="item">6</div>
+			<div class="item">7</div>
+			<div class="item">8</div>
+			<div class="item">9</div>
+			<div class="item">10</div>
+			<div class="item">1</div>
+			<div class="item">2</div>
+			<div class="item">3</div>
+			<div class="item">4</div>
+			<div class="item">5</div>
+			<div class="item">6</div>
+			<div class="item">7</div>
+			<div class="item">8</div>
+			<div class="item">9</div>
+			<div class="item">10</div>
+		</div>
+	</div></div></div>
+
+	<button id="btn">添加内容，改变高度</button>
+	
+	<p class="tip">注：需要四层div盒子；<br/>
+		第一层设置id，用来初始化滚动轴，横轴、纵轴都将添加到这一层下，初始化前就需要设置高度(height)，或者最大高度(max-height)，以及overflow:hidden;<br/>
+		第二层为滚动层，触发滚动轴事件的地方，当前层最大高度是第一次的高度或最大高度<br/>
+		第三层为视图层，用来监听页面大小变化，如果是横轴滚动，初始化的时候需要设置该层的宽度，修改的时候需要调用setWidth方法来改变该层的宽度<br/>
+		第四层的作用是用来确保第三层只有一个子节点
+	</p>
+
+	<script src="./TScrollBar.js"></script>
+	<script>
+		var oScrollbar = new TScrollBar('scrollbox');
+
+		document.getElementById('btn').onclick = function () {
+			document.getElementsByClassName('list')[0].innerHTML += '<div class="item">1</div><div class="item">2</div><div class="item">3</div><div class="item">4</div><div class="item">5</div><div class="item">6</div><div class="item">7</div><div class="item">8</div><div class="item">9</div><div class="item">10</div>';
+		}
+
+	</script>
+</body>	
+</html>
